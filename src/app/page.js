@@ -5,7 +5,7 @@ export default function Home() {
   return (
    <div>
     <h3>hello ultimate coding team members</h3>
-    <h3>khairul</h3>
+    <h3>khadim</h3>
     <LoginButton></LoginButton>
    </div>
    
