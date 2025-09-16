@@ -1,0 +1,20 @@
+ [
+  {
+    "id": 1,
+    "title": "Dubai City Tour",
+    "description": "Explore Burj Khalifa, Desert Safari, and luxury shopping.",
+    "price": 350,
+    "duration": "3 Days / 2 Nights",
+    "image": "https://i.postimg.cc/Z5gvPN2W/Dubai.jpg",
+    "activities": ["Burj Khalifa", "Desert Safari", "Dubai Mall"]
+  },
+  {
+    "id": 2,
+    "title": "Maldives Beach Retreat",
+    "description": "Luxury resort, snorkeling, and sunset cruises.",
+    "price": 700,
+    "duration": "5 Days / 4 Nights",
+    "image": "https://i.postimg.cc/mk8tP172/maldives.jpg",
+    "activities": ["Snorkeling", "Beach Resort", "Sunset Cruise"]
+  }
+]

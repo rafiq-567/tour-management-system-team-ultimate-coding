@@ -1,11 +1,133 @@
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
-const TourPackeg = () => {
-    return (
-        <div>
-            <h1>Create your Best tour packege</h1>
-        </div>
-    );
+const TourPackeg = async () => {
+      const toursData = [
+      {
+        id: 1,
+        title: "Dubai City Tour",
+        description: "Explore Burj Khalifa, Desert Safari, and luxury shopping.",
+        price: 350,
+        duration: "3 Days / 2 Nights",
+        image: "https://i.postimg.cc/Z5gvPN2W/Dubai.jpg",
+        activities: ["Burj Khalifa", "Desert Safari", "Dubai Mall"],
+      },
+      {
+        id: 2,
+        title: "Maldives Beach Retreat",
+        description: "Luxury resort, snorkeling, and sunset cruises.",
+        price: 700,
+        duration: "5 Days / 4 Nights",
+        image: "https://i.postimg.cc/mk8tP172/maldives.jpg",
+        activities: ["Snorkeling", "Beach Resort", "Sunset Cruise"],
+      },
+       {
+    id: 3,
+    title: "Paris Romantic Escape",
+    description: "Eiffel Tower, Seine River Cruise, and Louvre Museum exploration.",
+    price: 800,
+    duration: "4 Days / 3 Nights",
+    image: "https://i.postimg.cc/xCrTfRrG/paris.jpg",
+    activities: ["Eiffel Tower", "Louvre Museum", "Seine River Cruise"],
+  },
+  {
+    id: 4,
+    title: "Bangkok Adventure",
+    description: "Explore temples, street food tours, and floating markets.",
+    price: 400,
+    duration: "5 Days / 4 Nights",
+    image: "https://i.postimg.cc/JnqwfcRz/bangokok.jpg",
+    activities: ["Grand Palace", "Floating Market", "Street Food Tour"],
+  },
+  {
+    id: 5,
+    title: "Bali Island Getaway",
+    description: "Tropical beaches, rice terraces, and temple tours.",
+    price: 600,
+    duration: "6 Days / 5 Nights",
+    image: "https://i.postimg.cc/sfMd6Wts/bail.jpg",
+    activities: ["Ubud Rice Terrace", "Tanah Lot Temple", "Beach Resort"],
+  },
+  {
+    id: 6,
+    title: "Singapore City Lights",
+    description: "Marina Bay Sands, Sentosa Island, and Gardens by the Bay.",
+    price: 550,
+    duration: "3 Days / 2 Nights",
+    image: "https://i.postimg.cc/Df4fWRfr/singapore-marina-bay-sands-downtown-cityscape-city-lights-3840x2160-1312.jpg",
+    activities: ["Marina Bay Sands", "Gardens by the Bay", "Sentosa Island"],
+  },
+  {
+    id: 7,
+    title: "Swiss Alps Retreat",
+    description: "Snowy mountains, scenic train rides, and chocolate tasting.",
+    price: 1200,
+    duration: "7 Days / 6 Nights",
+    image: "https://i.postimg.cc/9fxXThqp/swiss.jpg",
+    activities: ["Jungfraujoch", "Scenic Train Ride", "Swiss Chocolate Tour"],
+  },
+  {
+    id: 8,
+    title: "Istanbul Heritage Tour",
+    description: "Blue Mosque, Hagia Sophia, and traditional bazaars.",
+    price: 500,
+    duration: "4 Days / 3 Nights",
+    image: "https://i.postimg.cc/m2TqxFnP/OIP.jpg",
+    activities: ["Hagia Sophia", "Blue Mosque", "Grand Bazaar"],
+  },
+  {
+    id: 9,
+    title: "New York Explorer",
+    description: "Times Square, Statue of Liberty, and Central Park walks.",
+    price: 900,
+    duration: "5 Days / 4 Nights",
+    image: "https://i.postimg.cc/DyYcCJ3k/OIP-1.jpg",
+    activities: ["Statue of Liberty", "Times Square", "Central Park"],
+  },
+  {
+    id: 10,
+    title: "Tokyo Modern Wonders",
+    description: "Shibuya Crossing, Mount Fuji tour, and sushi experiences.",
+    price: 950,
+    duration: "6 Days / 5 Nights",
+    image: "https://i.postimg.cc/yY5FmM07/OIP-2.jpg",
+    activities: ["Shibuya Crossing", "Mount Fuji", "Sushi Tour"],
+  },
+    ];
+ 
+  
+
+  return (
+    <div>
+      <h1 className="text-4xl font-bold text-center my-10">
+        Chooes your Best <span className="text-blue-600">tour</span> packege
+      </h1>
+      <div className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ">
+        {toursData.map((tour) => {
+          return (
+            <div key={tour.id}>
+             <div className="object-center">
+                 <img src={tour.image} width={300} height={200} className="object-cover" alt="toru-photo" />
+             </div>
+              <h2 className="text-xl font-bold mt-4">{tour.title}</h2>
+              <p className="text-gray-400">{tour.description}</p>
+              <p className="mt-2 font-semibold">Duration: {tour.duration}</p>
+              <p className="text-blue-600 font-bold mb-8">
+                Price: {tour.price}
+              </p>
+
+              <Link
+                href={`/TourPackeg/${tour.id}`}
+                className="my-8 inline-block  px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              >
+                Detailes
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default TourPackeg;
