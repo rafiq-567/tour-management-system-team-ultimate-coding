@@ -1,6 +1,6 @@
 "use client";
 
-export default function DemoComponent() {
+export default function Demo() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 text-gray-800">
@@ -8,6 +8,7 @@ export default function DemoComponent() {
       <p className="text-lg text-gray-600 mb-2">
         This is a demo component for testing GitHub branching & commits.
       </p>
+      <p>recheck pull request</p>
     </div>
   );
 }
