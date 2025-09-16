@@ -4,7 +4,8 @@ export default function Home() {
   return (
    <div>
     <h1>hello ultimate coding team members</h1>
+    <div><h1>testing my login</h1></div>
    </div>
-   <h1>testing my login</h1>
+   
   );
 }
