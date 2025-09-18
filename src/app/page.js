@@ -5,7 +5,7 @@ export default function Home() {
   return (
    <div>
     <h3>hello ultimate coding team members</h3>
-    <p>push kora problem</p>
+    <p>kora problem</p>
     <LoginButton></LoginButton>
    </div>
    
