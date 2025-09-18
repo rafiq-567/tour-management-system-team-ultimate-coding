@@ -7,9 +7,9 @@ export const getSingleTourdata = async (id) => {
 };
 
 export default async function singleTourData({ params }) {
-  const tour = await getSingleTourdata(params.id);
+  const {id}= await params;
+  const tour = await  getSingleTourdata(id);
 
-  console.log(tour);
   if (!tour) {
     return <h1>Not found</h1>;
   }
