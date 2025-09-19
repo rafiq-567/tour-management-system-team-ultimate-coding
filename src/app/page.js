@@ -1,9 +1,16 @@
+import TourPackeg from "@/componets/TourPackeg";
+import Link from "next/link";
 import Image from "next/image";
 import TourTips from "./components/TourTips";
+import LoginButton from "./components/loginButton/LoginButton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  console.log(session);
   return (
-    <main className="p-6">
+    <><main className="p-6">
       <section className="text-center py-12">
         <h1 className="text-4xl font-bold mb-4">Welcome to Tour Management</h1>
         <p className="text-lg text-gray-600 mb-6">
@@ -17,6 +24,20 @@ export default function Home() {
         </a>
       </section>
       <TourTips></TourTips>
-    </main>
+    </main><>
+        <div>hello ultimate coding team members</div>
+        <Link className=" flex justify-center " href="/TourPackeg">
+          Tour packeg
+        </Link>
+        <div>
+          <p>push kora problem</p>
+          <LoginButton></LoginButton>
+          <Link href="/register">
+            <button
+              className='bg-black text-white px-3 py-2 rounded-xl ml-2'
+            >register</button>
+          </Link>
+        </div>
+      </></>
   );
 }
