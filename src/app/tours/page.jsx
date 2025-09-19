@@ -1,4 +1,3 @@
-
 const tours = [
   { id: 1, title: "Cox's Bazar Beach Tour", price: "$120", image: "https://picsum.photos/400/250?1" },
   { id: 2, title: "Sundarbans Adventure", price: "$250", image: "https://picsum.photos/400/250?2" },

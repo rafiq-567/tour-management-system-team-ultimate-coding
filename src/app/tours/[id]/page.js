@@ -1,4 +1,3 @@
-// Dummy tours data (in real app you will fetch from API or DB)
 const tours = {
   1: { title: "Cox's Bazar Beach Tour", price: "$120", description: "Enjoy the world's longest sea beach with fun activities.", image: "https://picsum.photos/800/400?1" },
   2: { title: "Sundarbans Adventure", price: "$250", description: "Explore the home of the Royal Bengal Tiger and mangrove forests.", image: "https://picsum.photos/800/400?2" },
