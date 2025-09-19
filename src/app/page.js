@@ -1,4 +1,5 @@
 import Image from "next/image";
+import TourTips from "./components/TourTips";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
           Browse Tours
         </a>
       </section>
+      <TourTips></TourTips>
     </main>
   );
 }
