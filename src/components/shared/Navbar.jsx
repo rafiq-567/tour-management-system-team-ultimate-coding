@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Sun, Moon, Menu, X } from "lucide-react";
+import Link from "next/link";
+import { Sun, Moon, Menu, X, Home, MapPin, Package, Info, Phone } from "lucide-react";
+import LoginButton from "@/app/components/loginButton/LoginButton";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,30 +19,36 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const menuItems = ["Home", "Destinations", "Packages", "About", "Contact"];
+  const menuItems = [
+    { name: "Home", href: "/", icon: <Home size={18} className="mr-2" /> },
+    { name: "Destinations", href: "/destinations", icon: <MapPin size={18} className="mr-2" /> },
+    { name: "Packages", href: "/packages", icon: <Package size={18} className="mr-2" /> },
+    { name: "About", href: "/about", icon: <Info size={18} className="mr-2" /> },
+    { name: "Contact", href: "/contact", icon: <Phone size={18} className="mr-2" /> },
+  ];
 
   return (
     <nav className="w-full bg-white dark:bg-gray-800 shadow-lg fixed top-0 left-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
           SixTour
-        </div>
+        </Link>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center space-x-6 text-gray-800 dark:text-gray-100 font-medium">
           {menuItems.map((item) => (
-            <li
-              key={item}
-              className="cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-            >
-              {item}
+            <li key={item.name}>
+              <Link
+                href={item.href}
+                className="flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+              >
+                {item.icon} {item.name}
+              </Link>
             </li>
           ))}
           <li>
-            <button className="ml-4 px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 shadow-md transition-all duration-300 font-semibold">
-              Login
-            </button>
+            <LoginButton />
           </li>
           <li>
             <button className="px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
@@ -88,18 +96,17 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
       >
         <ul className="flex flex-col items-center space-y-4 py-6 text-gray-800 dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
           {menuItems.map((item) => (
-            <li
-              key={item}
-              className="cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
-              onClick={() => setIsOpen(false)}
-            >
-              {item}
+            <li key={item.name} onClick={() => setIsOpen(false)}>
+              <Link
+                href={item.href}
+                className="flex items-center hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+              >
+                {item.icon} {item.name}
+              </Link>
             </li>
           ))}
           <li className="w-full text-center px-4">
-            <button className="w-full mt-2 px-5 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 shadow-md transition-all duration-300 font-semibold">
-              Login
-            </button>
+            <LoginButton />
           </li>
           <li className="w-full text-center px-4">
             <button className="w-full mt-2 px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
