@@ -1,7 +1,9 @@
 import TourPackeg from "@/componets/TourPackeg";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 export const getpost = async () => {
-  const res = await fetch("http://localhost:3000/tourData.json");
+  const res = await fetch("https://tour-management-system-team-ultimat-lovat.vercel.app/tourData.json");
   const data = await res.json();
   return data;
 };

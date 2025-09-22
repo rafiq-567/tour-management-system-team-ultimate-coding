@@ -1,5 +1,5 @@
 export const getSingleTourdata = async (id) => {
-  const res = await fetch("http://localhost:3000/tourData.json");
+  const res = await fetch("https://tour-management-system-team-ultimat-lovat.vercel.app/tourData.json");
   const data = await res.json();
   return data.find((tour) => tour.id === parseInt(id));
 
