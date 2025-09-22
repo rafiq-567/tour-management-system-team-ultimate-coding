@@ -23,13 +23,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <NextAuthSessionProvider>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar></Navbar>
-        {children}
-        <Footer></Footer>
-      </body>
+       
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <Navbar></Navbar>
+          {children}
+          <Footer></Footer>
+        </body>
       </NextAuthSessionProvider>
     </html>
   );
