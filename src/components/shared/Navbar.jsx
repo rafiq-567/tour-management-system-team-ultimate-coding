@@ -67,7 +67,10 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
           >
             {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
           </button>
-          <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="focus:outline-none"
+          >
             {isOpen ? (
               <X size={28} className="text-gray-800 dark:text-gray-100" />
             ) : (
