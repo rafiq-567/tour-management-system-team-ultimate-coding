@@ -1,17 +1,18 @@
-import Link from "next/link";
-import LoginButton from "./components/loginButton/LoginButton";
-
+import Hero from "@/components/shared/Hero";
+import PopularDestinations from "@/components/shared/PopularDestinations";
+import TravelersSay from "@/components/shared/TravelersSay";
+import WhyChooseUs from "@/components/shared/WhyChooseUs";
 
 export default function Home() {
   return (
-    <>
-      <Link className=" flex justify-center " href="/TourPackeg">
-        Tour packeg
-      </Link>
+    <div>
+      hello ultimate coding team members
       <div>
-        <LoginButton></LoginButton>
+        < Hero></Hero>
+        < PopularDestinations></PopularDestinations>
+        < WhyChooseUs></WhyChooseUs>
+        < TravelersSay></TravelersSay>
       </div>
-    </>
-
+    </div>
   );
 }
