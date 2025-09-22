@@ -13,6 +13,7 @@ import {
   Info,
   Phone,
 } from "lucide-react";
+
 import LoginButton from "@/app/components/loginButton/LoginButton";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
@@ -54,7 +55,7 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   ];
 
   return (
-    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg  top-0 left-0 z-50 transition-colors duration-300">
+    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg top-0 left-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link
@@ -63,6 +64,8 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
         >
           SixTour
         </Link>
+
+        {/* Dashboard Button */}
         <Link href="/dashboard/admin">
           <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
             Go to Dashboard
@@ -139,11 +142,11 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
               </Link>
             </li>
           ))}
-          <li className="w-full text-center px-4">
+          <li>
             <LoginButton />
           </li>
-          <li className="w-full text-center px-4">
-            <button className="w-full mt-2 px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
+          <li>
+            <button className="w-full px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
               Book Now
             </button>
           </li>

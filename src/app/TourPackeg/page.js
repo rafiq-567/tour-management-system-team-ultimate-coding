@@ -10,7 +10,7 @@ export default async function TourPackegPage() {
 //   console.log(post);
   return (
     <div>
-      <h1 className="md:text-4xl text-2xl font-bold text-center my-10">
+      <h1 className="md:text-4xl text-2xl font-bold text-center my-20">
         Chooes your Best <span className="text-blue-600">tour</span> packege
       </h1>
       <div className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ">
