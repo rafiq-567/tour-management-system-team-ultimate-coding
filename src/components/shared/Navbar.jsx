@@ -2,7 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Sun, Moon, Menu, X, Home, MapPin, Package, Info, Phone } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Menu,
+  X,
+  Home,
+  MapPin,
+  Package,
+  Info,
+  Phone,
+} from "lucide-react";
 import LoginButton from "@/app/components/loginButton/LoginButton";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
@@ -21,18 +31,42 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
 
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} className="mr-2" /> },
-    { name: "Destinations", href: "/destinations", icon: <MapPin size={18} className="mr-2" /> },
-    { name: "Packages", href: "/packages", icon: <Package size={18} className="mr-2" /> },
-    { name: "About", href: "/about", icon: <Info size={18} className="mr-2" /> },
-    { name: "Contact", href: "/contact", icon: <Phone size={18} className="mr-2" /> },
+    {
+      name: "Destinations",
+      href: "/destinations",
+      icon: <MapPin size={18} className="mr-2" />,
+    },
+    {
+      name: "Packages",
+      href: "/packages",
+      icon: <Package size={18} className="mr-2" />,
+    },
+    {
+      name: "About",
+      href: "/about",
+      icon: <Info size={18} className="mr-2" />,
+    },
+    {
+      name: "Contact",
+      href: "/contact",
+      icon: <Phone size={18} className="mr-2" />,
+    },
   ];
 
   return (
-    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg fixed top-0 left-0 z-50 transition-colors duration-300">
+    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg  top-0 left-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        <Link
+          href="/"
+          className="text-2xl font-bold text-blue-600 dark:text-blue-400"
+        >
           SixTour
+        </Link>
+        <Link href="/dashboard/admin">
+          <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+            Go to Dashboard
+          </button>
         </Link>
 
         {/* Desktop Menu */}
