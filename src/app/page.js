@@ -1,7 +1,4 @@
-import TourPackeg from "@/componets/TourPackeg";
-import Link from "next/link";
-import Image from "next/image";
-import LoginButton from "./components/loginButton/LoginButton";
+
 
 export default function Home() {
   return (
@@ -11,9 +8,9 @@ export default function Home() {
         Tour packeg
       </Link>
       <div>
-        <p>push kora problem</p>
         <LoginButton></LoginButton>
       </div>
     </>
+
   );
 }
