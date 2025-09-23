@@ -28,6 +28,7 @@ const menuItems = [
   { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },
 ];
 
+
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
