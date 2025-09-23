@@ -1,4 +1,4 @@
-import TourPackeg from "@/componets/TourPackeg";
+// import TourPackeg from "@/componets/TourPackeg";
 import Link from "next/link";
 import Image from "next/image";
 import TourTips from "./components/TourTips";
@@ -26,9 +26,9 @@ export default async function Home() {
       <TourTips></TourTips>
     </main><>
         <div>hello ultimate coding team members</div>
-        <Link className=" flex justify-center " href="/TourPackeg">
+        {/* <Link className=" flex justify-center " href="/TourPackeg">
           Tour packeg
-        </Link>
+        </Link> */}
         <div>
           <p>push kora problem</p>
           <LoginButton></LoginButton>
