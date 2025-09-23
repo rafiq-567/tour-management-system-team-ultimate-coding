@@ -1,4 +1,5 @@
-import TourPackeg from "@/componets/TourPackeg";
+
+import Image from "next/image";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -20,7 +21,7 @@ export default async function TourPackegPage() {
           return (
             <div key={tour.id}>
               <div className="object-center">
-                <img
+                <Image
                   src={tour.image}
                   width={300}
                   height={200}
