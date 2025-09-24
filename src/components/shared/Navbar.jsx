@@ -117,6 +117,14 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
             </li>
           ))}
 
+
+          
+            <li className="ml-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 shadow-md transition-all duration-300 font-semibold">
+              <LoginButton></LoginButton>
+            </li>
+         
+          <li className="px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
+
           <li>
             <LoginButton />
           </li>
@@ -131,8 +139,9 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
 
           <li>
             <button className="px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
+
               Book Now
-            </button>
+            
           </li>
 
           <li>

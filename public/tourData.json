@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    
     "title": "Dubai City Tour",
     "description": "Explore Burj Khalifa, Desert Safari, and luxury shopping.",
     "price": 350,
@@ -9,7 +9,7 @@
     "activities": ["Burj Khalifa", "Desert Safari", "Dubai Mall"]
   },
   {
-    "id": 2,
+    
     "title": "Maldives Beach Retreat",
     "description": "Luxury resort, snorkeling, and sunset cruises.",
     "price": 700,
@@ -18,7 +18,7 @@
     "activities": ["Snorkeling", "Beach Resort", "Sunset Cruise"]
   },
   {
-    "id": 3,
+    
     "title": "Paris Romantic Escape",
     "description": "Eiffel Tower, Seine River Cruise, and Louvre Museum exploration.",
     "price": 800,
@@ -27,7 +27,7 @@
     "activities": ["Eiffel Tower", "Louvre Museum", "Seine River Cruise"]
   },
   {
-    "id": 4,
+    
     "title": "Bangkok Adventure",
     "description": "Explore temples, street food tours, and floating markets.",
     "price": 400,
@@ -36,7 +36,7 @@
     "activities": ["Grand Palace", "Floating Market", "Street Food Tour"]
   },
   {
-    "id": 5,
+    
     "title": "Bali Island Getaway",
     "description": "Tropical beaches, rice terraces, and temple tours.",
     "price": 600,
@@ -45,7 +45,7 @@
     "activities": ["Ubud Rice Terrace", "Tanah Lot Temple", "Beach Resort"]
   },
   {
-    "id": 6,
+    
     "title": "Singapore City Lights",
     "description": "Marina Bay Sands, Sentosa Island, and Gardens by the Bay.",
     "price": 550,
@@ -54,7 +54,7 @@
     "activities": ["Marina Bay Sands", "Gardens by the Bay", "Sentosa Island"]
   },
   {
-    "id": 7,
+    
     "title": "Swiss Alps Retreat",
     "description": "Snowy mountains, scenic train rides, and chocolate tasting.",
     "price": 1200,
@@ -63,7 +63,7 @@
     "activities": ["Jungfraujoch", "Scenic Train Ride", "Swiss Chocolate Tour"]
   },
   {
-    "id": 8,
+    
     "title": "Istanbul Heritage Tour",
     "description": "Blue Mosque, Hagia Sophia, and traditional bazaars.",
     "price": 500,
@@ -72,7 +72,7 @@
     "activities": ["Hagia Sophia", "Blue Mosque", "Grand Bazaar"]
   },
   {
-    "id": 9,
+    
     "title": "New York Explorer",
     "description": "Times Square, Statue of Liberty, and Central Park walks.",
     "price": 900,
@@ -81,7 +81,7 @@
     "activities": ["Statue of Liberty", "Times Square", "Central Park"]
   },
   {
-    "id": 10,
+    
     "title": "Tokyo Modern Wonders",
     "description": "Shibuya Crossing, Mount Fuji tour, and sushi experiences.",
     "price": 950,
