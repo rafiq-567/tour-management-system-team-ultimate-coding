@@ -1,9 +1,15 @@
+
 import TourPackeg from "@/componets/TourPackeg";
 import dbConnect from "@/lib/dbConnect";
+
+
+
 import Image from "next/image";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 export const getpost = async () => {
-  const res = await fetch("http://localhost:3000/tourData.json");
+  const res = await fetch("https://tour-management-system-team-ultimat-lovat.vercel.app/tourData.json");
   const data = await res.json();
   return data;
 };
@@ -22,7 +28,11 @@ export default async function TourPackegPage() {
             <div key={tour._id}>
               <div className="object-center">
                 <Image
+
                   src={tour?.image}
+
+                  
+
                   width={300}
                   height={200}
                   className="object-cover"
