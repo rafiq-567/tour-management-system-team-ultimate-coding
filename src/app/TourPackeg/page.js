@@ -1,4 +1,5 @@
 
+import dbConnect from "@/lib/dbConnect";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,8 +10,9 @@ export const getpost = async () => {
   return data;
 };
 export default async function TourPackegPage() {
-  const post = await getpost();
-//   console.log(post);
+  const tourPackegData =await dbConnect("tourPackegdata");
+  const post = await tourPackegData.find({}).toArray();
+  //   post data coming from database tourpackegData collection
   return (
     <div>
       <h1 className="md:text-4xl text-2xl font-bold text-center my-20">
@@ -19,10 +21,10 @@ export default async function TourPackegPage() {
       <div className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ">
         {post.map((tour) => {
           return (
-            <div key={tour.id}>
+            <div key={tour._id}>
               <div className="object-center">
                 <Image
-                  src={tour.image}
+                  src={tour?.image}
                   width={300}
                   height={200}
                   className="object-cover"
