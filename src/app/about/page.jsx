@@ -5,21 +5,39 @@ import { Rocket, Globe, Users } from "lucide-react";
 const teamMembers = [
   {
     id: 1,
-    name: "Jane Doe",
+    name: "Rafiul Aktar",
     role: "Lead Tour Planner",
-    image: "https://placehold.co/150x150/06B6D4/ffffff?text=JD",
+    image: "https://placehold.co/150x150/06B6D4/ffffff?text= RA",
   },
   {
     id: 2,
-    name: "John Smith",
+    name: "Abul Kalam",
     role: "Head of Operations",
-    image: "https://placehold.co/150x150/F59E0B/ffffff?text=JS",
+    image: "https://placehold.co/150x150/F59E0B/ffffff?text= AK",
   },
   {
     id: 3,
-    name: "Emily White",
+    name: "Humaon Kabir",
     role: "Customer Relations Manager",
-    image: "https://placehold.co/150x150/8B5CF6/ffffff?text=EW",
+    image: "https://placehold.co/150x150/8B5CF6/ffffff?text=HK",
+  },
+   {
+    id: 4,
+    name: "Khairul Islam",
+    role: "Customer Manager",
+    image: "https://placehold.co/150x150/8B5CF6/ffffff?text=KI",
+  },
+  {
+    id: 5,
+    name: "Habib Khan",
+    role: "Customer Relations Manager",
+    image: "https://placehold.co/150x150/8B5CF6/ffffff?text=HK",
+  },
+   {
+    id: 6,
+    name: "Abul Galib",
+    role: "Customer Manager",
+    image: "https://placehold.co/150x150/8B5CF6/ffffff?text=AG",
   },
 ];
 
