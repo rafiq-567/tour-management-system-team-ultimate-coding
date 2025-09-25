@@ -1,6 +1,8 @@
 import dbConnect from "@/lib/dbConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 
 export const authOptions = {
@@ -15,15 +17,16 @@ export const authOptions = {
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         //username: { label: "Username", type: "text", placeholder: "jsmith" },
-        username: { label: "Username", type: "text", placeholder: "Enter your username" },
+        email: { label: "Email", type: "email", placeholder: "Enter your username" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
+        console.log(credentials);
         // Add logic here to look up the user from the credentials supplied
-        const user = await dbConnect("user").findOne({ username: credentials.username });
-        console.log(user)
+        const user = await dbConnect("user").findOne({ email: credentials.email });
+        // console.log(user)
 
-        const isPasswordOk = credentials.password === user.password;
+        const isPasswordOk = credentials.password === user?.password;
 
         if (isPasswordOk) {
           // Any object returned will be saved in `user` property of the JWT
@@ -35,24 +38,35 @@ export const authOptions = {
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       }
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
     })
   ],
+  pages: {
+    signIn: "/login",
+  },
   callbacks: {
-        async session({ session, token, user }) {
-            if (token) {
-                session.user.username = token.username
-                session.user.role = token.role
-            }
-            return session
-        },
-        async jwt({ token, user, account, profile, isNewUser }) {
-            if (user) {
-                token.username = user.username
-                token.role = user.role
-            }
-            return token
-        }
+    async session({ session, token, user }) {
+      if (token) {
+        session.user.username = token.username
+        session.user.role = token.role
+      }
+      return session
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (user) {
+        token.username = user.username
+        token.role = user.role
+      }
+      return token
     }
+  }
 };
 
 const handler = NextAuth(authOptions);
