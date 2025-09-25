@@ -1,14 +1,16 @@
-import TourPackeg from "@/componets/TourPackeg";
+
 import dbConnect from "@/lib/dbConnect";
 import Image from "next/image";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 export const getpost = async () => {
-  const res = await fetch("http://localhost:3000/tourData.json");
+  const res = await fetch("https://tour-management-system-team-ultimat-lovat.vercel.app/tourData.json");
   const data = await res.json();
   return data;
 };
 export default async function TourPackegPage() {
-  const tourPackegData = await dbConnect("tourPackegdata");
+  const tourPackegData =await dbConnect("tourPackegdata");
   const post = await tourPackegData.find({}).toArray();
   //   post data coming from database tourpackegData collection
   return (

@@ -1,5 +1,7 @@
+import Image from "next/image";
+
 export const getSingleTourdata = async (id) => {
-  const res = await fetch("http://localhost:3000/tourData.json");
+  const res = await fetch("https://tour-management-system-team-ultimat-lovat.vercel.app/tourData.json");
   const data = await res.json();
   return data.find((tour) => tour.id === parseInt(id));
 
@@ -17,7 +19,7 @@ export default async function singleTourData({ params }) {
     <div className="w-11/12 mx-auto mt-10 border-2 border-gray-100 p-2 ">
      
       <div className=" ">
-        <img
+        <Image
           src={tour.image}
           
           className="md:w-full md:h-[450px] w-full rounded-xl"
