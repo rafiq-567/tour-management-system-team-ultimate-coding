@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 
+
 export const dynamic = "force-static";
 // tourPackeg data get api 
 export async function GET() {
@@ -17,4 +18,10 @@ export async function POST(req) {
 export async function GET() {
   const data = await dbConnect("products").find().toArray();
   return Response.json(data);
+}
+
+export async function GET() {
+  const data = await dbConnect("products").find().toArray();
+  return Response.json(data);
+
 }
