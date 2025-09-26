@@ -21,8 +21,7 @@ import LoginButton from "@/app/components/loginButton/LoginButton";
 import PackagesDropdown from "../utilities/PackagesDropdown";
 import { useSession } from "next-auth/react";
 import LogoutButton from "@/app/login/compnents/LogoutButton";
-import TourPackegPage from "@/app/TourPackeg/page";
-import TourpackegForm from "../tourpackegpost/form/TourpackegForm";
+
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   const session = useSession();
@@ -74,8 +73,8 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
       icon: <Phone size={18} className="mr-2" />,
     },
     {
-      name: "Tourpackeg",
-      href: "/TourPackeg",
+      name: "Tour Package",
+      href: "/tourpackage",
       icon: <Package2Icon  size={18} className="mr-2" />,
     },
 
