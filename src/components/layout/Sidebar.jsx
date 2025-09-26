@@ -21,7 +21,7 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
 const menuItems = [
   { name: "Dashboard", icon: Home, href: "/dashboard/admin" },
   { name: "Users", icon: Users, href: "/dashboard/admin/users" },
-  { name: "Tours", icon: Plane, href: "/dashboard/admin/tours" },
+  { name: "Add-Tourpackeg", icon: Plane, href: "/dashboard/admin/tourpackegform"},
   { name: "Bookings", icon: Calendar, href: "/dashboard/admin/bookings" },
   { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
   { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics" },
@@ -47,13 +47,13 @@ export default function Sidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed md:relative top-0 left-0 h-full w-64 bg-white border-r shadow-md flex flex-col transform transition-transform duration-300 z-50",
+          "fixed md:relative top-0 left-0 h-full w-64 bg-white border-r shadow-md flex flex-col transform transition-transform duration-300 z-50 ",
           isOpen ? "translate-x-0" : "-translate-x-full",
           "md:translate-x-0"
         )}
       >
         {/* Logo */}
-        <div className="h-16 flex items-center justify-center border-b font-bold text-xl">
+        <div className="h-16 flex items-center justify-center border-b font-bold text-xl text-blue-500">
           TourMS
         </div>
 

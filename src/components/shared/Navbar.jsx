@@ -20,6 +20,7 @@ import {
 import LoginButton from "@/app/components/loginButton/LoginButton";
 import PackagesDropdown from "../utilities/PackagesDropdown";
 import TourPackegPage from "@/app/TourPackeg/page";
+import TourpackegForm from "../tourpackegpost/form/TourpackegForm";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,6 +75,7 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
       href: "/TourPackeg",
       icon: <Package2Icon  size={18} className="mr-2" />,
     },
+
 
   ];
 
@@ -147,7 +149,6 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
               )}
             </li>
           ))}
-
 
          
           <li>

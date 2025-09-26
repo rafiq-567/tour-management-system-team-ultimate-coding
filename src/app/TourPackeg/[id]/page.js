@@ -1,27 +1,24 @@
+import dbConnect from "@/lib/dbConnect";
+import { ObjectId } from "mongodb";
 import Image from "next/image";
 
-export const getSingleTourdata = async (id) => {
-  const res = await fetch("https://tour-management-system-team-ultimat-lovat.vercel.app/tourData.json");
-  const data = await res.json();
-  return data.find((tour) => tour.id === parseInt(id));
 
-  // import { getSingleTour } from "@/lib/singleTour";
-};
+export default async function tourDataDetails({ params }) {
+  const p = await params;
+ const detailaCollection  = dbConnect('tourPackegdata');
+ const tour = await detailaCollection.findOne({_id: new ObjectId(p.id)})
 
-export default async function singleTourData({ params }) {
-  const {id}= await params;
-  const tour = await  getSingleTourdata(id);
 
   if (!tour) {
     return <h1>Not found</h1>;
   }
   return (
     <div className="w-11/12 mx-auto mt-10 border-2 border-gray-100 p-2 ">
-     
       <div className=" ">
         <Image
-          src={tour.image}
-          
+          src={tour.image} 
+          width={100}
+          height={100}
           className="md:w-full md:h-[450px] w-full rounded-xl"
           alt="toru-photo"
         />
