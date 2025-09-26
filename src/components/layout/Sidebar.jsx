@@ -13,6 +13,9 @@ import {
   Menu,
   X,
   LogOut,
+  Heart,
+  
+  
 } from "lucide-react";
 import Link from "next/link";
 
@@ -21,11 +24,24 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
 const menuItems = [
   { name: "Dashboard", icon: Home, href: "/dashboard/admin" },
   { name: "Users", icon: Users, href: "/dashboard/admin/users" },
-  { name: "Tours", icon: Plane, href: "/dashboard/admin/tours" },
+  { name: "Tours", icon: Plane, href: "/dashboard/admin/add/tours" },
   { name: "Bookings", icon: Calendar, href: "/dashboard/admin/bookings" },
   { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
   { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics" },
   { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },
+  { name: "Profile", icon: Users, href: "/dashboard/user/profile" },
+  //user sample
+  { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings" },
+  { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist" },
+  { name: "Support", icon: Settings, href: "/dashboard/user/support" },
+  { name: "Payments", icon: CreditCard, href: "/dashboard/user/payments" },
+
+  //user sample
+  // { name: "My Profile", href: "/dashboard/user/profile" },
+  //   { name: "My Bookings", href: "/dashboard/user/bookings" },
+  //   { name: "Wishlist", href: "/dashboard/user/wishlist" },
+  //   { name: "Payments", href: "/dashboard/user/payments" },
+  //   { name: "Support", href: "/dashboard/user/support" },
 ];
 
 export default function Sidebar() {

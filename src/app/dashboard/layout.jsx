@@ -1,4 +1,4 @@
-// app/dashboard/admin/layout.jsx
+
 "use client";
 
 import Sidebar from "@/components/layout/Sidebar";
