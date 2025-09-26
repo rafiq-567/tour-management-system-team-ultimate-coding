@@ -22,6 +22,7 @@ import PackagesDropdown from "../utilities/PackagesDropdown";
 import { useSession } from "next-auth/react";
 import LogoutButton from "@/app/login/compnents/LogoutButton";
 import TourPackegPage from "@/app/TourPackeg/page";
+import TourpackegForm from "../tourpackegpost/form/TourpackegForm";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   const session = useSession();
@@ -77,6 +78,7 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
       href: "/TourPackeg",
       icon: <Package2Icon  size={18} className="mr-2" />,
     },
+
 
   ];
 
@@ -224,9 +226,9 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
       <div
         className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
-        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
-        }`}
+        // className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+        //   isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
+        // }`}
       >
         <ul className="flex flex-col items-center space-y-4 py-6 text-gray-800 dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
           {menuItems.map((item) => (

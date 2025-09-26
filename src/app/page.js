@@ -16,7 +16,7 @@ export default async function Home() {
       <div>
         <Hero></Hero>
         <PopularDestinations></PopularDestinations>
-       
+
         <WhyChooseUs></WhyChooseUs>
         <TravelersSay></TravelersSay>
         <FAQ> </FAQ>

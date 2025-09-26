@@ -109,9 +109,8 @@ const TourPackegPage = () => {
               <p className="mt-2 font-semibold">Duration: {tour.duration}</p>
               <p className="text-blue-600 font-bold mb-4">Price: ${tour.price}</p>
               <Link
-                key={tour._id} // unique key
                 href={`/TourPackeg/${tour._id}`}
-                className="inline-block px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-amber-500 transition-all"
+                className="my-8 inline-block  px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-amber-500 duration-300 transition-all cursor-pointer"
               >
                 Details
               </Link>
