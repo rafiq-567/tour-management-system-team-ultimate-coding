@@ -4,18 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
-export const getpost = async () => {
-  const res = await fetch("https://tour-management-system-team-ultimat-lovat.vercel.app/tourData.json");
-  const data = await res.json();
-  return data;
-};
 export default async function TourPackegPage() {
   const tourPackegData =await dbConnect("tourPackegdata");
   const post = await tourPackegData.find({}).toArray();
   //   post data coming from database tourpackegData collection
   return (
-    <div>
-      <h1 className="md:text-4xl text-2xl font-bold text-center my-20">
+    <div className="pt-30">
+      <h1 className="md:text-4xl text-2xl font-bold text-center mb-20">
         Chooes your Best <span className="text-blue-600">tour</span> packege
       </h1>
       <div className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 ">
@@ -39,7 +34,7 @@ export default async function TourPackegPage() {
               </p>
 
               <Link
-                href={`/TourPackeg/${tour.id}`}
+                href={`/TourPackeg/${tour._id}`}
                 className="my-8 inline-block  px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-amber-500 duration-300 transition-all cursor-pointer"
               >
                 Detailes

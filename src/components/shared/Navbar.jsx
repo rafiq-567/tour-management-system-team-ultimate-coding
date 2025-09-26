@@ -22,6 +22,7 @@ import PackagesDropdown from "../utilities/PackagesDropdown";
 import { useSession } from "next-auth/react";
 import LogoutButton from "@/app/login/compnents/LogoutButton";
 import TourPackegPage from "@/app/TourPackeg/page";
+import TourpackegForm from "../tourpackegpost/form/TourpackegForm";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   const session = useSession();
@@ -77,6 +78,7 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
       href: "/TourPackeg",
       icon: <Package2Icon  size={18} className="mr-2" />,
     },
+
 
   ];
 
