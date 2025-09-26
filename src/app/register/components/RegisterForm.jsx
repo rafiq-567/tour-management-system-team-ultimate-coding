@@ -3,67 +3,47 @@
 import React, { useState } from "react";
 import { XCircle, CheckCircle, Loader2 } from "lucide-react";
 import registerApi from "../actions/auth/registerApi";
+import Swal from "sweetalert2";
+import LoadingSpinner from "./LoadingSpinner";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  // const [modalOpen, setModalOpen] = useState(false);
-  // const [modalMessage, setModalMessage] = useState({ title: "", text: "", success: false });
-  // const [loading, setLoading] = useState(false);
+  const [spinner, setSpinner] = useState(false);
+  const router = useRouter();
 
-  // const registerApi = async (payload) => {
-  //   try {
-  //     // Simulated API call
-  //     await new Promise((res) => setTimeout(res, 1500));
-  //     return payload.email !== "test@error.com";
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setLoading(true);
+    setSpinner(true);
 
     const form = e.target;
-    const username = form.username.value.trim();
+    const name = form.username.value.trim();
     const email = form.email.value.trim();
     const password = form.password.value.trim();
 
-    // if (!username || !email || !password) {
-    //   setModalMessage({
-    //     title: "Validation Error",
-    //     text: "All fields are required.",
-    //     success: false,
-    //   });
-    //   setModalOpen(true);
-    //   setLoading(false);
-    //   return;
-    // }
 
-    const payload = { username, email, password, role: "user" };
-    console.log(payload);
+    const payload = { name, email, password, role: "user" };
     const result = await registerApi(payload);
-
-    // if (!result) {
-    //   setModalMessage({
-    //     title: "Registration Failed",
-    //     text: "Username or email already exists. Please try again.",
-    //     success: false,
-    //   });
-    // } else {
-    //   setModalMessage({
-    //     title: "Registration Successful",
-    //     text: "Your account has been created. Redirecting to login...",
-    //     success: true,
-    //   });
-
-    //   // Example redirect after success
-    //   setTimeout(() => {
-    //     window.location.href = "/login";
-    //   }, 2000);
-    // }
-
-    // setModalOpen(true);
-    // setLoading(false);
+    if (result) {
+      form.reset();
+      router.push("/login");
+      setSpinner(false);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Registration has been successfully",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    } else {
+      setSpinner(false);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "This email already exist",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+    }
   };
 
   return (
@@ -113,51 +93,16 @@ const RegisterForm = () => {
             />
           </div>
 
-          <button className="btn btn-neutral w-full rounded-xl" >Register</button>
+          <button className="btn btn-neutral w-full rounded-xl" >
+          {
+            spinner ? <LoadingSpinner />: ""
+          }
+          Register</button>
 
-          {/* <button
-            type="submit"
-            disabled={loading}
-            className="w-full px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed shadow-md transition-colors duration-200 flex items-center justify-center"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="animate-spin mr-2" size={20} />
-                Registering...
-              </>
-            ) : (
-              "Register"
-            )}
-          </button> */}
         </form>
       </div>
 
-      {/* Custom Modal */}
-      {/* {modalOpen && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl w-full max-w-sm text-center">
-            <div className="flex justify-center mb-4">
-              {modalMessage.success ? (
-                <CheckCircle size={48} className="text-green-500" />
-              ) : (
-                <XCircle size={48} className="text-red-500" />
-              )}
-            </div>
-            <h4 className="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-100">
-              {modalMessage.title}
-            </h4>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">{modalMessage.text}</p>
-            {!modalMessage.success && (
-              <button
-                onClick={() => setModalOpen(false)}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-              >
-                Close
-              </button>
-            )}
-          </div>
-        </div>
-      )} */}
+
     </div>
   );
 };

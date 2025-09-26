@@ -14,6 +14,7 @@ const registerApi = async (payload) => {
 
     try {
         const result = await dbConnect("user").insertOne(payload);
+        result.insertedId = result.insertedId.toString();
         return result;
     } catch (error) {
         console.log(error);

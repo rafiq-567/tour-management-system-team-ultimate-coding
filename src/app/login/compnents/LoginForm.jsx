@@ -1,22 +1,48 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import { signIn } from "next-auth/react"
 import SocialLogin from './SocialLogin';
+import { useRouter } from 'next/navigation';
+import LoadingSpinner from '@/app/register/components/LoadingSpinner';
+import Swal from 'sweetalert2';
 
 const LoginForm = () => {
+    const [spinner, setSpinner] = useState(false);
+    const router = useRouter();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const form = e.target; 
+        setSpinner(true);
+        const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email,password)
 
-        await signIn("credentials",{email, password, redirect: false});
+        const result = await signIn("credentials", { email, password, redirect: false });
+
+        if (result?.ok) {
+            setSpinner(false);
+            router.push('/');
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Login successfully",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        } else {
+            setSpinner(false);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "email or password was wrong!",
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
+        }
     }
     return (
         <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl  w-full max-w-md border border-gray-200 dark:border-gray-700">
             <h3 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">
-                Create an Account
+                Login an account
             </h3>
             <form onSubmit={handleSubmit} className="space-y-6">
 
@@ -49,8 +75,11 @@ const LoginForm = () => {
 
                 <button
                     type="submit"
-                    className="w-full px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed shadow-md transition-colors duration-200 flex items-center justify-center"
+                    className="w-full px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed shadow-md transition-colors duration-200 flex items-center justify-center cursor-pointer"
                 >
+                    {
+                        spinner ? < LoadingSpinner /> : ''
+                    }
                     login
                 </button>
             </form>

@@ -52,16 +52,34 @@ export const authOptions = {
     signIn: "/login",
   },
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (account) {
+        try {
+          const { providerAccountId, provider } = account;
+          const { email: user_email, name, image } = user;
+          const payload = { provider, providerAccountId,email:user_email, name, image, role: 'user' };
+          const usersCollection = dbConnect("user");
+          const isUserExist = await usersCollection.findOne({ providerAccountId });
+          if (!isUserExist) {
+            await usersCollection.insertOne(payload);
+          }
+        } catch (error) {
+          console.log(error);
+          return false;
+        }
+      }
+      return true
+    },
     async session({ session, token, user }) {
       if (token) {
-        session.user.username = token.username
+        session.user.name = token.name
         session.user.role = token.role
       }
       return session
     },
     async jwt({ token, user, account, profile, isNewUser }) {
       if (user) {
-        token.username = user.username
+        token.name = user.name
         token.role = user.role
       }
       return token
