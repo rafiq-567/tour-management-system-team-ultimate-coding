@@ -14,12 +14,18 @@ import {
   Info,
   Phone,
   LayoutDashboard,
+  Package2Icon,
 } from "lucide-react";
 
 import LoginButton from "@/app/components/loginButton/LoginButton";
 import PackagesDropdown from "../utilities/PackagesDropdown";
+import { useSession } from "next-auth/react";
+import LogoutButton from "@/app/login/compnents/LogoutButton";
+import TourPackegPage from "@/app/TourPackeg/page";
+import TourpackegForm from "../tourpackegpost/form/TourpackegForm";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
+  const session = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [packagesOpen, setPackagesOpen] = useState(false);
   const pathname = usePathname();
@@ -47,26 +53,56 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
 
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} className="mr-2" /> },
-    { name: "Destinations", href: "/destinations", icon: <MapPin size={18} className="mr-2" /> },
-    { name: "Packages", dropdown: true, icon: <Package size={18} className="mr-2" /> },
-    { name: "About", href: "/about", icon: <Info size={18} className="mr-2" /> },
-    { name: "Contact", href: "/contact", icon: <Phone size={18} className="mr-2" /> },
+    {
+      name: "Destinations",
+      href: "/destinations",
+      icon: <MapPin size={18} className="mr-2" />,
+    },
+    {
+      name: "Packages",
+      dropdown: true,
+      icon: <Package size={18} className="mr-2" />,
+    },
+    {
+      name: "About",
+      href: "/about",
+      icon: <Info size={18} className="mr-2" />,
+    },
+    {
+      name: "Contact",
+      href: "/contact",
+      icon: <Phone size={18} className="mr-2" />,
+    },
+    {
+      name: "Tourpackeg",
+      href: "/TourPackeg",
+      icon: <Package2Icon  size={18} className="mr-2" />,
+    },
+
+
   ];
 
   const isActive = (href) => pathname === href;
 
   return (
-    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg z-50 transition-colors duration-300">
+    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg z-50 transition-colors duration-300 sticky top-0">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        <Link
+          href="/"
+          className="text-2xl font-bold text-blue-600 dark:text-blue-400"
+        >
           SixTour
         </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center space-x-6 font-medium">
+        <ul className="hidden md:flex items-center space-x-5 font-medium">
           {menuItems.map((item) => (
-            <li key={item.name} className="relative" ref={item.dropdown ? dropdownRef : null}>
+            <li
+              key={item.name}
+              className="relative"
+              ref={item.dropdown ? dropdownRef : null}
+            >
               {item.dropdown ? (
                 <>
                   <button
@@ -86,9 +122,8 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                        packagesOpen ? "rotate-180" : "rotate-0"
-                      }`}
+                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${packagesOpen ? "rotate-180" : "rotate-0"
+                        }`}
                       aria-hidden="true"
                     >
                       <path d="M6 9l6 6 6-6" />
@@ -105,11 +140,10 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
               ) : (
                 <Link
                   href={item.href}
-                  className={`flex items-center transition ${
-                    isActive(item.href)
+                  className={`flex items-center transition ${isActive(item.href)
                       ? "text-blue-600 dark:text-blue-400 font-semibold"
                       : "text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
+                    }`}
                 >
                   {item.icon} {item.name}
                 </Link>
@@ -118,16 +152,26 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
           ))}
 
 
-          
-            <li className="ml-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 shadow-md transition-all duration-300 font-semibold">
-              <LoginButton></LoginButton>
-            </li>
-         
-          <li className="px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
+          {
+            session?.data ? <LogoutButton /> :
+              <>
+                <li>
+                  <Link href='/login'>
+                    <button className='btn btn-primary rounded-xl'>
+                      LogIn
+                    </button>
+                  </Link>
+                </li>
 
-          <li>
-            <LoginButton />
-          </li>
+                <li>
+                  <Link href="/register">
+                    <button className="btn btn-neutral rounded-xl">
+                      register
+                    </button>
+                  </Link>
+                </li>
+              </>
+          }
 
           <li>
             <Link href="/dashboard/admin">
@@ -138,9 +182,9 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
           </li>
 
           <li>
-            <button className="px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
-
+            <button className=" px-3 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
               Book Now
+              </button>
             
           </li>
 
@@ -165,7 +209,10 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
             {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
           </button>
 
-          <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="focus:outline-none"
+          >
             {isOpen ? (
               <X size={28} className="text-gray-800 dark:text-gray-100" />
             ) : (
@@ -177,13 +224,19 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        // className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+        //   isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
+        // }`}
       >
         <ul className="flex flex-col items-center space-y-4 py-6 text-gray-800 dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
           {menuItems.map((item) => (
-            <li key={item.name} className="w-full" onClick={() => setIsOpen(false)}>
+            <li
+              key={item.name}
+              className="w-full"
+              onClick={() => setIsOpen(false)}
+            >
               {item.dropdown ? (
                 <div>
                   <button
@@ -201,9 +254,8 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                        packagesOpen ? "rotate-180" : "rotate-0"
-                      }`}
+                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${packagesOpen ? "rotate-180" : "rotate-0"
+                        }`}
                       aria-hidden="true"
                     >
                       <path d="M6 9l6 6 6-6" />
@@ -218,17 +270,24 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
               ) : (
                 <Link
                   href={item.href}
-                  className={`flex items-center px-5 py-2 w-full transition ${
-                    isActive(item.href)
+                  className={`flex items-center px-5 py-2 w-full transition ${isActive(item.href)
                       ? "text-blue-600 dark:text-blue-400 font-semibold"
                       : "hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
+                    }`}
                 >
                   {item.icon} {item.name}
                 </Link>
               )}
             </li>
           ))}
+          
+          <li>
+            <Link href="/register">
+              <button className="bg-black text-white px-3 py-2 rounded-xl ml-2">
+                register
+              </button>
+            </Link>
+          </li>
 
           <li>
             <LoginButton />

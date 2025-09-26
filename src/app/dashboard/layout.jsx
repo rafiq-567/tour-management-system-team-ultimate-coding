@@ -1,4 +1,4 @@
-// app/dashboard/admin/layout.jsx
+
 "use client";
 
 import Sidebar from "@/components/layout/Sidebar";
@@ -14,7 +14,7 @@ export default function AdminLayout({ children }) {
         {/* Top Navbar */}
         <header className="h-16 border-b bg-white flex items-center justify-end px-6 shadow-sm">
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-600">Welcome, Admin</span>
+            <span className="text-sm text-blue-500">Welcome, Admin</span>
             <img
               src="https://placehold.co/40x40"
               alt="avatar"

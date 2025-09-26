@@ -1,18 +1,20 @@
 "use client";
-
-import React from 'react';
-import { signIn } from "next-auth/react"
-import Link from 'next/link';
+import React from "react";
+import { signIn } from "next-auth/react";
 
 const LoginButton = () => {
-    return (
-        <> <span
-            className='bg-black text-white px-3 py-2 rounded-xl'
-            onClick={() => signIn()}>Sign in</span>
-        </>
+  return (
+    <>
 
-    );
-
+   
+      <p
+        className="bg-black text-white px-3 py-2 rounded-xl ml-2"
+        onClick={() => signIn()}
+      >
+        SignIin
+      </p>
+    </>
+  );
 };
 
 export default LoginButton;
