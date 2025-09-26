@@ -85,7 +85,7 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   const isActive = (href) => pathname === href;
 
   return (
-    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg z-50 transition-colors duration-300">
+    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg z-50 transition-colors duration-300 sticky top-0">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link
