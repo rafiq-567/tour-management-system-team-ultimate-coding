@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { XCircle, CheckCircle, Loader2 } from "lucide-react";
 
@@ -8,14 +7,25 @@ const RegisterForm = () => {
   const [modalMessage, setModalMessage] = useState({ title: "", text: "", success: false });
   const [loading, setLoading] = useState(false);
 
+  // Simulated API function for registration
   const registerApi = async (payload) => {
     try {
-      // Simulated API call
+      // Simulated API call delay
       await new Promise((res) => setTimeout(res, 1500));
-      return payload.email !== "test@error.com";
+      return payload.email !== "test@error.com"; // Simulate success/failure
     } catch (error) {
       return false;
     }
+  };
+
+  const handleSocialLogin = (provider) => {
+    console.log(`Attempting to log in with ${provider}`);
+    setModalMessage({
+      title: "Social Login",
+      text: `Connecting with ${provider}... This is a placeholder for actual social login functionality.`,
+      success: true,
+    });
+    setModalOpen(true);
   };
 
   const handleSubmit = async (e) => {
@@ -39,6 +49,7 @@ const RegisterForm = () => {
     }
 
     const payload = { username, email, password, role: "user" };
+    console.log(payload);
     const result = await registerApi(payload);
 
     if (!result) {
@@ -56,7 +67,8 @@ const RegisterForm = () => {
 
       // Example redirect after success
       setTimeout(() => {
-        window.location.href = "/login";
+        // In a real app, this would be router.push('/login')
+        window.location.href = "/login"; 
       }, 2000);
     }
 
@@ -64,8 +76,12 @@ const RegisterForm = () => {
     setLoading(false);
   };
 
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen  font-sans px-4">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 font-sans px-4">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl w-full max-w-md border border-gray-200 dark:border-gray-700">
         <h3 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-gray-100">
           Create an Account
@@ -126,6 +142,36 @@ const RegisterForm = () => {
             )}
           </button>
         </form>
+
+        <div className="flex items-center my-6">
+          <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+          <span className="px-4 text-sm text-gray-500 dark:text-gray-400">OR</span>
+          <hr className="flex-grow border-gray-300 dark:border-gray-600" />
+        </div>
+
+        <div className="space-y-4">
+          <button
+            onClick={() => handleSocialLogin("Google")}
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-100 rounded-xl border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 shadow-sm"
+          >
+            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" className="h-5 w-5" />
+            Sign in with Google
+          </button>
+          <button
+            onClick={() => handleSocialLogin("GitHub")}
+            className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-100 rounded-xl border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 shadow-sm"
+          >
+            <img src="https://www.svgrepo.com/show/353760/github-icon.svg" alt="GitHub" className="h-5 w-5" />
+            Sign in with GitHub
+          </button>
+        </div>
+
+        <div className="text-center mt-6 text-sm text-gray-600 dark:text-gray-400">
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600 hover:underline font-medium">
+            Login here
+          </a>
+        </div>
       </div>
 
       {/* Custom Modal */}
@@ -143,14 +189,12 @@ const RegisterForm = () => {
               {modalMessage.title}
             </h4>
             <p className="text-gray-600 dark:text-gray-400 mb-6">{modalMessage.text}</p>
-            {!modalMessage.success && (
-              <button
-                onClick={() => setModalOpen(false)}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-              >
-                Close
-              </button>
-            )}
+            <button
+              onClick={closeModal}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}

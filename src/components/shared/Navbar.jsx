@@ -14,12 +14,17 @@ import {
   Info,
   Phone,
   LayoutDashboard,
+  Package2Icon,
 } from "lucide-react";
 
 import LoginButton from "@/app/components/loginButton/LoginButton";
 import PackagesDropdown from "../utilities/PackagesDropdown";
+import { useSession } from "next-auth/react";
+import LogoutButton from "@/app/login/compnents/LogoutButton";
+import TourPackegPage from "@/app/TourPackeg/page";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
+  const session = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [packagesOpen, setPackagesOpen] = useState(false);
   const pathname = usePathname();
@@ -67,6 +72,12 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
       href: "/contact",
       icon: <Phone size={18} className="mr-2" />,
     },
+    {
+      name: "Tourpackeg",
+      href: "/TourPackeg",
+      icon: <Package2Icon  size={18} className="mr-2" />,
+    },
+
   ];
 
   const isActive = (href) => pathname === href;
@@ -83,7 +94,7 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
         </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center space-x-6 font-medium">
+        <ul className="hidden md:flex items-center space-x-5 font-medium">
           {menuItems.map((item) => (
             <li
               key={item.name}
@@ -109,9 +120,8 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                        packagesOpen ? "rotate-180" : "rotate-0"
-                      }`}
+                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${packagesOpen ? "rotate-180" : "rotate-0"
+                        }`}
                       aria-hidden="true"
                     >
                       <path d="M6 9l6 6 6-6" />
@@ -128,11 +138,10 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
               ) : (
                 <Link
                   href={item.href}
-                  className={`flex items-center transition ${
-                    isActive(item.href)
+                  className={`flex items-center transition ${isActive(item.href)
                       ? "text-blue-600 dark:text-blue-400 font-semibold"
                       : "text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
+                    }`}
                 >
                   {item.icon} {item.name}
                 </Link>
@@ -140,17 +149,27 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
             </li>
           ))}
 
-          <li>
-            <Link href="/register">
-              <button className="bg-black text-white px-3 py-2 rounded-xl ml-2">
-                register
-              </button>
-            </Link>
-          </li>
 
-          <li>
-            <LoginButton />
-          </li>
+          {
+            session?.data ? <LogoutButton /> :
+              <>
+                <li>
+                  <Link href='/login'>
+                    <button className='btn btn-primary rounded-xl'>
+                      LogIn
+                    </button>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link href="/register">
+                    <button className="btn btn-neutral rounded-xl">
+                      register
+                    </button>
+                  </Link>
+                </li>
+              </>
+          }
 
           <li>
             <Link href="/dashboard/admin">
@@ -161,9 +180,10 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
           </li>
 
           <li>
-            <button className="px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
+            <button className=" px-3 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
               Book Now
-            </button>
+              </button>
+            
           </li>
 
           <li>
@@ -202,8 +222,10 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
 
       {/* Mobile Menu */}
       <div
+        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
         className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <ul className="flex flex-col items-center space-y-4 py-6 text-gray-800 dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
@@ -230,9 +252,8 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                        packagesOpen ? "rotate-180" : "rotate-0"
-                      }`}
+                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${packagesOpen ? "rotate-180" : "rotate-0"
+                        }`}
                       aria-hidden="true"
                     >
                       <path d="M6 9l6 6 6-6" />
@@ -247,17 +268,17 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
               ) : (
                 <Link
                   href={item.href}
-                  className={`flex items-center px-5 py-2 w-full transition ${
-                    isActive(item.href)
+                  className={`flex items-center px-5 py-2 w-full transition ${isActive(item.href)
                       ? "text-blue-600 dark:text-blue-400 font-semibold"
                       : "hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
+                    }`}
                 >
                   {item.icon} {item.name}
                 </Link>
               )}
             </li>
           ))}
+          
           <li>
             <Link href="/register">
               <button className="bg-black text-white px-3 py-2 rounded-xl ml-2">

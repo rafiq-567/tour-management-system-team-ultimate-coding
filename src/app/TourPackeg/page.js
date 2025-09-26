@@ -62,7 +62,6 @@ const TourPackegPage = () => {
 
       {/* Search + Filter */}
       <div className="w-11/12 mx-auto flex flex-col md:flex-row items-center justify-between mb-10 gap-4">
-        {/* Search */}
         <input
           type="text"
           placeholder="Search tour by name..."
@@ -71,14 +70,13 @@ const TourPackegPage = () => {
           className="w-full md:w-1/2 px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        {/* Filter Buttons */}
         <div className="flex flex-wrap gap-2">
           {["all", "latest", "popular", "budget"].map((btn) => (
             <button
               key={btn}
               onClick={() => {
                 setFilter(btn);
-                setCurrentPage(1); // reset pagination
+                setCurrentPage(1);
               }}
               className={`px-4 py-2 rounded-lg text-sm font-medium shadow-sm transition-all duration-300 ${
                 filter === btn
@@ -95,10 +93,7 @@ const TourPackegPage = () => {
       {/* Tour Cards */}
       <div className="w-11/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
         {currentTours.map((tour) => (
-          <div
-            key={tour._id}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
-          >
+          <div key={tour._id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
             <div className="object-center">
               <Image
                 src={tour.image}
@@ -110,15 +105,11 @@ const TourPackegPage = () => {
             </div>
             <div className="p-4">
               <h2 className="text-xl font-bold mt-2">{tour.title}</h2>
-              <p className="text-gray-400 mt-1 line-clamp-2">
-                {tour.description}
-              </p>
+              <p className="text-gray-400 mt-1 line-clamp-2">{tour.description}</p>
               <p className="mt-2 font-semibold">Duration: {tour.duration}</p>
-              <p className="text-blue-600 font-bold mb-4">
-                Price: ${tour.price}
-              </p>
-
+              <p className="text-blue-600 font-bold mb-4">Price: ${tour.price}</p>
               <Link
+                key={tour._id} // unique key
                 href={`/TourPackeg/${tour._id}`}
                 className="inline-block px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-amber-500 transition-all"
               >

@@ -16,9 +16,7 @@ export default async function Home() {
       <div>
         <Hero></Hero>
         <PopularDestinations></PopularDestinations>
-        <Link className=" flex justify-center " href="/TourPackeg">
-          Tour packeg
-        </Link>
+       
         <WhyChooseUs></WhyChooseUs>
         <TravelersSay></TravelersSay>
         <FAQ> </FAQ>
