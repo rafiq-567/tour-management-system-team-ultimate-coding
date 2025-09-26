@@ -1,30 +1,39 @@
-// lib/dbConnect.js
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-let cachedClient = null;
-let cachedDb = null;
+const uri = process.env.MONGODB_URI;
+const dbName = process.env.DB_NAME;
 
-export async function dbConnect(collectionName) {
-  if (cachedClient && cachedDb) {
-    console.log("Using cached MongoDB connection");
-    return cachedDb.collection(collectionName);
+if (!uri) throw new Error("Please add MONGODB_URI to .env.local");
+
+let client;
+let clientPromise;
+
+if (process.env.NODE_ENV === "development") {
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri, {
+      serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+      },
+    });
+    global._mongoClientPromise = client.connect();
   }
-
-  const client = new MongoClient(process.env.MONGODB_URI, {
+  clientPromise = global._mongoClientPromise;
+} else {
+  client = new MongoClient(uri, {
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
       deprecationErrors: true,
     },
   });
-
-  await client.connect();
-  console.log(" New MongoDB connection established!");
-
-  const db = client.db(process.env.DB_NAME);
-
-  cachedClient = client;
-  cachedDb = db;
-
-  return db.collection(collectionName);
+  clientPromise = client.connect();
 }
+
+const dbConnect = async (collectionName) => {
+  const conn = await clientPromise;
+  return conn.db(dbName).collection(collectionName);
+};
+
+export default dbConnect;  // ✅ default export

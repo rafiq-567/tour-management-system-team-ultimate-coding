@@ -34,7 +34,7 @@ const menuItems = [
   { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings" },
   { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist" },
   { name: "Support", icon: Settings, href: "/dashboard/user/support" },
-  { name: "Payments", icon: CreditCard, href: "/dashboard/user/payments" },
+  // { name: "Payments", icon: CreditCard, href: "/dashboard/user/payments" },
 
   //user sample
   // { name: "My Profile", href: "/dashboard/user/profile" },
