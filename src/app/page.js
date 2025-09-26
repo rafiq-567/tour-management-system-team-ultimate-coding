@@ -7,7 +7,7 @@ import PopularDestinations from "@/components/shared/PopularDestinations";
 import TravelersSay from "@/components/shared/TravelersSay";
 import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
-import TourpackegForm from "@/components/tourpackegpost/form/TourpackegForm";
+
 
 
 export default async function Home() {
@@ -21,7 +21,6 @@ export default async function Home() {
         <WhyChooseUs></WhyChooseUs>
         <TravelersSay></TravelersSay>
         <FAQ> </FAQ>
-        <TourpackegForm></TourpackegForm>
         <TravellerForm></TravellerForm>
       
       </div>

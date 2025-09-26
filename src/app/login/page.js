@@ -1,10 +1,10 @@
-import React from "react";
-import RegisterForm from "./components/RegisterForm";
-import Image from "next/image";
+import Image from 'next/image';
+import React from 'react';
+import LoginForm from './compnents/LoginForm';
 
-const registerPage = () => {
-  return (
-    <div className="hero bg-base-200 min-h-screen">
+const login = () => {
+    return (
+        <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <Image
           src="/login.png"
@@ -14,11 +14,11 @@ const registerPage = () => {
           alt="login Image"
         />
         <div>
-          <RegisterForm />
+          <LoginForm />
         </div>
       </div>
     </div>
-  );
+    );
 };
 
-export default registerPage;
+export default login;

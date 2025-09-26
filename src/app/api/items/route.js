@@ -15,5 +15,10 @@ export async function POST(req) {
   const result = await dbConnect("tourPackegdata").insertOne(postData);
 
   return Response.json({ result});
+ 
+}
+export async function GET() {
+  const data = await dbConnect("user").find().toArray();
+  return Response.json(data);
 }
 
