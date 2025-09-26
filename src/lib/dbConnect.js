@@ -14,7 +14,7 @@ function dbConnect(collectionName){
             deprecationErrors: true,
         },
     });
-    return client.db(process.env.DB_TOURS).collection(collectionName)
+    return client.db(process.env.DB_NAME).collection(collectionName)
 }
 export default dbConnect;
 
