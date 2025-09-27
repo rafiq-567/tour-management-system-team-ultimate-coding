@@ -25,7 +25,7 @@ export default function UserProfileDropdown({ session, isMobile }) {
     <li className={`${isMobile ? "w-full flex justify-center" : "relative"}`} ref={dropdownRef}>
       <button onClick={() => setOpen(!open)} className="flex items-center gap-2">
         <img src={user.image} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
-        {!isMobile && <span className="text-gray-800 dark:text-gray-100">{user.name}</span>}
+        
       </button>
       {open && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 flex flex-col">
