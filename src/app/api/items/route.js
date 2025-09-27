@@ -24,7 +24,6 @@ export async function POST(req) {
 
 // export async function GET() {
 //   const data = await dbConnect("products").find().toArray();
-
 //   return Response.json(data);
 
 // }
