@@ -1,0 +1,41 @@
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
+import LogoutButton from "@/app/login/compnents/LogoutButton";
+
+
+export default function UserProfileDropdown({ session, isMobile }) {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const user = session.data.user;
+
+  return (
+    <li className={`${isMobile ? "w-full flex justify-center" : "relative"}`} ref={dropdownRef}>
+      <button onClick={() => setOpen(!open)} className="flex items-center gap-2">
+        <img src={user.image} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
+        {!isMobile && <span className="text-gray-800 dark:text-gray-100">{user.name}</span>}
+      </button>
+      {open && (
+        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 flex flex-col">
+          <span className="px-4 py-2 font-semibold text-gray-800 dark:text-gray-100">{user.name}</span>
+          <Link href="/dashboard/admin" className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+            Dashboard
+          </Link>
+          <LogoutButton className="px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700" />
+        </div>
+      )}
+    </li>
+  );
+}

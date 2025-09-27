@@ -53,7 +53,10 @@ export async function PUT(req, context) {
     return Response.json({ _id: id, ...updatedPackage });
   } catch (err) {
     console.error("PUT /tour-packages/[id] error:", err);
-    return Response.json({ error: "Failed to update package" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to update package" },
+      { status: 500 }
+    );
   }
 }
 
@@ -73,6 +76,9 @@ export async function DELETE(req, context) {
     return Response.json({ success: true, message: "Package deleted" });
   } catch (err) {
     console.error("DELETE /tour-packages/[id] error:", err);
-    return Response.json({ error: "Failed to delete package" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to delete package" },
+      { status: 500 }
+    );
   }
 }
