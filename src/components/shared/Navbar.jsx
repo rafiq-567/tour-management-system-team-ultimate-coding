@@ -223,11 +223,9 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
 
       {/* Mobile Menu */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          }`}
-        // className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-        //   isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
-        // }`}
+        className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+          isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
+        }`}
       >
         <ul className="flex flex-col items-center space-y-4 py-6 text-gray-800 dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
           {menuItems.map((item) => (
@@ -279,18 +277,29 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
               )}
             </li>
           ))}
-          
-          <li>
-            <Link href="/register">
-              <button className="bg-black text-white px-3 py-2 rounded-xl ml-2">
-                register
-              </button>
-            </Link>
-          </li>
 
-          <li>
-            <LoginButton />
-          </li>
+
+          {
+            session?.data ? <LogoutButton /> :
+              <>
+                <li>
+                  <Link href='/login'>
+                    <button className='btn btn-primary rounded-xl'>
+                      LogIn
+                    </button>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link href="/register">
+                    <button className="btn btn-neutral rounded-xl">
+                      register
+                    </button>
+                  </Link>
+                </li>
+              </>
+          }
+          
 
           <li>
             <Link href="/dashboard/admin">

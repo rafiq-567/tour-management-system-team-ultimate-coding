@@ -1,10 +1,12 @@
 import dbConnect from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 
-// READ ONE (GET) - Get single package by id
-export async function GET(req, { params }) {
+export async function GET(req, context) {
   try {
+    // Await params before using
+    const { params } = await context;
     const { id } = params;
+
     const collection = await dbConnect("tourPackages");
 
     const tourPackage = await collection.findOne({ _id: new ObjectId(id) });
@@ -16,17 +18,16 @@ export async function GET(req, { params }) {
     return Response.json(tourPackage);
   } catch (err) {
     console.error("GET /tour-packages/[id] error:", err);
-    return Response.json(
-      { error: "Failed to fetch package" },
-      { status: 500 }
-    );
+    return Response.json({ error: "Failed to fetch package" }, { status: 500 });
   }
 }
 
-// UPDATE (PUT) - Update package by id
-export async function PUT(req, { params }) {
+// Same applies for PUT & DELETE
+export async function PUT(req, context) {
   try {
+    const { params } = await context;
     const { id } = params;
+
     const body = await req.json();
     const collection = await dbConnect("tourPackages");
 
@@ -52,17 +53,15 @@ export async function PUT(req, { params }) {
     return Response.json({ _id: id, ...updatedPackage });
   } catch (err) {
     console.error("PUT /tour-packages/[id] error:", err);
-    return Response.json(
-      { error: "Failed to update package" },
-      { status: 500 }
-    );
+    return Response.json({ error: "Failed to update package" }, { status: 500 });
   }
 }
 
-// DELETE - Remove package by id
-export async function DELETE(req, { params }) {
+export async function DELETE(req, context) {
   try {
+    const { params } = await context;
     const { id } = params;
+
     const collection = await dbConnect("tourPackages");
 
     const result = await collection.deleteOne({ _id: new ObjectId(id) });
@@ -74,11 +73,6 @@ export async function DELETE(req, { params }) {
     return Response.json({ success: true, message: "Package deleted" });
   } catch (err) {
     console.error("DELETE /tour-packages/[id] error:", err);
-    return Response.json(
-      { error: "Failed to delete package" },
-      { status: 500 }
-    );
+    return Response.json({ error: "Failed to delete package" }, { status: 500 });
   }
 }
-
-
