@@ -27,11 +27,7 @@ const menuItems = [
   { name: "Users", icon: Users, href: "/dashboard/admin/users" },
   { name: "Tours", icon: Plane, href: "/dashboard/admin/add/tours" },
   { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all" },
-  {
-    name: "Add-Tourpackeg",
-    icon: PlaneIcon,
-    href: "/dashboard/admin/AddTourpackag",
-  },
+ { name:"Discounts", icon: CreditCard, href:"/dashboard/admin/discounts"},
   { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings" },
   { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
   { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics" },

@@ -1,13 +1,15 @@
 import { ObjectId } from "mongodb";
 import dbConnect from "@/lib/dbConnect";
 
+// CREATE BOOKING
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { tourId, userId, name, email, guests, amount, status } = body;
+    const { tourId, userId, name, email, guests, amount } = body;
 
+    // Validate required fields
     if (!tourId || !userId || !name || !email || !guests || !amount) {
-      return Response.json({ error: "Missing fields" }, { status: 400 });
+      return Response.json({ error: "Missing required fields" }, { status: 400 });
     }
 
     const collection = await dbConnect("bookings");
@@ -31,9 +33,9 @@ export async function POST(req) {
       name,
       email,
       guests,
-      amount,                     // 💰 save price/amount
-      status: status || "pending", // default pending
-      bookingDate: new Date(),     // 📅 keep booking date
+      amount,
+      status: "pending", // default
+      bookingDate: new Date(),
       createdAt: new Date(),
     };
 
@@ -44,25 +46,27 @@ export async function POST(req) {
       booking: { ...newBooking, _id: result.insertedId },
     });
   } catch (err) {
-    console.error(err);
-    return Response.json(
-      { error: "Failed to create booking" },
-      { status: 500 }
-    );
+    console.error("POST /bookings error:", err);
+    return Response.json({ error: "Failed to create booking" }, { status: 500 });
   }
 }
 
-// GET all bookings (optional, can filter by userId or tourId)
-
-
-export async function GET() {
+// GET BOOKINGS (filter by userId optionally)
+export async function GET(req) {
   try {
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+
     const collection = await dbConnect("bookings");
-    const bookings = await collection.find({}).sort({ createdAt: -1 }).toArray();
+    const query = {};
+
+    if (userId) query.userId = new ObjectId(userId);
+
+    const bookings = await collection.find(query).sort({ createdAt: -1 }).toArray();
+
     return Response.json(bookings);
   } catch (err) {
-    console.error(err);
+    console.error("GET /bookings error:", err);
     return Response.json({ error: "Failed to fetch bookings" }, { status: 500 });
   }
 }
-
