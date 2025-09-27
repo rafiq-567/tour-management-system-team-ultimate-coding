@@ -8,8 +8,6 @@ import TravelersSay from "@/components/shared/TravelersSay";
 import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
 
-
-
 export default async function Home() {
   const session = await getServerSession(authOptions);
   console.log(session);
@@ -18,11 +16,11 @@ export default async function Home() {
       <div>
         <Hero></Hero>
         <PopularDestinations></PopularDestinations>
+
         <WhyChooseUs></WhyChooseUs>
         <TravelersSay></TravelersSay>
         <FAQ> </FAQ>
         <TravellerForm></TravellerForm>
-      
       </div>
     </div>
   );
