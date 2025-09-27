@@ -95,7 +95,7 @@ const Footer = () => {
             <div className="mt-6">
               <h3 className="text-xl font-bold text-white mb-2">Contact</h3>
               <p className="text-sm">Email: contact@tourmate.com</p>
-              <p className="text-sm">Phone: +1 (555) 123-4567</p>
+              <p className="text-sm">Phone: +8801743637814</p>
             </div>
           </div>
 

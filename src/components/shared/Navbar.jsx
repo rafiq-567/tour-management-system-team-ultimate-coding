@@ -74,7 +74,7 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
     },
     {
       name: "Tour Package",
-      href: "/tourpackage",
+      href: "/tours",
       icon: <Package2Icon  size={18} className="mr-2" />,
     },
 
