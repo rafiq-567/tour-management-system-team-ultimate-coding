@@ -7,6 +7,7 @@ import PopularDestinations from "@/components/shared/PopularDestinations";
 import TravelersSay from "@/components/shared/TravelersSay";
 import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
+import HomepageDiscounts from "@/components/Home/HomepageDiscounts";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -16,7 +17,7 @@ export default async function Home() {
       <div>
         <Hero></Hero>
         <PopularDestinations></PopularDestinations>
-
+        <HomepageDiscounts></HomepageDiscounts>
         <WhyChooseUs></WhyChooseUs>
         <TravelersSay></TravelersSay>
         <FAQ> </FAQ>
