@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import BookingModal from "@/components/booking/BookingModal";
 import ReviewSection from "@/app/components/review/ReviewSection";
 
 export default function TourDetailsPage() {
@@ -14,8 +15,10 @@ export default function TourDetailsPage() {
   const [tour, setTour] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [userBooking, setUserBooking] = useState(null);
 
-  // Fetch tour data
+  // Fetch tour details
   useEffect(() => {
     if (!id) return;
 
@@ -24,7 +27,6 @@ export default function TourDetailsPage() {
       try {
         const res = await fetch(`/api/tour-packages/${id}`);
         const data = await res.json();
-
         if (res.ok) {
           setTour(data);
           setError("");
@@ -41,12 +43,33 @@ export default function TourDetailsPage() {
     fetchTour();
   }, [id]);
 
+  // Fetch user booking for this tour
+  useEffect(() => {
+    if (!id || !userId) return;
+
+    const fetchBooking = async () => {
+      try {
+        const res = await fetch(`/api/bookings?userId=${userId}&tourId=${id}`);
+        const data = await res.json();
+        if (res.ok && data.length > 0) {
+          setUserBooking(data[0]); // take first booking
+        } else {
+          setUserBooking(null);
+        }
+      } catch (err) {
+        console.error("Booking fetch error:", err);
+      }
+    };
+
+    fetchBooking();
+  }, [id, userId]);
+
   if (loading) return <p className="text-center p-6">Loading...</p>;
   if (error) return <p className="text-center p-6 text-red-500">{error}</p>;
 
   return (
     <div className="max-w-5xl mx-auto my-8 p-4 sm:p-6">
-      {/* Full-width image */}
+      {/* Tour Image */}
       <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-lg">
         <Image
           src={tour.image}
@@ -56,16 +79,14 @@ export default function TourDetailsPage() {
         />
       </div>
 
-      {/* Tour Info Card */}
+      {/* Tour Info */}
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 mt-6">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
           {tour.title}
         </h1>
-
-        <p className="text-gray-600 dark:text-gray-300 mt-3 line-clamp-4">
+        <p className="text-gray-600 dark:text-gray-300 mt-3">
           {tour.description}
         </p>
-
         <p className="text-sm text-gray-500 mt-2">Duration: {tour.duration}</p>
 
         <div className="mt-4">
@@ -83,16 +104,51 @@ export default function TourDetailsPage() {
           ${tour.price}
         </p>
 
-        {/* Book Now Button */}
-        <button
-          onClick={() => alert("Redirect to booking or add booking logic")}
-          className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition-colors shadow-md"
-        >
-          Book Now
-        </button>
+        {/* Booking Button Logic */}
+        {userBooking ? (
+          userBooking.status === "pending" ? (
+            <button
+              disabled
+              className="mt-6 w-full bg-yellow-500 text-white font-semibold py-3 rounded-xl shadow-md cursor-not-allowed"
+            >
+              Pending Approval
+            </button>
+          ) : userBooking.status === "approved" ? (
+            <button
+              onClick={() => alert("Redirect to payment page")}
+              className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-md"
+            >
+              Pay Now
+            </button>
+          ) : (
+            <button
+              disabled
+              className="mt-6 w-full bg-gray-400 text-white font-semibold py-3 rounded-xl shadow-md cursor-not-allowed"
+            >
+              {userBooking.status}
+            </button>
+          )
+        ) : (
+          <button
+            onClick={() => setShowModal(true)}
+            className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl shadow-md"
+          >
+            Book Now
+          </button>
+        )}
+
+        {/* Booking Modal */}
+        {showModal && (
+          <BookingModal
+            tour={tour}
+            tourId={tour._id}
+            userId={userId}
+            onClose={() => setShowModal(false)}
+          />
+        )}
       </div>
 
-      {/* Review Section */}
+      {/* Reviews */}
       <div className="mt-8">
         <ReviewSection tourId={id} userId={userId} />
       </div>

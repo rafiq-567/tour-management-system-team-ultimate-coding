@@ -32,7 +32,7 @@ const menuItems = [
     icon: PlaneIcon,
     href: "/dashboard/admin/AddTourpackag",
   },
-  { name: "Bookings", icon: Calendar, href: "/dashboard/admin/bookings" },
+  { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings" },
   { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
   { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics" },
   { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },

@@ -3,7 +3,7 @@ import dbConnect from '@/lib/dbConnect';
 import React from 'react';
 
 const registerApi = async (payload) => {
-    console.log(payload);
+    //console.log(payload);
 
     // user validation
     const userData = await dbConnect("user").findOne({email: payload.email});

@@ -17,8 +17,10 @@
     "next-auth": "^4.24.11",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-hot-toast": "^2.6.0",
     "recharts": "^3.2.1",
-    "sweetalert2": "^11.23.0"
+    "sweetalert2": "^11.23.0",
+    "sweetalert2-react-content": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

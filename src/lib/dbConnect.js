@@ -12,6 +12,7 @@ function dbConnect(collectionName){
             version: ServerApiVersion.v1,
             strict: true,
             deprecationErrors: true,
+            maxPoolSize: 10,
         },
     });
     return client.db(process.env.DB_NAME).collection(collectionName)
