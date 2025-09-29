@@ -35,7 +35,7 @@ const menuItems = [
   { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist" },
   { name: "Support", icon: Settings, href: "/dashboard/user/support" },
 ];
-
+// dashboard 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = usePathname();
