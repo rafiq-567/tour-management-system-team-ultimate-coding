@@ -101,7 +101,7 @@ const PopularDestinations = () => {
       </div>
       <div className="mt-12 flex justify-center">
         <Link
-          href="/TourPackeg"
+          href="/tours"
           className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-amber-500 hover:text-white transition-colors duration-300 text-center"
         >
           All Tour Package

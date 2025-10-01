@@ -3,15 +3,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Sun, Moon, Menu, X, Home, MapPin, Package, Info, Phone, LayoutDashboard, Package2Icon } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  Menu,
+  X,
+  Home,
+  MapPin,
+  Package,
+  Info,
+  Phone,
+  LayoutDashboard,
+  Package2Icon,
+} from "lucide-react";
 
 import { useSession } from "next-auth/react";
-
-
 
 import AuthButtons from "../Auth/AuthButtons";
 import PackagesDropdown from "../utilities/PackagesDropdown";
 import UserProfileDropdown from "../Auth/UserProfileDropdown";
+import LinkLogo from "../userClick/LinkLogo";
 
 const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   const session = useSession();
@@ -34,11 +45,31 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
 
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} className="mr-2" /> },
-    { name: "Destinations", href: "/destinations", icon: <MapPin size={18} className="mr-2" /> },
-    { name: "Packages", dropdown: true, icon: <Package size={18} className="mr-2" /> },
-    { name: "About", href: "/about", icon: <Info size={18} className="mr-2" /> },
-    { name: "Contact", href: "/contact", icon: <Phone size={18} className="mr-2" /> },
-    { name: "Tour Package", href: "/tours", icon: <Package2Icon size={18} className="mr-2" /> },
+    {
+      name: "Destinations",
+      href: "/destinations",
+      icon: <MapPin size={18} className="mr-2" />,
+    },
+    {
+      name: "Packages",
+      dropdown: true,
+      icon: <Package size={18} className="mr-2" />,
+    },
+    {
+      name: "About",
+      href: "/about",
+      icon: <Info size={18} className="mr-2" />,
+    },
+    {
+      name: "Contact",
+      href: "/contact",
+      icon: <Phone size={18} className="mr-2" />,
+    },
+    {
+      name: "Tour Package",
+      href: "/tours",
+      icon: <Package2Icon size={18} className="mr-2" />,
+    },
   ];
 
   const isActive = (href) => pathname === href;
@@ -46,15 +77,16 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
   return (
     <nav className="w-full bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-          SixTour
-        </Link>
+        <LinkLogo></LinkLogo>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center space-x-5 font-medium">
           {menuItems.map((item) => (
-            <li key={item.name} className="relative" ref={item.dropdown ? packagesRef : null}>
+            <li
+              key={item.name}
+              className="relative"
+              ref={item.dropdown ? packagesRef : null}
+            >
               {item.dropdown ? (
                 <>
                   <button
@@ -72,7 +104,9 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${packagesOpen ? "rotate-180" : "rotate-0"}`}
+                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
+                        packagesOpen ? "rotate-180" : "rotate-0"
+                      }`}
                     >
                       <path d="M6 9l6 6 6-6" />
                     </svg>
@@ -101,7 +135,6 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
             <AuthButtons />
           )}
 
-          
           <li>
             <button
               onClick={onToggleDarkMode}
@@ -143,14 +176,21 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
                   {packagesOpen && <PackagesDropdown />}
                 </div>
               ) : (
-                <Link href={item.href} className="flex items-center w-full px-5 py-2 hover:text-blue-600 dark:hover:text-blue-400">
+                <Link
+                  href={item.href}
+                  className="flex items-center w-full px-5 py-2 hover:text-blue-600 dark:hover:text-blue-400"
+                >
                   {item.icon} {item.name}
                 </Link>
               )}
             </li>
           ))}
 
-          {session?.data?.user ? <UserProfileDropdown session={session} isMobile /> : <AuthButtons isMobile />}
+          {session?.data?.user ? (
+            <UserProfileDropdown session={session} isMobile />
+          ) : (
+            <AuthButtons isMobile />
+          )}
         </ul>
       </div>
     </nav>
