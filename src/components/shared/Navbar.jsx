@@ -56,19 +56,20 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
       icon: <Package size={18} className="mr-2" />,
     },
     {
-      name: "About",
-      href: "/about",
-      icon: <Info size={18} className="mr-2" />,
+      name: "Tour Package",
+      href: "/tours",
+      icon: <Package2Icon size={18} className="mr-2" />,
     },
+
     {
       name: "Contact",
       href: "/contact",
       icon: <Phone size={18} className="mr-2" />,
     },
     {
-      name: "Tour Package",
-      href: "/tours",
-      icon: <Package2Icon size={18} className="mr-2" />,
+      name: "About",
+      href: "/about",
+      icon: <Info size={18} className="mr-2" />,
     },
   ];
 

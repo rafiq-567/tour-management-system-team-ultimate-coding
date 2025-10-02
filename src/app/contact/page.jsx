@@ -31,7 +31,7 @@ const Contact = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 font-sans p-4 sm:p-8">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl w-full max-w-5xl border border-gray-200 dark:border-gray-700">
-        <div className="text-center mb-10">
+        <div className="text-center mb-2">
           <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-800 dark:text-gray-100 mb-4">
             Contact Us
           </h2>
