@@ -95,28 +95,12 @@ export const authOptions = {
       }
       return true;
     },
-<<<<<<< HEAD
 
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id || user._id?.toString();
         token.name = user.name;
         token.role = user.role || "user";
-=======
-    async session({ session, token, user }) {
-      if (token) {
-        session.user.name = token.name
-        session.user.role = token.role
-        session.user.image = token.image
-      }
-      return session
-    },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      if (user) {
-        token.name = user.name
-        token.role = user.role
-        token.image = user.image
->>>>>>> e07ea446baab6e7d9d96bf4893bc1c884f672112
       }
       return token;
     },
