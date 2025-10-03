@@ -1,39 +1,19 @@
+'use server'
 import { MongoClient, ServerApiVersion } from "mongodb";
+// database connection start here abul kalam ***********************
+// import React from 'react';
 
-const uri = process.env.MONGODB_URI;
-const dbName = process.env.DB_NAME;
+function dbConnect(collectionName){
 
-if (!uri) throw new Error("Please add MONGODB_URI to .env.local");
-
-let client;
-let clientPromise;
-
-if (process.env.NODE_ENV === "development") {
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      },
+    const uri = process.env.MONGODB_URI
+    // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+    const client = new MongoClient(uri, {
+        serverApi: {
+            version: ServerApiVersion.v1,
+            strict: true,
+            deprecationErrors: true,
+        },
     });
-    global._mongoClientPromise = client.connect();
-  }
-  clientPromise = global._mongoClientPromise;
-} else {
-  client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
-  clientPromise = client.connect();
+    return client.db(process.env.DB_NAME).collection(collectionName)
 }
-
-const dbConnect = async (collectionName) => {
-  const conn = await clientPromise;
-  return conn.db(dbName).collection(collectionName);
-};
-
-export default dbConnect;  // ✅ default export
+export default dbConnect;

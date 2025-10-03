@@ -1,6 +1,8 @@
+import BookingClient from "@/components/booking/BookingClient";
 import dbConnect from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 import Image from "next/image";
+import ReviewSection from "../components/ReviewSection";
 
 
 export default async function tourDataDetails({ params }) {
