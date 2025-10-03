@@ -5,10 +5,8 @@ import UserPhoto from './component/UserPhoto';
 
 const profile = async () => {
     const data = await getServerSession(authOptions);
-    console.log(data);
-    const res = await fetch(`http://localhost:3000/api/allUsers/${data?.user?.email}`,{cache: "force-cache"});
+    const res = await fetch(`https://tour-management-system-team-ultimat-lovat.vercel.app/api/allUsers/${data?.user?.email}`,{cache: "force-cache"});
     const resultUser = await res.json();
-    console.log(resultUser)
     
     return (
         <div className="bg-gray-100">

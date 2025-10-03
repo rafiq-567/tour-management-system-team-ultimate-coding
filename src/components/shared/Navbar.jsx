@@ -4,8 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Sun,
-  Moon,
   Menu,
   X,
   Home,
@@ -17,14 +15,12 @@ import {
   Package2Icon,
 } from "lucide-react";
 
-import LoginButton from "@/app/components/loginButton/LoginButton";
 import PackagesDropdown from "../utilities/PackagesDropdown";
 import { useSession } from "next-auth/react";
 import LogoutButton from "@/app/login/compnents/LogoutButton";
-import TourPackegPage from "@/app/TourPackeg/page";
-import TourpackegForm from "../tourpackegpost/form/TourpackegForm";
+import ThemeControl from "../themeControl/ThemeControl";
 
-const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
+const Navbar = () => {
   const session = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [packagesOpen, setPackagesOpen] = useState(false);
@@ -189,25 +185,17 @@ const Navbar = ({ isDarkMode, onToggleDarkMode }) => {
           </li>
 
           <li>
-            <button
-              onClick={onToggleDarkMode}
-              className="p-2 rounded-full text-gray-800 dark:text-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label="Toggle dark mode"
-            >
-              {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
-            </button>
+
+            {/* theme handler desktop */}
+            <ThemeControl />
           </li>
         </ul>
 
         {/* Mobile Buttons */}
         <div className="md:hidden flex items-center space-x-2">
-          <button
-            onClick={onToggleDarkMode}
-            className="p-2 rounded-full text-gray-800 dark:text-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            aria-label="Toggle dark mode"
-          >
-            {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
-          </button>
+
+          {/* theme handle mobile */}
+          <ThemeControl />
 
           <button
             onClick={() => setIsOpen(!isOpen)}
