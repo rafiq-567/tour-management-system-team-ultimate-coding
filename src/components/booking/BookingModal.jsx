@@ -9,12 +9,18 @@ const MySwal = withReactContent(Swal);
 
 export default function BookingModal({ tour, onClose }) {
   const { data: session } = useSession();
-  const [guests, setGuests] = useState(1);
+  const [formData, setFormData] = useState({
+    guests: 1,
+    startDate: "",
+    endDate: "",
+    from: "",
+    to: "",
+  });
   const [loading, setLoading] = useState(false);
-  const [bookingStatus, setBookingStatus] = useState(null); // pending / approved / paid
+  const [bookingStatus, setBookingStatus] = useState(null);
   const [bookingExists, setBookingExists] = useState(false);
 
-  // Check if user already booked this tour
+  // Check if booking already exists
   useEffect(() => {
     const checkBooking = async () => {
       if (!session?.user?.id) return;
@@ -25,8 +31,15 @@ export default function BookingModal({ tour, onClose }) {
         const data = await res.json();
         if (res.ok && data.length > 0) {
           setBookingExists(true);
-          setBookingStatus(data[0].status); // pending / approved / paid
-          setGuests(data[0].guests);
+          setBookingStatus(data[0].status);
+          setFormData((prev) => ({
+            ...prev,
+            guests: data[0].guests,
+            startDate: data[0].startDate || "",
+            endDate: data[0].endDate || "",
+            from: data[0].from || "",
+            to: data[0].to || "",
+          }));
         }
       } catch (err) {
         console.error("Check booking error:", err);
@@ -35,6 +48,13 @@ export default function BookingModal({ tour, onClose }) {
     checkBooking();
   }, [session, tour._id]);
 
+  // Handle form changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Submit booking
   const handleBooking = async () => {
     if (!session?.user?.id) {
       return MySwal.fire({
@@ -44,7 +64,7 @@ export default function BookingModal({ tour, onClose }) {
       });
     }
 
-    if (!guests || guests < 1) {
+    if (!formData.guests || formData.guests < 1) {
       return MySwal.fire({
         icon: "warning",
         title: "Invalid Guests",
@@ -63,8 +83,12 @@ export default function BookingModal({ tour, onClose }) {
           userId: session.user.id,
           name: session.user.name,
           email: session.user.email,
-          guests,
-          status: "pending",
+          guests: formData.guests,
+          amount: tour.price * formData.guests,
+          startDate: formData.startDate,
+          endDate: formData.endDate,
+          from: formData.from,
+          to: formData.to,
         }),
       });
 
@@ -130,7 +154,7 @@ export default function BookingModal({ tour, onClose }) {
         </p>
 
         {/* Booking Form / Status */}
-        {!bookingExists && (
+        {!bookingExists ? (
           <div className="flex flex-col gap-4">
             <input
               type="text"
@@ -144,14 +168,58 @@ export default function BookingModal({ tour, onClose }) {
               disabled
               className="border px-4 py-2 rounded-lg w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
             />
+
             <input
               type="number"
-              value={guests}
+              name="guests"
+              value={formData.guests}
               min={1}
-              onChange={(e) => setGuests(Number(e.target.value))}
+              onChange={handleChange}
               className="border px-4 py-2 rounded-lg w-full"
               placeholder="Number of Guests"
             />
+
+            {/* Tour Details */}
+            <h3 className="font-semibold text-lg">Tour Details</h3>
+            <div className="flex gap-2">
+              <input
+                type="date"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleChange}
+                className="w-1/2 border p-2 rounded"
+              />
+              <input
+                type="date"
+                name="endDate"
+                value={formData.endDate}
+                onChange={handleChange}
+                className="w-1/2 border p-2 rounded"
+              />
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                name="from"
+                placeholder="From"
+                value={formData.from}
+                onChange={handleChange}
+                className="w-1/2 border p-2 rounded"
+              />
+              <input
+                type="text"
+                name="to"
+                placeholder="To"
+                value={formData.to}
+                onChange={handleChange}
+                className="w-1/2 border p-2 rounded"
+              />
+            </div>
+
+            <p className="font-semibold">
+              Total Price: ${(tour?.price * formData.guests).toFixed(2)}
+            </p>
+
             <button
               onClick={handleBooking}
               disabled={loading}
@@ -160,9 +228,7 @@ export default function BookingModal({ tour, onClose }) {
               {loading ? "Booking..." : "Book Now"}
             </button>
           </div>
-        )}
-
-        {bookingExists && (
+        ) : (
           <div className="mt-4 text-center">
             <p className="text-gray-700 dark:text-gray-200 font-semibold mb-2">
               Booking Status:{" "}

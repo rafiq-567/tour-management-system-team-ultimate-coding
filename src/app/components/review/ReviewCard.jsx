@@ -1,23 +1,22 @@
+import Image from "next/image";
+
 export function ReviewCard({ review }) {
   return (
-    <div className="flex gap-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
-      <img
-        src={review.user?.profileImg || "/default-avatar.png"}
-        alt={review.user?.name}
-        className="w-12 h-12 rounded-full object-cover"
-      />
-      <div className="flex-1">
-        <div className="flex justify-between items-center">
-          <h4 className="font-semibold text-gray-900 dark:text-gray-100">
-            {review.user?.name}
-          </h4>
-          <span className="text-yellow-500 font-bold">{review.rating} ★</span>
+    <div className="bg-gray-50 p-4 rounded-xl shadow-sm">
+      <div className="flex items-center gap-3 mb-2">
+        <Image
+          src={review.image || "/default-avatar.png"}
+          alt={review.name || "User"}
+          width={40}
+          height={40}
+          className="rounded-full border"
+        />
+        <div>
+          <p className="font-semibold">{review.name || "Anonymous"}</p>
+          <p className="text-yellow-500 text-sm">{"★".repeat(review.rating)}</p>
         </div>
-        <p className="text-gray-600 dark:text-gray-300 mt-1">{review.message}</p>
-        <p className="text-xs text-gray-400 mt-1">
-          {new Date(review.createdAt).toLocaleDateString()}
-        </p>
       </div>
+      <p className="text-gray-700">{review.message}</p>
     </div>
   );
 }

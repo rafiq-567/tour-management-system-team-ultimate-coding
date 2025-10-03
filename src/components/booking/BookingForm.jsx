@@ -14,11 +14,7 @@
 //     to: "",
 //     hotelType: "VIP",
 //     rooms: 1,
-//     food: { breakfast: false, lunch: false, dinner: false },
-//     transport: { vehicleType: "", pickupService: false },
-//     tourGuide: false,
-//     specialRequests: "",
-//     paymentMethod: "bKash"
+
 //   });
 
 //   const handleChange = (e) => {
@@ -141,7 +137,7 @@
 //       </div>
 
 //       {/* Hotel */}
-//       <h3 className="font-semibold text-lg">Accommodation</h3>
+//      <h3 className="font-semibold text-lg">Accommodation</h3>
 //       <select
 //         name="hotelType"
 //         value={formData.hotelType}
@@ -162,77 +158,10 @@
 //         min="1"
 //       />
 
-//       {/* Food */}
-//       <h3 className="font-semibold text-lg">Food Package</h3>
-//       {["breakfast", "lunch", "dinner"].map((meal) => (
-//         <label key={meal} className="block">
-//           <input
-//             type="checkbox"
-//             name={`food.${meal}`}
-//             checked={formData.food[meal]}
-//             onChange={handleChange}
-//           />{" "}
-//           {meal.charAt(0).toUpperCase() + meal.slice(1)}
-//         </label>
-//       ))}
 
-//       {/* Transport */}
-//       <h3 className="font-semibold text-lg">Transport</h3>
-//       <select
-//         name="transport.vehicleType"
-//         value={formData.transport.vehicleType}
-//         onChange={handleChange}
-//         className="w-full border p-2 rounded"
-//       >
-//         <option value="">Select Vehicle</option>
-//         <option value="Bus">Bus</option>
-//         <option value="Car">Car</option>
-//         <option value="Microbus">Microbus</option>
-//         <option value="Boat">Boat</option>
-//       </select>
-//       <label className="block">
-//         <input
-//           type="checkbox"
-//           name="transport.pickupService"
-//           checked={formData.transport.pickupService}
-//           onChange={handleChange}
-//         />{" "}
-//         Pickup Service
-//       </label>
 
-//       {/* Extra Options */}
-//       <h3 className="font-semibold text-lg">Extra Options</h3>
-//       <label className="block">
-//         <input
-//           type="checkbox"
-//           name="tourGuide"
-//           checked={formData.tourGuide}
-//           onChange={handleChange}
-//         />{" "}
-//         Need Tour Guide
-//       </label>
-//       <textarea
-//         name="specialRequests"
-//         placeholder="Special Requests..."
-//         value={formData.specialRequests}
-//         onChange={handleChange}
-//         className="w-full border p-2 rounded mt-2"
-//       />
 
-//       {/* Payment */}
-//       <h3 className="font-semibold text-lg">Payment</h3>
-//       <select
-//         name="paymentMethod"
-//         value={formData.paymentMethod}
-//         onChange={handleChange}
-//         className="w-full border p-2 rounded"
-//       >
-//         <option value="bKash">bKash</option>
-//         <option value="Nagad">Nagad</option>
-//         <option value="Rocket">Rocket</option>
-//         <option value="Credit Card">Credit Card</option>
-//         <option value="Cash">Cash on Spot</option>
-//       </select>
+
 
 //       {/* Submit */}
 //       <button
