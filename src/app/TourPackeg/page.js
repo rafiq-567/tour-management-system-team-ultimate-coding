@@ -19,7 +19,7 @@ const TourPackegPage = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3000/tourData.json"
+          "https://tour-management-system-team-ultimat-lovat.vercel.app/tourData.json"
         );
         const data = await res.json();
         setTours(data);
