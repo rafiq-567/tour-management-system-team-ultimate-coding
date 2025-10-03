@@ -12,11 +12,11 @@ export function ReviewCard({ review }) {
           className="rounded-full border"
         />
         <div>
-          <p className="font-semibold">{review.name || "Anonymous"}</p>
-          <p className="text-yellow-500 text-sm">{"★".repeat(review.rating)}</p>
+          <p className="font-semibold">{review?.name || "Anonymous"}</p>
+          <p className="text-yellow-500 text-sm">{"★".repeat(review?.rating)}</p>
         </div>
       </div>
-      <p className="text-gray-700">{review.message}</p>
+      <p className="text-gray-700">{review?.message}</p>
     </div>
   );
 }

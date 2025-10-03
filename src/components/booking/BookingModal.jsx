@@ -14,13 +14,12 @@ export default function BookingModal({ tour, onClose }) {
     startDate: "",
     endDate: "",
     from: "",
-    to: "",
+    to: tour?.title || "",
   });
   const [loading, setLoading] = useState(false);
   const [bookingStatus, setBookingStatus] = useState(null);
   const [bookingExists, setBookingExists] = useState(false);
 
-  // Check if booking already exists
   useEffect(() => {
     const checkBooking = async () => {
       if (!session?.user?.id) return;
@@ -32,14 +31,13 @@ export default function BookingModal({ tour, onClose }) {
         if (res.ok && data.length > 0) {
           setBookingExists(true);
           setBookingStatus(data[0].status);
-          setFormData((prev) => ({
-            ...prev,
+          setFormData({
             guests: data[0].guests,
             startDate: data[0].startDate || "",
             endDate: data[0].endDate || "",
             from: data[0].from || "",
-            to: data[0].to || "",
-          }));
+            to: data[0].to || tour.title,
+          });
         }
       } catch (err) {
         console.error("Check booking error:", err);
@@ -48,13 +46,11 @@ export default function BookingModal({ tour, onClose }) {
     checkBooking();
   }, [session, tour._id]);
 
-  // Handle form changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Submit booking
   const handleBooking = async () => {
     if (!session?.user?.id) {
       return MySwal.fire({
@@ -84,7 +80,9 @@ export default function BookingModal({ tour, onClose }) {
           name: session.user.name,
           email: session.user.email,
           guests: formData.guests,
-          amount: tour.price * formData.guests,
+          tourName: tour.title,
+          price: tour.price,
+          totalPrice: tour.price * formData.guests,
           startDate: formData.startDate,
           endDate: formData.endDate,
           from: formData.from,
@@ -142,7 +140,6 @@ export default function BookingModal({ tour, onClose }) {
           &times;
         </button>
 
-        {/* Tour Info */}
         <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
           {tour?.title}
         </h2>
@@ -150,10 +147,9 @@ export default function BookingModal({ tour, onClose }) {
           {tour?.description}
         </p>
         <p className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-4">
-          Price: ${tour?.price}
+          Price per guest: ${tour?.price}
         </p>
 
-        {/* Booking Form / Status */}
         {!bookingExists ? (
           <div className="flex flex-col gap-4">
             <input
@@ -168,7 +164,6 @@ export default function BookingModal({ tour, onClose }) {
               disabled
               className="border px-4 py-2 rounded-lg w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
             />
-
             <input
               type="number"
               name="guests"
@@ -176,10 +171,7 @@ export default function BookingModal({ tour, onClose }) {
               min={1}
               onChange={handleChange}
               className="border px-4 py-2 rounded-lg w-full"
-              placeholder="Number of Guests"
             />
-
-            {/* Tour Details */}
             <h3 className="font-semibold text-lg">Tour Details</h3>
             <div className="flex gap-2">
               <input
@@ -215,11 +207,9 @@ export default function BookingModal({ tour, onClose }) {
                 className="w-1/2 border p-2 rounded"
               />
             </div>
-
             <p className="font-semibold">
-              Total Price: ${(tour?.price * formData.guests).toFixed(2)}
+              Total Price: ${tour?.price * formData.guests}
             </p>
-
             <button
               onClick={handleBooking}
               disabled={loading}
@@ -244,7 +234,6 @@ export default function BookingModal({ tour, onClose }) {
                 {bookingStatus}
               </span>
             </p>
-
             {bookingStatus === "approved" && (
               <button
                 onClick={handlePayment}

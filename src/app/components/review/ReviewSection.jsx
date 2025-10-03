@@ -49,8 +49,8 @@ export default function ReviewSection({ tourId }) {
         body: JSON.stringify({
           tourId,
           userId: session.user.id, // ✅ from NextAuth session
-          name: session.user.name,
-          image: session.user.image,
+          name: session.user?.name,
+          image: session.user?.image,
           message,
           rating,
         }),
@@ -83,13 +83,13 @@ export default function ReviewSection({ tourId }) {
           {/* Logged in user info */}
           <div className="flex items-center gap-3">
             <Image
-              src={session.user.image || "/default-avatar.png"}
-              alt={session.user.name || "User"}
+              src={session.user?.image || "/default-avatar.png"}
+              alt={session.user?.name || "User"}
               width={40}
               height={40}
               className="rounded-full border"
             />
-            <p className="font-medium">{session.user.name}</p>
+            <p className="font-medium">{session.user?.name}</p>
           </div>
 
           {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
