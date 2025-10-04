@@ -1,25 +1,157 @@
-const tours = {
-  1: { title: "Cox's Bazar Beach Tour", price: "$120", description: "Enjoy the world's longest sea beach with fun activities.", image: "https://picsum.photos/800/400?1" },
-  2: { title: "Sundarbans Adventure", price: "$250", description: "Explore the home of the Royal Bengal Tiger and mangrove forests.", image: "https://picsum.photos/800/400?2" },
-  3: { title: "Saint Martin Island Escape", price: "$180", description: "Relax on the island paradise with crystal clear waters.", image: "https://picsum.photos/800/400?3" },
-};
+"use client";
 
-export default function TourDetailsPage({ params }) {
-  const tour = tours[params.id];
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import BookingModal from "@/components/booking/BookingModal";
+import ReviewSection from "@/app/components/review/ReviewSection";
 
-  if (!tour) {
-    return <p className="p-6">Tour not found.</p>;
-  }
+export default function TourDetailsPage() {
+  const { id } = useParams();
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+
+  const [tour, setTour] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [userBooking, setUserBooking] = useState(null);
+
+  // Fetch tour details
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchTour = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/tour-packages/${id}`);
+        const data = await res.json();
+        if (res.ok) {
+          setTour(data);
+          setError("");
+        } else {
+          setError(data.error || "Package not found");
+        }
+      } catch (err) {
+        setError("Failed to fetch package");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTour();
+  }, [id]);
+
+  // Fetch user booking for this tour
+  useEffect(() => {
+    if (!id || !userId) return;
+
+    const fetchBooking = async () => {
+      try {
+        const res = await fetch(`/api/bookings?userId=${userId}&tourId=${id}`);
+        const data = await res.json();
+        if (res.ok && data.length > 0) {
+          setUserBooking(data[0]); // take first booking
+        } else {
+          setUserBooking(null);
+        }
+      } catch (err) {
+        console.error("Booking fetch error:", err);
+      }
+    };
+
+    fetchBooking();
+  }, [id, userId]);
+
+  if (loading) return <p className="text-center p-6">Loading...</p>;
+  if (error) return <p className="text-center p-6 text-red-500">{error}</p>;
 
   return (
-    <main className="p-6">
-      <img src={tour.image} alt={tour.title} className="w-full h-96 object-cover rounded-lg mb-6" />
-      <h1 className="text-3xl font-bold mb-2">{tour.title}</h1>
-      <p className="text-lg text-gray-700 mb-4">{tour.description}</p>
-      <p className="text-xl font-semibold mb-6">Price: {tour.price}</p>
-      <button className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">
-        Book Now
-      </button>
-    </main>
+    <div className="max-w-5xl mx-auto my-8 p-4 sm:p-6">
+      {/* Tour Image */}
+      <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-lg">
+        <Image
+          src={tour.image}
+          alt={tour.title}
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      {/* Tour Info */}
+      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 mt-6">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          {tour.title}
+        </h1>
+        <p className="text-gray-600 dark:text-gray-300 mt-3">
+          {tour.description}
+        </p>
+        <p className="text-sm text-gray-500 mt-2">Duration: {tour.duration}</p>
+
+        <div className="mt-4">
+          <h3 className="font-semibold text-gray-800 dark:text-gray-100">
+            Included Activities:
+          </h3>
+          <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mt-2">
+            {tour.activities?.map((activity, i) => (
+              <li key={i}>{activity}</li>
+            ))}
+          </ul>
+        </div>
+
+        <p className="text-2xl font-semibold text-blue-600 dark:text-blue-400 mt-4">
+          ${tour.price}
+        </p>
+
+        {/* Booking Button Logic */}
+        {userBooking ? (
+          userBooking.status === "pending" ? (
+            <button
+              disabled
+              className="mt-6 w-full bg-yellow-500 text-white font-semibold py-3 rounded-xl shadow-md cursor-not-allowed"
+            >
+              Pending Approval
+            </button>
+          ) : userBooking.status === "approved" ? (
+            <button
+              onClick={() => alert("Redirect to payment page")}
+              className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-md"
+            >
+              Pay Now
+            </button>
+          ) : (
+            <button
+              disabled
+              className="mt-6 w-full bg-gray-400 text-white font-semibold py-3 rounded-xl shadow-md cursor-not-allowed"
+            >
+              {userBooking.status}
+            </button>
+          )
+        ) : (
+          <button
+            onClick={() => setShowModal(true)}
+            className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl shadow-md"
+          >
+            Book Now
+          </button>
+        )}
+
+        {/* Booking Modal */}
+        {showModal && (
+          <BookingModal
+            tour={tour}
+            tourId={tour._id}
+            userId={userId}
+            onClose={() => setShowModal(false)}
+          />
+        )}
+      </div>
+
+      {/* Reviews */}
+      <div className="mt-8">
+        <ReviewSection tourId={id} userId={userId} />
+      </div>
+    </div>
   );
 }

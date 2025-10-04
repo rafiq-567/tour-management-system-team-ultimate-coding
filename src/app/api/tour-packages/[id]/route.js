@@ -23,7 +23,6 @@ export async function GET(req) {
 }
 
 
-
 // Same applies for PUT & DELETE
 export async function PUT(req, { params }) {
   const { id } = params;

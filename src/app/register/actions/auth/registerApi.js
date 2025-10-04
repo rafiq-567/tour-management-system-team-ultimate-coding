@@ -5,7 +5,7 @@ import React from 'react';
 const registerApi = async (payload) => {
 
     // user validation
-    const userData = await dbConnect("user").findOne({username: payload.username});
+    const userData = await dbConnect("user").findOne({email: payload.email});
     
     if (userData) {
         return null;
@@ -13,7 +13,8 @@ const registerApi = async (payload) => {
 
     try {
         const result = await dbConnect("user").insertOne(payload);
-        return result;
+        result.insertedId = result.insertedId.toString();
+        return JSON.stringify(result);
     } catch (error) {
         console.log(error);
         return null;

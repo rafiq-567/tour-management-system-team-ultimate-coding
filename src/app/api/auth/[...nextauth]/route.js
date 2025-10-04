@@ -1,7 +1,8 @@
 import dbConnect from "@/lib/dbConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -15,46 +16,106 @@ export const authOptions = {
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         //username: { label: "Username", type: "text", placeholder: "jsmith" },
-        username: { label: "Username", type: "text", placeholder: "Enter your username" },
-        password: { label: "Password", type: "password" }
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "Enter your username",
+        },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
+        // console.log(credentials);
         // Add logic here to look up the user from the credentials supplied
-        const user = await dbConnect("user").findOne({ username: credentials.username });
-        console.log(user)
+        const user = await dbConnect("user").findOne({
+          email: credentials.email,
+        });
+        // console.log(user)
 
-        const isPasswordOk = credentials.password === user.password;
+        const isPasswordOk = credentials.password === user?.password;
 
         if (isPasswordOk) {
           // Any object returned will be saved in `user` property of the JWT
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
-          return null
+          return null;
 
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
-      }
-    })
+      },
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
   ],
+  pages: {
+    signIn: "/login",
+  },
   callbacks: {
-        async session({ session, token, user }) {
-            if (token) {
-                session.user.username = token.username
-                session.user.role = token.role
-            }
-            return session
-        },
-        async jwt({ token, user, account, profile, isNewUser }) {
-            if (user) {
-                token.username = user.username
-                token.role = user.role
-            }
-            return token
+    async signIn({ user, account }) {
+      if (account) {
+        try {
+          const { providerAccountId, provider } = account;
+          const { email: user_email, name, image } = user;
+
+          const usersCollection = await dbConnect("user");
+          let existingUser = await usersCollection.findOne({
+            email: user_email,
+          });
+
+          if (!existingUser) {
+            const result = await usersCollection.insertOne({
+              provider,
+              providerAccountId,
+              email: user_email,
+              name,
+              image,
+              role: "user",
+              createdAt: new Date(),
+            });
+            existingUser = {
+              _id: result.insertedId,
+              email: user_email,
+              name,
+              role: "user",
+            };
+          }
+
+          // return user object with Mongo _id
+          return { ...existingUser, id: existingUser._id.toString() };
+        } catch (error) {
+          console.log("signIn error:", error);
+          return false;
         }
-    }
+      }
+      return true;
+    },
+
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id || user._id?.toString();
+        token.name = user.name;
+        token.role = user.role || "user";
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.role = token.role;
+      }
+      return session;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };

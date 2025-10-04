@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Search } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   const [destination, setDestination] = useState("");
@@ -11,6 +12,21 @@ const Hero = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log("Searching for:", { destination, date, people });
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -100 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
   return (
@@ -25,19 +41,31 @@ const Hero = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-3 drop-shadow-lg">
+      {/* Content with Framer Motion */}
+      <motion.div
+        className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
+        <motion.h2
+          className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-3 drop-shadow-lg"
+          variants={itemVariants}
+        >
           Discover Your Next Adventure
-        </h2>
-        <p className="text-sm sm:text-lg lg:text-xl font-light max-w-2xl mx-auto opacity-90 drop-shadow-md">
+        </motion.h2>
+        <motion.p
+          className="text-sm sm:text-lg lg:text-xl font-light max-w-2xl mx-auto opacity-90 drop-shadow-md"
+          variants={itemVariants}
+        >
           Plan trips, book tours, explore destinations easily
-        </p>
+        </motion.p>
 
         {/* Search Bar */}
-        <form
+        <motion.form
           onSubmit={handleSearch}
           className="mt-8 w-full max-w-4xl px-2 sm:px-6"
+          variants={itemVariants}
         >
           <div className="bg-white/95 rounded-2xl sm:rounded-full p-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shadow-lg">
             <input
@@ -69,8 +97,8 @@ const Hero = () => {
               Search
             </button>
           </div>
-        </form>
-      </div>
+        </motion.form>
+      </motion.div>
     </div>
   );
 };

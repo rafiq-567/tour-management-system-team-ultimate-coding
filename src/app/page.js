@@ -8,6 +8,10 @@ import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
 import LoginButton from "./components/loginButton/LoginButton";
 import FAQ from "@/components/shared/FAQ";
+import HomepageDiscounts from "@/components/Home/HomepageDiscounts";
+import CheckoutButton from "./components/CheckoutButton";
+import TravelBlogSection from "@/components/Home/TravelBlogSection";
+import PromoSlider from "@/components/utilities/PromoSlider";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -16,13 +20,17 @@ export default async function Home() {
   return (
     <> 
       <div>
-        <p>push kora problem</p>
-        <LoginButton />
-        <Link href="/register">
-          <button className='bg-black text-white px-3 py-2 rounded-xl ml-2'>
-            register
-          </button>
-        </Link>
+        
+        {/* <Hero></Hero> */}
+        <PromoSlider></PromoSlider>
+        <PopularDestinations></PopularDestinations>
+        <HomepageDiscounts></HomepageDiscounts>
+        <WhyChooseUs></WhyChooseUs>
+        <TravelersSay></TravelersSay>
+        <TravelBlogSection></TravelBlogSection>
+        <FAQ> </FAQ>
+        <TravellerForm></TravellerForm>
+         <CheckoutButton orderId="ORDER123" amount={500} />
       </div>
 
       <Hero />
