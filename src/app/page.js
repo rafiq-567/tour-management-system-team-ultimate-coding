@@ -8,6 +8,7 @@ import TravelersSay from "@/components/shared/TravelersSay";
 import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
 import HomepageDiscounts from "@/components/Home/HomepageDiscounts";
+import CheckoutButton from "./components/CheckoutButton";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -22,6 +23,7 @@ export default async function Home() {
         <TravelersSay></TravelersSay>
         <FAQ> </FAQ>
         <TravellerForm></TravellerForm>
+         <CheckoutButton orderId="ORDER123" amount={500} />
       </div>
     </div>
   );
