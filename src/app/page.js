@@ -9,6 +9,8 @@ import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
 import HomepageDiscounts from "@/components/Home/HomepageDiscounts";
 import CheckoutButton from "./components/CheckoutButton";
+import TravelBlogSection from "@/components/Home/TravelBlogSection";
+import PromoSlider from "@/components/utilities/PromoSlider";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -16,11 +18,14 @@ export default async function Home() {
   return (
     <div>
       <div>
-        <Hero></Hero>
+        
+        {/* <Hero></Hero> */}
+        <PromoSlider></PromoSlider>
         <PopularDestinations></PopularDestinations>
         <HomepageDiscounts></HomepageDiscounts>
         <WhyChooseUs></WhyChooseUs>
         <TravelersSay></TravelersSay>
+        <TravelBlogSection></TravelBlogSection>
         <FAQ> </FAQ>
         <TravellerForm></TravellerForm>
          <CheckoutButton orderId="ORDER123" amount={500} />

@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation"; 
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-
 import {
   Home,
   Users,
@@ -19,7 +18,6 @@ import {
   PlaneIcon,
 } from "lucide-react";
 
-// Helper function for conditional class names
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 
 const menuItems = [
@@ -27,13 +25,12 @@ const menuItems = [
   { name: "Users", icon: Users, href: "/dashboard/admin/users" },
   { name: "Tours", icon: Plane, href: "/dashboard/admin/add/tours" },
   { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all" },
- { name:"Discounts", icon: CreditCard, href:"/dashboard/admin/discounts"},
+  { name: "Discounts", icon: CreditCard, href: "/dashboard/admin/discounts" },
   { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings" },
   { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
   { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics" },
   { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },
   { name: "Profile", icon: Users, href: "/dashboard/user/profile" },
-  // user sample
   { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings" },
   { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist" },
   { name: "Support", icon: Settings, href: "/dashboard/user/support" },
@@ -41,17 +38,16 @@ const menuItems = [
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
-  const currentPath = usePathname(); // ✅ Get current path dynamically
+  const currentPath = usePathname();
 
   return (
-    <div>
-      {/* Mobile Navbar with toggle button */}
+    <>
+      {/* Mobile Topbar */}
       <div className="md:hidden flex justify-between items-center p-4 bg-white dark:bg-gray-800 border-b dark:border-gray-700 shadow-sm">
-        <div className="font-bold text-xl text-blue-500">TourMS</div>
+        <div className="font-bold text-xl text-blue-600">TourMS</div>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-gray-700 dark:text-gray-300"
-          aria-label="Toggle menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -74,7 +70,6 @@ export default function Sidebar() {
         <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
           {menuItems.map((item) => {
             const isActive = currentPath === item.href;
-
             return (
               <Link
                 key={item.name}
@@ -86,7 +81,7 @@ export default function Sidebar() {
                     ? "bg-blue-600 text-white shadow-lg font-semibold hover:bg-blue-700"
                     : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                 )}
-                onClick={() => setIsOpen(false)} // close menu on mobile
+                onClick={() => setIsOpen(false)}
               >
                 <item.icon
                   className={cn(
@@ -112,10 +107,10 @@ export default function Sidebar() {
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-30 z-40 md:hidden"
+          className="fixed inset-0 bg-black opacity-40 z-40 md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
-    </div>
+    </>
   );
 }
