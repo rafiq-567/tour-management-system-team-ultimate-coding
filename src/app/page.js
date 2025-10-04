@@ -6,7 +6,6 @@ import PopularDestinations from "@/components/shared/PopularDestinations";
 import TravelersSay from "@/components/shared/TravelersSay";
 import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
-import LoginButton from "./components/loginButton/LoginButton";
 import FAQ from "@/components/shared/FAQ";
 import HomepageDiscounts from "@/components/Home/HomepageDiscounts";
 import CheckoutButton from "./components/CheckoutButton";
