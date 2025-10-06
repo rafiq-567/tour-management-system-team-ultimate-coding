@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { XCircle, CheckCircle, Loader2 } from "lucide-react";
 import registerApi from "../actions/auth/registerApi";
 import Swal from "sweetalert2";
 import LoadingSpinner from "./LoadingSpinner";
