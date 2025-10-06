@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { MapPin, Calendar, DollarSign, Plane } from "lucide-react";
 
 export default function TourList() {
   const [tours, setTours] = useState([]);
@@ -22,26 +24,26 @@ export default function TourList() {
   }, [search, sort, page]);
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
       {/* Search + Filter */}
-      <div className="flex flex-col md:flex-row gap-4 mb-6 items-center">
+      <div className="flex flex-col md:flex-row gap-4 mb-10 items-center justify-between">
         <input
           type="text"
-          placeholder="Search by title..."
+          placeholder="🔍 Search tour by title..."
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
-            setPage(1); // reset page when searching
+            setPage(1);
           }}
-          className="border px-4 py-2 rounded-lg w-full md:w-1/2 shadow-sm focus:ring-2 focus:ring-blue-400"
+          className="border border-gray-300 bg-white/70 backdrop-blur-md px-4 py-3 rounded-xl w-full md:w-1/2 shadow-sm focus:ring-2 focus:ring-blue-400"
         />
         <select
           value={sort}
           onChange={(e) => {
             setSort(e.target.value);
-            setPage(1); // reset page when sorting
+            setPage(1);
           }}
-          className="border px-4 py-2 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-400"
+          className="border border-gray-300 bg-white/70 backdrop-blur-md px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400"
         >
           <option value="all">All</option>
           <option value="latest">Latest</option>
@@ -50,53 +52,69 @@ export default function TourList() {
       </div>
 
       {/* Tour Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {tours.map((tour) => (
-          <div
+          <motion.div
             key={tour._id}
-            className="bg-white shadow-md rounded-xl overflow-hidden border hover:shadow-lg transition-shadow duration-300 flex flex-col"
+            whileHover={{ scale: 1.04 }}
+            transition={{ type: "spring", stiffness: 200 }}
+            className="bg-white/60 backdrop-blur-xl border border-gray-200 shadow-lg rounded-2xl overflow-hidden relative group"
           >
-            <img
-              src={tour.image}
-              alt={tour.title}
-              className="h-48 w-full object-cover"
-            />
-            <div className="p-4 flex-1 flex flex-col justify-between">
+            {/* Image */}
+            <div className="relative">
+              <img
+                src={tour.image}
+                alt={tour.title}
+                className="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute top-3 left-3 bg-white/80 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full shadow-sm flex items-center gap-1">
+                <Plane className="w-3 h-3" /> {tour.duration || "3 Days"}
+              </div>
+            </div>
+
+            {/* Card Content */}
+            <div className="p-5 flex flex-col justify-between min-h-[220px]">
               <div>
-                <h2 className="text-lg font-bold text-gray-800">{tour.title}</h2>
+                <h2 className="text-xl font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">
+                  {tour.title}
+                </h2>
                 <p className="text-sm text-gray-600 line-clamp-2">
                   {tour.description}
                 </p>
-                <p className="font-semibold text-blue-600 mt-2">
-                  ${tour.price}
-                </p>
-                <p className="text-sm text-gray-500">{tour.duration}</p>
-                <ul className="text-xs mt-2 text-gray-500 list-disc pl-4">
-                  {tour.activities?.map((a, i) => (
-                    <li key={i}>{a}</li>
-                  ))}
-                </ul>
+
+                <div className="mt-3 flex items-center text-gray-500 text-sm gap-2">
+                  <MapPin className="w-4 h-4 text-blue-500" />
+                  {tour.location || "Unknown Destination"}
+                </div>
+
+                <div className="mt-1 flex items-center text-gray-500 text-sm gap-2">
+                  <Calendar className="w-4 h-4 text-blue-500" />
+                  {tour.date || "Flexible Date"}
+                </div>
               </div>
-              {/* Details Button */}
-              <div className="mt-4">
+
+              <div className="mt-5 flex items-center justify-between">
+                <span className="text-lg font-semibold text-blue-700 flex items-center gap-1">
+                  <DollarSign className="w-5 h-5" /> {tour.price}
+                </span>
                 <Link
                   href={`/tours/${tour._id}`}
-                  className="inline-block px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-medium rounded-lg shadow hover:shadow-md hover:from-blue-700 hover:to-cyan-600 transition-all"
                 >
                   View Details
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center items-center mt-8 gap-2">
+      <div className="flex justify-center items-center mt-10 gap-2">
         <button
           disabled={page === 1}
           onClick={() => setPage((p) => p - 1)}
-          className="px-3 py-1 border rounded-lg disabled:opacity-50 hover:bg-gray-100"
+          className="px-4 py-2 border rounded-lg disabled:opacity-50 hover:bg-gray-100 transition-colors"
         >
           Prev
         </button>
@@ -104,9 +122,9 @@ export default function TourList() {
           <button
             key={i}
             onClick={() => setPage(i + 1)}
-            className={`px-3 py-1 border rounded-lg ${
+            className={`px-4 py-2 border rounded-lg ${
               page === i + 1
-                ? "bg-blue-600 text-white"
+                ? "bg-blue-600 text-white shadow"
                 : "hover:bg-gray-100"
             }`}
           >
@@ -116,7 +134,7 @@ export default function TourList() {
         <button
           disabled={page === totalPages}
           onClick={() => setPage((p) => p + 1)}
-          className="px-3 py-1 border rounded-lg disabled:opacity-50 hover:bg-gray-100"
+          className="px-4 py-2 border rounded-lg disabled:opacity-50 hover:bg-gray-100 transition-colors"
         >
           Next
         </button>
