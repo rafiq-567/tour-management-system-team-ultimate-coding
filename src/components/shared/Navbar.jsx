@@ -11,16 +11,17 @@ import {
   Package,
   Info,
   Phone,
-  LayoutDashboard,
   Package2Icon,
+  Sun,
+  Moon,
 } from "lucide-react";
 
-import PackagesDropdown from "../utilities/PackagesDropdown";
 import { useSession } from "next-auth/react";
-import LogoutButton from "@/app/login/compnents/LogoutButton";
+import PackagesDropdown from "../utilities/PackagesDropdown";
+import AuthButtons from "../Auth/AuthButtons";
+import UserProfileDropdown from "../Auth/UserProfileDropdown";
 import ThemeControl from "../themeControl/ThemeControl";
 import LinkLogo from "../userClick/LinkLogo";
-import AuthButtons from "../Auth/AuthButtons";
 
 export default function Navbar() {
   const session = useSession();
@@ -30,7 +31,7 @@ export default function Navbar() {
   const [packagesOpen, setPackagesOpen] = useState(false);
   const packagesRef = useRef(null);
 
-  // Close dropdown when clicked outside
+  // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (packagesRef.current && !packagesRef.current.contains(e.target)) {
@@ -55,26 +56,22 @@ export default function Navbar() {
   return (
     <nav className="w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        {/* --- Logo --- */}
         <LinkLogo />
 
-        {/* --- Desktop Menu --- */}
+        {/* Desktop Menu */}
         <ul className="hidden md:flex items-center space-x-6 font-medium">
           {menuItems.map((item) => (
-            <li key={item.name} ref={item.dropdown ? packagesRef : null} className="relative">
+            <li key={item.name} className="relative" ref={item.dropdown ? packagesRef : null}>
               {item.dropdown ? (
-                <>
+                <div>
                   <button
                     onClick={() => setPackagesOpen(!packagesOpen)}
-                    className="flex items-center gap-2 text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    className="flex items-center gap-2 text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-2 py-1 rounded-md"
                   >
-                    {item.icon}
-                    {item.name}
+                    {item.icon} {item.name}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`w-4 h-4 transition-transform ${
-                        packagesOpen ? "rotate-180" : "rotate-0"
-                      }`}
+                      className={`w-4 h-4 transition-transform ${packagesOpen ? "rotate-180" : "rotate-0"}`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -88,7 +85,7 @@ export default function Navbar() {
                       <PackagesDropdown />
                     </div>
                   )}
-                </>
+                </div>
               ) : (
                 <Link
                   href={item.href}
@@ -98,39 +95,32 @@ export default function Navbar() {
                       : "text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
                 >
-                  {item.icon}
-                  {item.name}
+                  {item.icon} {item.name}
                 </Link>
               )}
             </li>
           ))}
 
-          {/* Auth / Profile */}
-          {session?.data?.user ? <LogoutButton /> : <AuthButtons />}
+          {session?.data?.user ? <UserProfileDropdown session={session} /> : <AuthButtons />}
 
-          {/* Theme Toggle */}
           <li>
             <ThemeControl />
           </li>
         </ul>
 
-        {/* --- Mobile Menu Button --- */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center space-x-3">
           <ThemeControl />
           <button
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            className="focus:outline-none"
+            className="p-2 focus:outline-none text-gray-800 dark:text-gray-100"
           >
-            {isMobileMenuOpen ? (
-              <X size={28} className="text-gray-800 dark:text-gray-100" />
-            ) : (
-              <Menu size={28} className="text-gray-800 dark:text-gray-100" />
-            )}
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
-      {/* --- Mobile Menu --- */}
+      {/* Mobile Menu */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
           isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
@@ -142,10 +132,9 @@ export default function Navbar() {
               {item.dropdown ? (
                 <button
                   onClick={() => setPackagesOpen(!packagesOpen)}
-                  className="flex justify-center items-center gap-2 w-full px-5 py-2 hover:text-blue-600 dark:hover:text-blue-400"
+                  className="flex justify-center items-center gap-2 w-full px-5 py-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
-                  {item.icon}
-                  {item.name}
+                  {item.icon} {item.name}
                 </button>
               ) : (
                 <Link
@@ -156,14 +145,13 @@ export default function Navbar() {
                       : "hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
                 >
-                  {item.icon}
-                  {item.name}
+                  {item.icon} {item.name}
                 </Link>
               )}
             </li>
           ))}
 
-          {session?.data?.user ? <LogoutButton /> : <AuthButtons />}
+          {session?.data?.user ? <UserProfileDropdown session={session} isMobile /> : <AuthButtons isMobile />}
         </ul>
       </div>
     </nav>
