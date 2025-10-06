@@ -12,12 +12,19 @@ import {
   Globe,
   Star,
 } from "lucide-react";
+import LinkLogo from "../userClick/LinkLogo";
 
 const Footer = () => {
   const [travelTip, setTravelTip] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const quickLinks = ["Home", "Destinations", "Packages", "About Us", "Contact"];
+  const quickLinks = [
+    "Home",
+    "Destinations",
+    "Packages",
+    "About Us",
+    "Contact",
+  ];
   const socialLinks = [
     { name: "Facebook", icon: <Facebook size={24} /> },
     { name: "Twitter", icon: <Twitter size={24} /> },
@@ -46,10 +53,11 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-gray-300 py-12 font-sans">
       <div className="container mx-auto px-4">
-        
+        <LinkLogo></LinkLogo>
         {/* Footer Main */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {/* About */}
+
           <div>
             <h3 className="text-xl font-bold text-white mb-4">About Us</h3>
             <p className="text-sm leading-relaxed">
@@ -95,7 +103,7 @@ const Footer = () => {
             <div className="mt-6">
               <h3 className="text-xl font-bold text-white mb-2">Contact</h3>
               <p className="text-sm">Email: contact@tourmate.com</p>
-              <p className="text-sm">Phone: +1 (555) 123-4567</p>
+              <p className="text-sm">Phone: +8801743637814</p>
             </div>
           </div>
 

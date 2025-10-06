@@ -19,27 +19,21 @@ import PackagesDropdown from "../utilities/PackagesDropdown";
 import { useSession } from "next-auth/react";
 import LogoutButton from "@/app/login/compnents/LogoutButton";
 import ThemeControl from "../themeControl/ThemeControl";
+import LinkLogo from "../userClick/LinkLogo";
+import AuthButtons from "../Auth/AuthButtons";
 
-const Navbar = () => {
+export default function Navbar() {
   const session = useSession();
-  const [isOpen, setIsOpen] = useState(false);
-  const [packagesOpen, setPackagesOpen] = useState(false);
   const pathname = usePathname();
-  const dropdownRef = useRef(null);
 
-  // Close mobile menu on resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) setIsOpen(false);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [packagesOpen, setPackagesOpen] = useState(false);
+  const packagesRef = useRef(null);
 
-  // Close Packages dropdown if clicked outside
+  // Close dropdown when clicked outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (packagesRef.current && !packagesRef.current.contains(e.target)) {
         setPackagesOpen(false);
       }
     };
@@ -48,87 +42,49 @@ const Navbar = () => {
   }, []);
 
   const menuItems = [
-    { name: "Home", href: "/", icon: <Home size={18} className="mr-2" /> },
-    {
-      name: "Destinations",
-      href: "/destinations",
-      icon: <MapPin size={18} className="mr-2" />,
-    },
-    {
-      name: "Packages",
-      dropdown: true,
-      icon: <Package size={18} className="mr-2" />,
-    },
-    {
-      name: "About",
-      href: "/about",
-      icon: <Info size={18} className="mr-2" />,
-    },
-    {
-      name: "Contact",
-      href: "/contact",
-      icon: <Phone size={18} className="mr-2" />,
-    },
-    {
-      name: "Tourpackeg",
-      href: "/TourPackeg",
-      icon: <Package2Icon  size={18} className="mr-2" />,
-    },
-
-
+    { name: "Home", href: "/", icon: <Home size={18} /> },
+    { name: "Destinations", href: "/destinations", icon: <MapPin size={18} /> },
+    { name: "Packages", dropdown: true, icon: <Package size={18} /> },
+    { name: "Tour Package", href: "/tours", icon: <Package2Icon size={18} /> },
+    { name: "Contact", href: "/contact", icon: <Phone size={18} /> },
+    { name: "About", href: "/about", icon: <Info size={18} /> },
   ];
 
   const isActive = (href) => pathname === href;
 
   return (
-    <nav className="w-full bg-white dark:bg-gray-800 shadow-lg z-50 transition-colors duration-300 sticky top-0">
+    <nav className="w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="text-2xl font-bold text-blue-600 dark:text-blue-400"
-        >
-          SixTour
-        </Link>
+        {/* --- Logo --- */}
+        <LinkLogo />
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center space-x-5 font-medium">
+        {/* --- Desktop Menu --- */}
+        <ul className="hidden md:flex items-center space-x-6 font-medium">
           {menuItems.map((item) => (
-            <li
-              key={item.name}
-              className="relative"
-              ref={item.dropdown ? dropdownRef : null}
-            >
+            <li key={item.name} ref={item.dropdown ? packagesRef : null} className="relative">
               {item.dropdown ? (
                 <>
                   <button
-                    onClick={() => setPackagesOpen((prev) => !prev)}
-                    className={`flex items-center px-3 py-2 text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200`}
-                    aria-haspopup="true"
-                    aria-expanded={packagesOpen}
+                    onClick={() => setPackagesOpen(!packagesOpen)}
+                    className="flex items-center gap-2 text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
-                    {item.icon} {item.name}
+                    {item.icon}
+                    {item.name}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
+                      className={`w-4 h-4 transition-transform ${
+                        packagesOpen ? "rotate-180" : "rotate-0"
+                      }`}
                       fill="none"
+                      viewBox="0 0 24 24"
                       stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${packagesOpen ? "rotate-180" : "rotate-0"
-                        }`}
-                      aria-hidden="true"
+                      strokeWidth={2}
                     >
                       <path d="M6 9l6 6 6-6" />
                     </svg>
                   </button>
-
-                  {/* Dropdown content */}
                   {packagesOpen && (
-                    <div className="absolute left-0 mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg w-[600px] p-4 z-50">
+                    <div className="absolute left-0 mt-2 w-52 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 z-40">
                       <PackagesDropdown />
                     </div>
                   )}
@@ -136,72 +92,36 @@ const Navbar = () => {
               ) : (
                 <Link
                   href={item.href}
-                  className={`flex items-center transition ${isActive(item.href)
+                  className={`flex items-center gap-2 px-2 py-1 rounded-md transition ${
+                    isActive(item.href)
                       ? "text-blue-600 dark:text-blue-400 font-semibold"
                       : "text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400"
-                    }`}
+                  }`}
                 >
-                  {item.icon} {item.name}
+                  {item.icon}
+                  {item.name}
                 </Link>
               )}
             </li>
           ))}
 
+          {/* Auth / Profile */}
+          {session?.data?.user ? <LogoutButton /> : <AuthButtons />}
 
-          {
-            session?.data ? <LogoutButton /> :
-              <>
-                <li>
-                  <Link href='/login'>
-                    <button className='btn btn-primary rounded-xl'>
-                      LogIn
-                    </button>
-                  </Link>
-                </li>
-
-                <li>
-                  <Link href="/register">
-                    <button className="btn btn-neutral rounded-xl">
-                      register
-                    </button>
-                  </Link>
-                </li>
-              </>
-          }
-
+          {/* Theme Toggle */}
           <li>
-            <Link href="/dashboard/admin">
-              <button className="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 shadow-md transition-all duration-300 font-semibold">
-                <LayoutDashboard size={18} /> Dashboard
-              </button>
-            </Link>
-          </li>
-
-          <li>
-            <button className=" px-3 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
-              Book Now
-              </button>
-            
-          </li>
-
-          <li>
-
-            {/* theme handler desktop */}
             <ThemeControl />
           </li>
         </ul>
 
-        {/* Mobile Buttons */}
-        <div className="md:hidden flex items-center space-x-2">
-
-          {/* theme handle mobile */}
+        {/* --- Mobile Menu Button --- */}
+        <div className="md:hidden flex items-center space-x-3">
           <ThemeControl />
-
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
             className="focus:outline-none"
           >
-            {isOpen ? (
+            {isMobileMenuOpen ? (
               <X size={28} className="text-gray-800 dark:text-gray-100" />
             ) : (
               <Menu size={28} className="text-gray-800 dark:text-gray-100" />
@@ -210,103 +130,42 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* --- Mobile Menu --- */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          isOpen ? "max-h-full opacity-100" : "max-h-0 opacity-0"
+          isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <ul className="flex flex-col items-center space-y-4 py-6 text-gray-800 dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
+        <ul className="flex flex-col items-center space-y-4 py-5 text-gray-800 dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
           {menuItems.map((item) => (
-            <li
-              key={item.name}
-              className="w-full"
-              onClick={() => setIsOpen(false)}
-            >
+            <li key={item.name} className="w-full text-center">
               {item.dropdown ? (
-                <div>
-                  <button
-                    onClick={() => setPackagesOpen((prev) => !prev)}
-                    className="flex items-center w-full px-5 py-2 text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-                  >
-                    {item.icon} {item.name}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${packagesOpen ? "rotate-180" : "rotate-0"
-                        }`}
-                      aria-hidden="true"
-                    >
-                      <path d="M6 9l6 6 6-6" />
-                    </svg>
-                  </button>
-                  {packagesOpen && (
-                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mt-2 w-full">
-                      <PackagesDropdown />
-                    </div>
-                  )}
-                </div>
+                <button
+                  onClick={() => setPackagesOpen(!packagesOpen)}
+                  className="flex justify-center items-center gap-2 w-full px-5 py-2 hover:text-blue-600 dark:hover:text-blue-400"
+                >
+                  {item.icon}
+                  {item.name}
+                </button>
               ) : (
                 <Link
                   href={item.href}
-                  className={`flex items-center px-5 py-2 w-full transition ${isActive(item.href)
+                  className={`flex justify-center items-center gap-2 w-full px-5 py-2 transition ${
+                    isActive(item.href)
                       ? "text-blue-600 dark:text-blue-400 font-semibold"
                       : "hover:text-blue-600 dark:hover:text-blue-400"
-                    }`}
+                  }`}
                 >
-                  {item.icon} {item.name}
+                  {item.icon}
+                  {item.name}
                 </Link>
               )}
             </li>
           ))}
 
-
-          {
-            session?.data ? <LogoutButton /> :
-              <>
-                <li>
-                  <Link href='/login'>
-                    <button className='btn btn-primary rounded-xl'>
-                      LogIn
-                    </button>
-                  </Link>
-                </li>
-
-                <li>
-                  <Link href="/register">
-                    <button className="btn btn-neutral rounded-xl">
-                      register
-                    </button>
-                  </Link>
-                </li>
-              </>
-          }
-          
-
-          <li>
-            <Link href="/dashboard/admin">
-              <button className="flex items-center gap-2 w-full px-5 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 shadow-md transition-all duration-300 font-semibold">
-                <LayoutDashboard size={18} /> Dashboard
-              </button>
-            </Link>
-          </li>
-
-          <li>
-            <button className="w-full px-5 py-2 bg-green-500 text-white rounded-xl hover:bg-green-600 shadow-md transition-all duration-300 font-semibold">
-              Book Now
-            </button>
-          </li>
+          {session?.data?.user ? <LogoutButton /> : <AuthButtons />}
         </ul>
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}
