@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import BookingModal from "@/components/booking/BookingModal";
 import ReviewSection from "@/app/components/review/ReviewSection";
 
+
 export default function TourDetailsPage() {
   const { id } = useParams();
   const { data: session } = useSession();
@@ -17,6 +18,51 @@ export default function TourDetailsPage() {
   const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [userBooking, setUserBooking] = useState(null);
+
+
+  const handlePayment = async () => {
+    if (!tour || !session?.user) return;
+    if (!userBooking || userBooking.status !== "approved" || !session?.user) return;
+
+    try {
+      const res = await fetch("/api/payment/init", {
+   method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        // 1. Pass the database ID of the Booking (Order)
+        order_id: userBooking._id, 
+        // 2. Pass the unique transaction ID (MUST be generated and saved during the initial booking process)
+        // ASSUMPTION: The booking object (userBooking) now includes a 'tran_id' field.
+        tran_id: userBooking.tran_id, 
+        
+        // Payment details
+        amount: userBooking.totalPrice || tour.price, // Use actual booking price if available
+        product_name: tour.title,
+        
+        // Customer details
+        customer_name: session.user.name,
+        customer_email: session.user.email,
+        customer_address: "Dhaka", // Can be dynamic later
+        customer_phone: "01711111111", // Can be dynamic later
+      }),
+    });
+
+      const data = await res.json();
+
+      if (data.url) {
+        // redirect user to SSLCommerz payment page
+        window.location.href = data.url;
+      } else {
+        console.error("Payment initiation failed:", data);
+        alert("Failed to initiate payment. Check console for details.");
+      }
+    } catch (err) {
+      console.error("Error in handlePayment:", err);
+      alert("Payment request failed. Check console for details.");
+    }
+  };
+
+
 
   // Fetch tour details
   useEffect(() => {
@@ -115,7 +161,7 @@ export default function TourDetailsPage() {
             </button>
           ) : userBooking.status === "approved" ? (
             <button
-              onClick={() => alert("Redirect to payment page")}
+              onClick={handlePayment}
               className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-md"
             >
               Pay Now
