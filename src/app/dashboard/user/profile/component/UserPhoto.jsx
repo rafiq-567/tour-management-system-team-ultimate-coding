@@ -26,7 +26,7 @@ const UserPhoto = ({ resultUser }) => {
     }
 
     return (
-        <div className='bg-white px-3 py-5 rounded-2xl'>
+        <div className='bg-base-300 px-3 py-5 rounded-2xl'>
 
             {
                 toggle ? (<div>
@@ -57,7 +57,7 @@ const UserPhoto = ({ resultUser }) => {
                     <div className='w-[300px] mx-auto flex justify-end'>
                         <GrEdit
                             onClick={() => setToggle(false)}
-                            className='btn bg-white' size={30} />
+                            className='btn' size={30} />
                     </div>
 
                     {/* context */}

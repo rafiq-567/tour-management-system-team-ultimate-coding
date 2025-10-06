@@ -20,8 +20,20 @@ export async function POST(req) {
       to,
     } = body;
 
-    if (!tourId || !userId || !name || !email || !guests || !tourName || !price || !totalPrice) {
-      return Response.json({ error: "Missing required fields" }, { status: 400 });
+    if (
+      !tourId ||
+      !userId ||
+      !name ||
+      !email ||
+      !guests ||
+      !tourName ||
+      !price ||
+      !totalPrice
+    ) {
+      return Response.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
     }
 
     const collection = await dbConnect("bookings");
@@ -32,7 +44,10 @@ export async function POST(req) {
     });
 
     if (existingBooking) {
-      return Response.json({ error: "You have already booked this tour" }, { status: 400 });
+      return Response.json(
+        { error: "You have already booked this tour" },
+        { status: 400 }
+      );
     }
 
     const newBooking = {
@@ -54,10 +69,16 @@ export async function POST(req) {
 
     const result = await collection.insertOne(newBooking);
 
-    return Response.json({ success: true, booking: { ...newBooking, _id: result.insertedId } });
+    return Response.json({
+      success: true,
+      booking: { ...newBooking, _id: result.insertedId },
+    });
   } catch (err) {
     console.error("POST /bookings error:", err);
-    return Response.json({ error: "Failed to create booking" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to create booking" },
+      { status: 500 }
+    );
   }
 }
 
@@ -73,10 +94,16 @@ export async function GET(req) {
     if (userId) query.userId = new ObjectId(userId);
     if (tourId) query.tourId = new ObjectId(tourId);
 
-    const bookings = await collection.find(query).sort({ createdAt: -1 }).toArray();
+    const bookings = await collection
+      .find(query)
+      .sort({ createdAt: -1 })
+      .toArray();
     return Response.json(bookings);
   } catch (err) {
     console.error("GET /bookings error:", err);
-    return Response.json({ error: "Failed to fetch bookings" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to fetch bookings" },
+      { status: 500 }
+    );
   }
 }

@@ -44,7 +44,7 @@ export default function Sidebar() {
     <>
       {/* Mobile Topbar */}
       <div className="md:hidden flex justify-between items-center p-4 bg-white dark:bg-gray-800 border-b dark:border-gray-700 shadow-sm">
-        <div className="font-bold text-xl text-blue-600">TourMS</div>
+       
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-gray-700 dark:text-gray-300"
