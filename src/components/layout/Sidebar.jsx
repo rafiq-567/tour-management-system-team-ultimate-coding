@@ -27,7 +27,8 @@ const menuItems = [
   { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all" },
   { name: "Discounts", icon: CreditCard, href: "/dashboard/admin/discounts" },
   { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings" },
-  { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
+  { name: "Payments", icon: CreditCard, href: "/dashboard/payments" },
+  // { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
   { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics" },
   { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },
   { name: "Profile", icon: Users, href: "/dashboard/user/profile" },
@@ -35,6 +36,7 @@ const menuItems = [
   { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist" },
   { name: "Support", icon: Settings, href: "/dashboard/user/support" },
 ];
+
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);

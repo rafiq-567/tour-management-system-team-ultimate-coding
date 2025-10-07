@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import LogoutButton from "@/app/login/compnents/LogoutButton";
+import Image from "next/image";
 
 export default function UserProfileDropdown({ session, isMobile }) {
   const [open, setOpen] = useState(false);
@@ -19,26 +20,28 @@ export default function UserProfileDropdown({ session, isMobile }) {
   }, []);
 
   const user = session?.data?.user;
- // console.log("user session:", user);
 
   return (
     <li
       className={`${isMobile ? "w-full flex justify-center" : "relative"}`}
       ref={dropdownRef}
     >
-      <button onClick={() => setOpen(!open)} className="flex items-center gap-2">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 focus:outline-none"
+      >
         {user?.image ? (
-          <img
+          <Image
             src={user.image}
-            alt={user?.name || "User"}
+            alt={user.name || "User Profile"}
+            width={32}
+            height={32}
             className="w-8 h-8 rounded-full object-cover"
           />
         ) : (
-          <img
-            src="/default-avatar.png" // place a fallback avatar image in your /public folder
-            alt="Default user"
-            className="w-8 h-8 rounded-full object-cover"
-          />
+          <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">
+            {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+          </div>
         )}
       </button>
 

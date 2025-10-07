@@ -1,5 +1,7 @@
+
 import dbConnect from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
+import { NextResponse } from "next/server";
 
 export async function GET(req) {
   try {
@@ -15,13 +17,13 @@ export async function GET(req) {
     const tourPackage = await collection.findOne({ _id: new ObjectId(id) });
 
     if (!tourPackage) {
-      return Response.json({ error: "Package not found" }, { status: 404 });
+      return NextResponse.json({ error: "Package not found" }, { status: 404 });
     }
 
-    return Response.json(tourPackage);
+    return NextResponse.json(tourPackage);
   } catch (err) {
     console.error("GET /tour-packages/[id] error:", err);
-    return Response.json({ error: "Failed to fetch package" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to fetch package" }, { status: 500 });
   }
 }
 

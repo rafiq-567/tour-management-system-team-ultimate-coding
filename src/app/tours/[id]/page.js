@@ -8,6 +8,9 @@ import BookingModal from "@/components/booking/BookingModal";
 import ReviewSection from "@/app/components/review/ReviewSection";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 export default function TourDetailsPage() {
   const { id } = useParams();
@@ -20,10 +23,9 @@ export default function TourDetailsPage() {
   const [showModal, setShowModal] = useState(false);
   const [userBooking, setUserBooking] = useState(null);
 
-  // Fetch Tour Details
+  // ✅ Fetch Tour Details
   useEffect(() => {
     if (!id) return;
-
     const fetchTour = async () => {
       try {
         setLoading(true);
@@ -33,20 +35,18 @@ export default function TourDetailsPage() {
         if (res.ok) setTour(data);
         else setError(data.error || "Tour not found");
       } catch (err) {
-        console.error(err);
+        console.error("Tour fetch error:", err);
         setError("Failed to load tour");
       } finally {
         setLoading(false);
       }
     };
-
     fetchTour();
   }, [id]);
 
-  // Fetch User Booking
+  // ✅ Fetch User Booking
   useEffect(() => {
     if (!id || !userId) return;
-
     const fetchBooking = async () => {
       try {
         const res = await fetch(`/api/bookings?userId=${userId}&tourId=${id}`);
@@ -57,38 +57,62 @@ export default function TourDetailsPage() {
         console.error("Booking fetch error:", err);
       }
     };
-
     fetchBooking();
   }, [id, userId]);
 
-  // Handle Payment
-  const handlePayment = async (bookingId) => {
+  // ✅ Handle Payment (Stripe)
+  const handlePayment = async () => {
+    if (!tour || !session?.user) {
+      alert("You must be logged in to pay.");
+      return;
+    }
+    if (!userBooking || userBooking.status !== "approved") {
+      alert("Booking must be approved before payment.");
+      return;
+    }
+
+    const priceToSend = userBooking.totalPrice || tour.price;
+    const numericPrice = parseFloat(priceToSend);
+
+    if (isNaN(numericPrice) || numericPrice <= 0) {
+      alert("Invalid price detected.");
+      return;
+    }
+
     try {
-      const res = await fetch("/api/payment/initiate", {
+      const res = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bookingId }),
+        body: JSON.stringify({
+          orderId: userBooking._id,
+          tourTitle: tour.title,
+          amount: numericPrice,
+          userEmail: session.user.email,
+        }),
       });
 
       const data = await res.json();
 
-      if (data?.url) {
-        window.location.href = data.url; // redirect to SSLCOMMERZ payment page
+      if (res.ok && data.url) {
+        window.location.href = data.url; // Redirect to Stripe Checkout
       } else {
-        alert("Payment initiation failed");
+        console.error("Stripe session creation failed:", data);
+        alert(data.error || "Failed to initiate Stripe checkout.");
       }
     } catch (err) {
-      console.error("Payment error:", err);
-      alert("Something went wrong during payment.");
+      console.error("Error in handlePayment:", err);
+      alert("Payment request failed. Check console for details.");
     }
   };
 
+  // ✅ Loading / Error states
   if (loading)
     return <p className="text-center p-6 text-gray-500">Loading tour...</p>;
 
   if (error)
     return <p className="text-center p-6 text-red-500 font-medium">{error}</p>;
 
+  // ✅ Page Content
   return (
     <div className="max-w-5xl mx-auto my-8 p-4 sm:p-6">
       {/* Back Button */}
@@ -103,40 +127,17 @@ export default function TourDetailsPage() {
 
       {/* Tour Image */}
       <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-lg">
-        <Image
-          src={tour.image}
-          alt={tour.title}
-          fill
-          className="object-cover"
-        />
+        <Image src={tour.image} alt={tour.title} fill className="object-cover" />
       </div>
 
       {/* Tour Info */}
       <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 mt-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-          {tour.title}
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300 mt-3">
-          {tour.description}
-        </p>
-        <p className="text-sm text-gray-500 mt-2">Duration: {tour.duration}</p>
+        <h1 className="text-3xl font-bold">{tour.title}</h1>
+        <p className="mt-3 text-gray-700 dark:text-gray-300">{tour.description}</p>
+        <p className="text-sm mt-2 text-gray-500">Duration: {tour.duration}</p>
+        <p className="text-2xl font-semibold text-blue-600 mt-4">${tour.price}</p>
 
-        <div className="mt-4">
-          <h3 className="font-semibold text-gray-800 dark:text-gray-100">
-            Included Activities:
-          </h3>
-          <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 mt-2">
-            {tour.activities?.map((activity, i) => (
-              <li key={i}>{activity}</li>
-            ))}
-          </ul>
-        </div>
-
-        <p className="text-2xl font-semibold text-blue-600 dark:text-blue-400 mt-4">
-          ${tour.price}
-        </p>
-
-        {/* Booking Button Logic */}
+        {/* Booking / Payment Logic */}
         <div className="mt-6">
           {userBooking ? (
             userBooking.status === "pending" ? (
@@ -148,10 +149,10 @@ export default function TourDetailsPage() {
               </button>
             ) : userBooking.status === "approved" ? (
               <button
-                onClick={() => handlePayment(userBooking._id)}
+                onClick={handlePayment}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-md"
               >
-                Pay Now
+                Pay Now (${userBooking.totalPrice || tour.price})
               </button>
             ) : (
               <button
