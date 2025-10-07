@@ -20,6 +20,7 @@ export async function POST(req) {
       to,
     } = body;
 
+    // 🧩 Required field check
     if (
       !tourId ||
       !userId ||
@@ -38,9 +39,13 @@ export async function POST(req) {
 
     const collection = await dbConnect("bookings");
 
+    // ✅ Helper function to safely handle ObjectId
+    const safeObjectId = (id) => (ObjectId.isValid(id) ? new ObjectId(id) : id);
+
+    // 🔍 Check if user already booked this tour
     const existingBooking = await collection.findOne({
-      tourId: new ObjectId(tourId),
-      userId: new ObjectId(userId),
+      tourId: safeObjectId(tourId),
+      userId: safeObjectId(userId),
     });
 
     if (existingBooking) {
@@ -50,9 +55,10 @@ export async function POST(req) {
       );
     }
 
+    // 🆕 Create new booking document
     const newBooking = {
-      tourId: new ObjectId(tourId),
-      userId: new ObjectId(userId),
+      tourId: safeObjectId(tourId),
+      userId: safeObjectId(userId),
       name,
       email,
       guests,
@@ -83,6 +89,7 @@ export async function POST(req) {
 }
 
 // GET: Fetch Bookings (filter by userId or tourId)
+// GET: Fetch Bookings (filter by userId or tourId)
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -91,13 +98,19 @@ export async function GET(req) {
 
     const collection = await dbConnect("bookings");
     const query = {};
-    if (userId) query.userId = new ObjectId(userId);
-    if (tourId) query.tourId = new ObjectId(tourId);
+
+    // ✅ Safe conversion helper (same as POST)
+    const safeObjectId = (id) => (ObjectId.isValid(id) ? new ObjectId(id) : id);
+
+    // ✅ Apply filters safely
+    if (userId) query.userId = safeObjectId(userId);
+    if (tourId) query.tourId = safeObjectId(tourId);
 
     const bookings = await collection
       .find(query)
       .sort({ createdAt: -1 })
       .toArray();
+
     return Response.json(bookings);
   } catch (err) {
     console.error("GET /bookings error:", err);
