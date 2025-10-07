@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import LogoutButton from "@/app/login/compnents/LogoutButton";
+import Image from "next/image";
 
 
 export default function UserProfileDropdown({ session, isMobile }) {
@@ -24,8 +25,21 @@ export default function UserProfileDropdown({ session, isMobile }) {
   return (
     <li className={`${isMobile ? "w-full flex justify-center" : "relative"}`} ref={dropdownRef}>
       <button onClick={() => setOpen(!open)} className="flex items-center gap-2">
-        <img src={user.image} alt={user.name} className="w-8 h-8 rounded-full object-cover" />
-        
+        {/* ONLY render the Image component if user.image has a value */}
+        {user.image ? (
+          <Image
+            src={user.image}
+            alt={user.name || "User Profile"}
+            width={100}
+            height={100}
+            className="w-8 h-8 rounded-full object-cover"
+          />
+        ) : (
+          // RENDER A PLACEHOLDER if the image is missing
+          <div className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold">
+            {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+          </div>
+        )}
       </button>
       {open && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 flex flex-col">
