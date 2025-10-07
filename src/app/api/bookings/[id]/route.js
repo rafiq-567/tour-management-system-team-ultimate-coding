@@ -1,4 +1,3 @@
-// src/app/api/bookings/[id]/route.js
 import dbConnect from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 
@@ -7,7 +6,7 @@ export async function PATCH(req, { params }) {
     const { id } = params;
     const { status } = await req.json();
 
-    if (!["pending", "approved", "rejected"].includes(status)) {
+    if (!["pending", "approved", "rejected", "paid"].includes(status)) {
       return Response.json({ error: "Invalid status" }, { status: 400 });
     }
 

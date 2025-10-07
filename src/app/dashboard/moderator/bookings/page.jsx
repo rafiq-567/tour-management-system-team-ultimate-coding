@@ -1,12 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Check, X, Loader2, Clock, CheckCircle, XCircle, Calendar, Users, Plane, DollarSign } from "lucide-react";
+import React, { useEffect, useState, useRef } from "react";
+import {
+  Check,
+  X,
+  Loader2,
+  Clock,
+  CheckCircle,
+  XCircle,
+  Calendar,
+  Users,
+  Plane,
+  DollarSign,
+} from "lucide-react";
 
-// --- Helper Components ---
 const InlineAlert = ({ message, type, onClose }) => {
   if (!message) return null;
-  let bg = "bg-gray-500", Icon = Clock;
+  let bg = "bg-gray-500",
+    Icon = Clock;
   if (type === "success") { bg = "bg-green-600"; Icon = CheckCircle; }
   if (type === "error") { bg = "bg-red-600"; Icon = XCircle; }
 
@@ -29,20 +40,21 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-// --- Main Component ---
 export default function AllBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [alert, setAlert] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
 
+  const tableWrapperRef = useRef(null);
+  const [scrollPercent, setScrollPercent] = useState(0);
+
   const fetchBookings = async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/bookings");
       const data = await res.json();
-      if (res.ok) setBookings(data);
-      else throw new Error(data.error || "Failed to fetch bookings");
+      setBookings(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error(err);
       setAlert({ message: "Could not fetch bookings.", type: "error" });
@@ -73,15 +85,26 @@ export default function AllBookings() {
     }
   };
 
-  useEffect(() => { fetchBookings(); }, []);
+  // Update scroll percentage for bottom scrollbar
+  const handleScroll = () => {
+    const wrapper = tableWrapperRef.current;
+    if (!wrapper) return;
+    const { scrollLeft, scrollWidth, clientWidth } = wrapper;
+    setScrollPercent((scrollLeft / (scrollWidth - clientWidth)) * 100);
+  };
+
+  useEffect(() => {
+    fetchBookings();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6">
       <InlineAlert message={alert?.message} type={alert?.type} onClose={() => setAlert(null)} />
 
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-extrabold mb-6 text-gray-900 dark:text-gray-100">Booking Approval Center</h1>
-        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-xl overflow-hidden">
+        <h1 className="text-2xl md:text-3xl font-extrabold mb-6 text-gray-900 dark:text-gray-100">Booking Approval Center</h1>
+
+        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-xl relative">
           {loading ? (
             <div className="p-6 flex items-center justify-center gap-3">
               <Loader2 className="animate-spin text-blue-600" /> Loading bookings...
@@ -89,53 +112,71 @@ export default function AllBookings() {
           ) : bookings.length === 0 ? (
             <p className="p-10 text-center text-gray-500">No bookings found.</p>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-100 dark:bg-gray-700">
-                  <tr>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"><Plane size={16} className="inline mr-1" /> Tour</th>
-                    <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"><Users size={16} className="inline mr-1" /> User</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider"><DollarSign size={16} className="inline mr-1" /> Amount</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider"><Calendar size={16} className="inline mr-1" /> Date</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider">Status</th>
-                    <th className="px-6 py-3 text-center text-xs font-semibold uppercase tracking-wider">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {bookings.map((b) => (
-                    <tr key={b._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      <td className="px-6 py-4">{b.tourTitle}</td>
-                      <td className="px-6 py-4">{b.name}</td>
-                      <td className="px-6 py-4 text-center">${b.amount}</td>
-                      <td className="px-6 py-4 text-center">{new Date(b.date).toLocaleDateString()}</td>
-                      <td className="px-6 py-4 text-center"><StatusBadge status={b.status} /></td>
-                      <td className="px-6 py-4 text-center">
-                        {b.status === "pending" ? (
-                          <div className="flex justify-center gap-2">
-                            <button
-                              onClick={() => handleStatusChange(b._id, "approved")}
-                              disabled={updatingId === b._id}
-                              className="bg-green-600 text-white px-3 py-1 rounded-lg"
-                            >
-                              {updatingId === b._id ? <Loader2 className="animate-spin h-4 w-4" /> : "Approve"}
-                            </button>
-                            <button
-                              onClick={() => handleStatusChange(b._id, "rejected")}
-                              disabled={updatingId === b._id}
-                              className="bg-red-600 text-white px-3 py-1 rounded-lg"
-                            >
-                              {updatingId === b._id ? <Loader2 className="animate-spin h-4 w-4" /> : "Reject"}
-                            </button>
-                          </div>
-                        ) : (
-                          <span className="text-sm text-gray-500">Action Done</span>
-                        )}
-                      </td>
+            <>
+              {/* Table wrapper with horizontal scroll */}
+              <div
+                ref={tableWrapperRef}
+                className="overflow-x-auto scrollbar-hide relative"
+                onScroll={handleScroll}
+                style={{ scrollBehavior: "smooth" }}
+              >
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                  <thead className="bg-gray-100 dark:bg-gray-700 sticky top-0 z-10">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider"><Plane size={16} className="inline mr-1" /> Tour</th>
+                      <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider"><Users size={16} className="inline mr-1" /> User</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider"><DollarSign size={16} className="inline mr-1" /> Price</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider"><DollarSign size={16} className="inline mr-1" /> Total</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider"><Calendar size={16} className="inline mr-1" /> Date</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider">Status</th>
+                      <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider">Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                    {bookings.map((b) => (
+                      <tr key={b._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <td className="px-4 py-3 whitespace-nowrap">{b.tourName}</td>
+                        <td className="px-4 py-3 whitespace-nowrap">{b.name}</td>
+                        <td className="px-4 py-3 text-center">${b.price}</td>
+                        <td className="px-4 py-3 text-center">${b.totalPrice}</td>
+                        <td className="px-4 py-3 text-center">{new Date(b.createdAt).toLocaleDateString()}</td>
+                        <td className="px-4 py-3 text-center"><StatusBadge status={b.status} /></td>
+                        <td className="px-4 py-3 text-center">
+                          {b.status === "pending" ? (
+                            <div className="flex justify-center gap-2 flex-wrap">
+                              <button
+                                onClick={() => handleStatusChange(b._id, "approved")}
+                                disabled={updatingId === b._id}
+                                className="bg-green-600 text-white px-2 py-1 rounded-lg text-xs md:text-sm"
+                              >
+                                {updatingId === b._id ? <Loader2 className="animate-spin h-4 w-4" /> : "Approve"}
+                              </button>
+                              <button
+                                onClick={() => handleStatusChange(b._id, "rejected")}
+                                disabled={updatingId === b._id}
+                                className="bg-red-600 text-white px-2 py-1 rounded-lg text-xs md:text-sm"
+                              >
+                                {updatingId === b._id ? <Loader2 className="animate-spin h-4 w-4" /> : "Reject"}
+                              </button>
+                            </div>
+                          ) : (
+                            <span className="text-sm text-gray-500">Done</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Bottom scrollbar indicator */}
+              <div className="h-1 w-full bg-gray-200 dark:bg-gray-700 rounded-b-xl mt-1 relative">
+                <div
+                  className="h-1 bg-blue-600 dark:bg-blue-400 rounded-b-xl transition-all"
+                  style={{ width: `${scrollPercent}%` }}
+                />
+              </div>
+            </>
           )}
         </div>
       </div>

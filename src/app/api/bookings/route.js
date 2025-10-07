@@ -1,20 +1,43 @@
 import { ObjectId } from "mongodb";
 import dbConnect from "@/lib/dbConnect";
 
-// CREATE BOOKING
+// POST: Create Booking
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { tourId, userId, name, email, guests, amount } = body;
+    const {
+      tourId,
+      userId,
+      name,
+      email,
+      guests,
+      tourName,
+      price,
+      totalPrice,
+      startDate,
+      endDate,
+      from,
+      to,
+    } = body;
 
-    // Validate required fields
-    if (!tourId || !userId || !name || !email || !guests || !amount) {
-      return Response.json({ error: "Missing required fields" }, { status: 400 });
+    if (
+      !tourId ||
+      !userId ||
+      !name ||
+      !email ||
+      !guests ||
+      !tourName ||
+      !price ||
+      !totalPrice
+    ) {
+      return Response.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
     }
 
     const collection = await dbConnect("bookings");
 
-    // Check if the user already booked this tour
     const existingBooking = await collection.findOne({
       tourId: new ObjectId(tourId),
       userId: new ObjectId(userId),
@@ -33,9 +56,14 @@ export async function POST(req) {
       name,
       email,
       guests,
-      amount,
-      status: "pending", // default
-      bookingDate: new Date(),
+      tourName,
+      price,
+      totalPrice,
+      startDate,
+      endDate,
+      from,
+      to,
+      status: "pending",
       createdAt: new Date(),
     };
 
@@ -47,26 +75,35 @@ export async function POST(req) {
     });
   } catch (err) {
     console.error("POST /bookings error:", err);
-    return Response.json({ error: "Failed to create booking" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to create booking" },
+      { status: 500 }
+    );
   }
 }
 
-// GET BOOKINGS (filter by userId optionally)
+// GET: Fetch Bookings (filter by userId or tourId)
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
+    const tourId = searchParams.get("tourId");
 
     const collection = await dbConnect("bookings");
     const query = {};
-
     if (userId) query.userId = new ObjectId(userId);
+    if (tourId) query.tourId = new ObjectId(tourId);
 
-    const bookings = await collection.find(query).sort({ createdAt: -1 }).toArray();
-
+    const bookings = await collection
+      .find(query)
+      .sort({ createdAt: -1 })
+      .toArray();
     return Response.json(bookings);
   } catch (err) {
     console.error("GET /bookings error:", err);
-    return Response.json({ error: "Failed to fetch bookings" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to fetch bookings" },
+      { status: 500 }
+    );
   }
 }
