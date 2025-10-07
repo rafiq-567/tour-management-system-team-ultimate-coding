@@ -28,7 +28,7 @@ const menuItems = [
   { name: "Discounts", icon: CreditCard, href: "/dashboard/admin/discounts" },
   { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings" },
   { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
-  { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics" },
+  { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analitis" },
   { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },
   { name: "Profile", icon: Users, href: "/dashboard/user/profile" },
   { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings" },
