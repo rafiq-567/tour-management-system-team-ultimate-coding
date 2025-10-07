@@ -31,16 +31,6 @@ export default async function Home() {
         <TravellerForm></TravellerForm>
          <CheckoutButton orderId="ORDER123" amount={500} />
       </div>
-
-      <Hero />
-      <PopularDestinations />
-      <Link className="flex justify-center" href="/TourPackeg">
-        Tour packeg
-      </Link>
-      <WhyChooseUs />
-      <TravelersSay />
-      <FAQ />
-      <TravellerForm />
     </>
   );
 }
