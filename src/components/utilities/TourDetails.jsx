@@ -3,12 +3,23 @@
 import { useState } from "react";
 import BookingModal from "@/components/BookingModal";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function TourDetails({ tour }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="w-11/12 mx-auto mt-10">
+      {/* Back Button */}
+      <div className="mb-6">
+        <Link
+          href="/tours"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-white/70 backdrop-blur-md rounded-xl shadow hover:bg-white transition-colors font-medium"
+        >
+          <ArrowLeft className="w-5 h-5" /> Back to Tours
+        </Link>
+      </div>
       {/* Tour Info */}
       <div className="relative w-full md:h-[450px] h-64 mb-4">
         <Image

@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { ReviewCard } from "./ReviewCard";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import Loading from "@/components/utilities/Loading";
 
 export default function ReviewSection({ tourId }) {
   const { data: session, status } = useSession();
@@ -89,7 +90,7 @@ export default function ReviewSection({ tourId }) {
               height={40}
               className="rounded-full border"
             />
-            <p className="font-medium">{session.user?.name}</p>
+            <p className="font-medium">{session.user.name}</p>
           </div>
 
           {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
@@ -135,7 +136,7 @@ export default function ReviewSection({ tourId }) {
         {loading ? (
           <div className="flex items-center gap-2 text-gray-600">
             <Loader2 className="w-5 h-5 animate-spin" />
-            <span>Loading reviews...</span>
+            <Loading></Loading>
           </div>
         ) : reviews.length > 0 ? (
           <div className="space-y-4">

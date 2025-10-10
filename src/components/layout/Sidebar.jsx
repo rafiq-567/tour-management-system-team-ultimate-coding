@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import {
+// Removed: import { usePathname } from "next/navigation";
+// Removed: import Link from "next/link";
+import { // lucide-react icons are fine
   Home,
   Users,
   Calendar,
@@ -16,72 +16,87 @@ import {
   LogOut,
   Heart,
   PlaneIcon,
+  Ticket,
 } from "lucide-react";
 
+// Helper function for conditional class names
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 
+// --- 1. Menu Definitions with Role-Based Access Control (RBAC) ---
+// Each item now has a 'roles' array defining who can see it.
 const menuItems = [
-  { name: "Dashboard", icon: Home, href: "/dashboard/admin" },
-  { name: "Users", icon: Users, href: "/dashboard/admin/users" },
-  { name: "Tours", icon: Plane, href: "/dashboard/admin/add/tours" },
-  { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all" },
-  { name: "Discounts", icon: CreditCard, href: "/dashboard/admin/discounts" },
-  { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings" },
-  { name: "Payments", icon: CreditCard, href: "/dashboard/payments" },
-  // { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
-  { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics" },
-  { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },
-  { name: "Profile", icon: Users, href: "/dashboard/user/profile" },
-  { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings" },
-  { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist" },
-  { name: "Support", icon: Settings, href: "/dashboard/user/support" },
+  // Admin & Moderator
+  { name: "Dashboard", icon: Home, href: "/dashboard/admin", roles: ["admin", "moderator"] },
+  { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all", roles: ["admin", "moderator"] },
+  { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings", roles: ["admin", "moderator"] },
+  
+  // Admin Only
+  { name: "Add Tour", icon: Plane, href: "/dashboard/admin/add-tour", roles: ["admin"] },
+  { name: "Discounts", icon: Ticket, href: "/dashboard/admin/discounts", roles: ["admin"] },
+  { name: "Users Management", icon: Users, href: "/dashboard/admin/users", roles: ["admin"] },
+  { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics", roles: ["admin"] },
+  
+  // All Users (User, Moderator, Admin)
+  { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings", roles: ["admin", "moderator", "user"] },
+  { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
+  { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },
+  { name: "Settings", icon: Settings, href: "/dashboard/settings", roles: ["admin", "moderator", "user"] },
+
 ];
 
 
-export default function Sidebar() {
+// --- 2. Sidebar Component (Handles Navigation and Filtering) ---
+function Sidebar({ role }) {
   const [isOpen, setIsOpen] = useState(false);
-  const currentPath = usePathname();
+  
+  // ✅ FIX: Replaced usePathname() with a client-side solution for current path
+  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+
+  // Filter menu items based on the user's role
+  const filteredMenuItems = menuItems.filter(item => item.roles.includes(role));
 
   return (
     <>
-      {/* Mobile Topbar */}
-      <div className="md:hidden flex justify-between items-center p-4 bg-white dark:bg-gray-800 border-b dark:border-gray-700 shadow-sm">
-        <div className="font-bold text-xl text-blue-600">TourMS</div>
+      {/* Mobile Topbar & Menu Button */}
+      <div className="md:hidden sticky top-0 bg-white dark:bg-gray-900 border-b dark:border-gray-700 shadow-sm z-40 p-4 flex justify-between items-center h-16">
+        
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-gray-700 dark:text-gray-300"
+          className="p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700 dark:text-gray-300"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Sidebar */}
+      {/* Sidebar Navigation */}
       <aside
         className={cn(
-          "fixed md:relative top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 border-r dark:border-gray-700 shadow-xl flex flex-col transform transition-transform duration-300 z-50",
+          "fixed md:sticky top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 border-r dark:border-gray-700 shadow-xl flex flex-col transform transition-transform duration-300 z-50",
           isOpen ? "translate-x-0" : "-translate-x-full",
-          "md:translate-x-0"
+          "md:translate-x-0 md:shadow-none" // Sidebar is sticky and always visible on desktop
         )}
       >
-        {/* Logo */}
-        <div className="h-16 flex items-center justify-center border-b dark:border-gray-700 font-extrabold text-2xl text-blue-600 dark:text-blue-400">
+        {/* Logo (Desktop View) */}
+        <div className="h-16 hidden md:flex items-center justify-center border-b dark:border-gray-700 font-extrabold text-2xl text-blue-600 dark:text-blue-400">
           TourMS
         </div>
 
-        {/* Menu */}
+        {/* Menu Links */}
         <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
-          {menuItems.map((item) => {
-            const isActive = currentPath === item.href;
+          {filteredMenuItems.map((item) => {
+            // Check if the current path starts with the item's href for active state
+            const isActive = currentPath.startsWith(item.href);
             return (
-              <Link
+              // ✅ FIX: Changed Link to <a> tag
+              <a 
                 key={item.name}
                 href={item.href}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150",
                   "focus:outline-none focus:ring-2 focus:ring-blue-300",
                   isActive
-                    ? "bg-blue-600 text-white shadow-lg font-semibold hover:bg-blue-700"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    ? "bg-blue-600 text-white shadow-md font-semibold hover:bg-blue-700"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                 )}
                 onClick={() => setIsOpen(false)}
               >
@@ -92,21 +107,21 @@ export default function Sidebar() {
                   )}
                 />
                 <span>{item.name}</span>
-              </Link>
+              </a>
             );
           })}
         </nav>
 
         {/* Footer actions */}
         <div className="border-t dark:border-gray-700 p-4">
-          <button className="flex items-center gap-3 px-3 py-2 w-full text-red-500 hover:bg-red-50 dark:hover:bg-gray-800 rounded-xl transition font-medium">
+          <button className="flex items-center gap-3 px-3 py-2 w-full text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition font-medium">
             <LogOut className="h-5 w-5" />
-            <span>Logout</span>
+            <span>Sign Out</span>
           </button>
         </div>
       </aside>
 
-      {/* Overlay for mobile */}
+      {/* Mobile Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black opacity-40 z-40 md:hidden"
@@ -116,3 +131,5 @@ export default function Sidebar() {
     </>
   );
 }
+
+export default Sidebar;
