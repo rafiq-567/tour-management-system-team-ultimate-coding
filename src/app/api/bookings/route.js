@@ -70,6 +70,10 @@ export async function GET(req) {
 
     const collection = await dbConnect("bookings");
     const query = {};
+
+    // ✅ Safe conversion helper (same as POST)
+    const safeObjectId = (id) => (ObjectId.isValid(id) ? new ObjectId(id) : id);
+
     if (userId) query.userId = new ObjectId(userId);
     if (tourId) query.tourId = new ObjectId(tourId);
 
