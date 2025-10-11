@@ -39,12 +39,12 @@ export default function TourDetails({ tour }) {
         className="font-bold bg-blue-600 px-5 py-2 rounded-xl hover:bg-amber-500 transition"
         onClick={() => setShowModal(true)}
       >
-        Book Now
+        Book Now!
       </button>
 
       {/* Booking Modal */}
       {showModal && (
-        <BookingModal tour={tour} onClose={() => setShowModal(false)} />
+        <BookingModal tour={tour} onClose={() => setShowModal(false)}  onPayment={handlePayment} />
       )}
     </div>
   );
