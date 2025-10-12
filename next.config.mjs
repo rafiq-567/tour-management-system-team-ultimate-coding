@@ -21,9 +21,24 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "i.ibb.co",
-       
-     
       },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+    
     ],
   },
 };
