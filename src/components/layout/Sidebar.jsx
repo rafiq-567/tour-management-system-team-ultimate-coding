@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-// Removed: import { usePathname } from "next/navigation";
-// Removed: import Link from "next/link";
-import { // lucide-react icons are fine
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import {
   Home,
   Users,
   Calendar,
@@ -29,6 +29,7 @@ const menuItems = [
   { name: "Dashboard", icon: Home, href: "/dashboard/admin", roles: ["admin", "moderator"] },
   { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all", roles: ["admin", "moderator"] },
   { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings", roles: ["admin", "moderator"] },
+  { name: "Payments", icon: CreditCard, href: "/dashboard/payments", roles: ["admin", "moderator"] },
   
   // Admin Only
   { name: "Add Tour", icon: Plane, href: "/dashboard/admin/add-tour", roles: ["admin"] },
@@ -41,16 +42,12 @@ const menuItems = [
   { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
   { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },
   { name: "Settings", icon: Settings, href: "/dashboard/settings", roles: ["admin", "moderator", "user"] },
-
 ];
-
 
 // --- 2. Sidebar Component (Handles Navigation and Filtering) ---
 function Sidebar({ role }) {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // ✅ FIX: Replaced usePathname() with a client-side solution for current path
-  const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+  const currentPath = usePathname(); // ✅ Correct way to get current path
 
   // Filter menu items based on the user's role
   const filteredMenuItems = menuItems.filter(item => item.roles.includes(role));
@@ -59,10 +56,10 @@ function Sidebar({ role }) {
     <>
       {/* Mobile Topbar & Menu Button */}
       <div className="md:hidden sticky top-0 bg-white dark:bg-gray-900 border-b dark:border-gray-700 shadow-sm z-40 p-4 flex justify-between items-center h-16">
-        
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700 dark:text-gray-300"
+          aria-label="Toggle menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -87,8 +84,7 @@ function Sidebar({ role }) {
             // Check if the current path starts with the item's href for active state
             const isActive = currentPath.startsWith(item.href);
             return (
-              // ✅ FIX: Changed Link to <a> tag
-              <a 
+              <Link
                 key={item.name}
                 href={item.href}
                 className={cn(
@@ -107,7 +103,7 @@ function Sidebar({ role }) {
                   )}
                 />
                 <span>{item.name}</span>
-              </a>
+              </Link>
             );
           })}
         </nav>

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { ObjectId } from "mongodb";
+import dbConnect from "@/lib/dbConnect";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2023-10-16",
@@ -18,6 +20,9 @@ export async function POST(req) {
       return NextResponse.json({ error: "Invalid amount." }, { status: 400 });
     }
 
+    // ✅ Store sessionId in booking
+    const collection = await dbConnect("bookings");
+    
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -39,6 +44,18 @@ export async function POST(req) {
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/tours/${orderId}`,
     });
+
+    // ✅ Update booking with sessionId
+    await collection.updateOne(
+      { _id: new ObjectId(orderId) },
+      { 
+        $set: { 
+          sessionId: session.id,
+          // You can also set other fields if needed
+          updatedAt: new Date()
+        } 
+      }
+    );
 
     return NextResponse.json({ url: session.url, sessionId: session.id }, { status: 200 });
   } catch (err) {
