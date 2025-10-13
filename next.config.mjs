@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    domains: ['i.ibb.co'],
     remotePatterns: [
       {
         protocol: "https",
@@ -12,10 +13,34 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "i.ibb.co",
-       
-     
+        hostname: "lh3.googleusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+        hostname: "i.ibb.co",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ibb.co.com",
+      },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+    
     ],
   },
 };

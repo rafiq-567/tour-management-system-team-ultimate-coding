@@ -8,7 +8,7 @@ import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
 import FAQ from "@/components/shared/FAQ";
 import HomepageDiscounts from "@/components/Home/HomepageDiscounts";
-import CheckoutButton from "./components/CheckoutButton";
+// import CheckoutButton from "./components/CheckoutButton";
 import TravelBlogSection from "@/components/Home/TravelBlogSection";
 import PromoSlider from "@/components/utilities/PromoSlider";
 
@@ -29,18 +29,8 @@ export default async function Home() {
         <TravelBlogSection></TravelBlogSection>
         <FAQ> </FAQ>
         <TravellerForm></TravellerForm>
-         <CheckoutButton orderId="ORDER123" amount={500} />
+         {/* <CheckoutButton orderId="ORDER123" amount={500} /> */}
       </div>
-
-      <Hero />
-      <PopularDestinations />
-      <Link className="flex justify-center" href="/TourPackeg">
-        Tour packeg
-      </Link>
-      <WhyChooseUs />
-      <TravelersSay />
-      <FAQ />
-      <TravellerForm />
     </>
   );
 }

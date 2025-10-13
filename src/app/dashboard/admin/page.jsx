@@ -31,7 +31,7 @@ const AdminDashboard = () => {
         const res = await fetch("/api/stats");
         const data = await res.json();
         setStats(data);
-        console.log(data);  
+        //console.log(data);  
       } catch (err) {
         console.error(err);
       }

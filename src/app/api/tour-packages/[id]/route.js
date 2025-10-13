@@ -8,6 +8,11 @@ export async function GET(req) {
     const url = new URL(req.url);
     const id = url.pathname.split("/").pop(); // get last segment as id
 
+    if (!ObjectId.isValid(id)) {
+      return Response.json({ error: "Invalid package ID" }, { status: 400 });
+    }
+
+
     const collection = await dbConnect("tourPackages");
     const tourPackage = await collection.findOne({ _id: new ObjectId(id) });
 
