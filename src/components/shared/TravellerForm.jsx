@@ -23,14 +23,14 @@ const TravellerForm = () => {
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 py-16 px-6 sm:px-12 lg:px-20">
-      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 sm:p-12">
+    <section className="bg-base-100 dark:bg-gray-900 py-16 px-6 sm:px-12 lg:px-20">
+      <div className="max-w-4xl mx-auto bg-base-300 dark:bg-gray-800 shadow-xl rounded-2xl p-8 sm:p-12">
         {/* Heading */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-3">
+          <h2 className="text-3xl sm:text-4xl font-bold dark:text-gray-100 mb-3">
             Traveller Information
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg">
+          <p className="dark:text-gray-400 text-lg">
             Fill out the form below to let us know about your travel plan.
           </p>
         </div>
@@ -39,10 +39,10 @@ const TravellerForm = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name */}
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+            <label className="block dark:text-gray-300 font-medium mb-2">
               Full Name
             </label>
-            <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg px-3">
+            <div className="flex items-center bg-base-100 dark:bg-gray-700 rounded-lg px-3">
               <User className="text-gray-500 dark:text-gray-300" size={20} />
               <input
                 type="text"
@@ -51,17 +51,17 @@ const TravellerForm = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent px-3 py-3 focus:outline-none text-gray-800 dark:text-gray-100"
+                className="w-full bg-transparent px-3 py-3 focus:outline-none dark:text-gray-100"
               />
             </div>
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+            <label className="block dark:text-gray-300 font-medium mb-2">
               Email Address
             </label>
-            <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg px-3">
+            <div className="flex items-center bg-base-100 dark:bg-gray-700 rounded-lg px-3">
               <Mail className="text-gray-500 dark:text-gray-300" size={20} />
               <input
                 type="email"
@@ -70,17 +70,17 @@ const TravellerForm = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent px-3 py-3 focus:outline-none text-gray-800 dark:text-gray-100"
+                className="w-full bg-transparent px-3 py-3 focus:outline-none dark:text-gray-100"
               />
             </div>
           </div>
 
           {/* Destination */}
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+            <label className="block dark:text-gray-300 font-medium mb-2">
               Destination
             </label>
-            <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg px-3">
+            <div className="flex items-center bg-base-100 dark:bg-gray-700 rounded-lg px-3">
               <MapPin className="text-gray-500 dark:text-gray-300" size={20} />
               <input
                 type="text"
@@ -89,17 +89,17 @@ const TravellerForm = () => {
                 value={formData.destination}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent px-3 py-3 focus:outline-none text-gray-800 dark:text-gray-100"
+                className="w-full bg-transparent px-3 py-3 focus:outline-none dark:text-gray-100"
               />
             </div>
           </div>
 
           {/* Date */}
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+            <label className="block dark:text-gray-300 font-medium mb-2">
               Travel Date
             </label>
-            <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg px-3">
+            <div className="flex items-center bg-base-100 dark:bg-gray-700 rounded-lg px-3">
               <Calendar className="text-gray-500 dark:text-gray-300" size={20} />
               <input
                 type="date"
@@ -107,7 +107,7 @@ const TravellerForm = () => {
                 value={formData.date}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent px-3 py-3 focus:outline-none text-gray-800 dark:text-gray-100"
+                className="w-full bg-transparent px-3 py-3 focus:outline-none dark:text-gray-100"
               />
             </div>
           </div>

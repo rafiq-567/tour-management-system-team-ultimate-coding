@@ -73,7 +73,7 @@ const DestinationCard = ({ place }) => {
   const { icon: Icon, color, bg } = typeMap[place.type] || typeMap["All"];
   
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] border border-gray-200 dark:border-gray-700">
+    <div className="bg-base-300 dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.01] border border-gray-200 dark:border-gray-700">
       
       {/* Map Embed */}
       <div className="h-64 w-full">
@@ -92,7 +92,7 @@ const DestinationCard = ({ place }) => {
       <div className="p-6">
         {/* Title and Type Tag */}
         <div className="flex justify-between items-start mb-3">
-          <h2 className="text-2xl font-extrabold text-gray-900 dark:text-gray-100 leading-snug">
+          <h2 className="text-2xl font-extrabold dark:text-gray-100 leading-snug">
             {place.title}
           </h2>
           <span className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full ${color} ${bg} whitespace-nowrap`}>
@@ -102,7 +102,7 @@ const DestinationCard = ({ place }) => {
         </div>
         
         {/* Description */}
-        <p className="text-base text-gray-700 dark:text-gray-300 mt-2 border-l-4 border-blue-500 dark:border-blue-400 pl-3">
+        <p className="text-base dark:text-gray-300 mt-2 border-l-4 border-blue-500 dark:border-blue-400 pl-3">
           {place.description}
         </p>
       </div>
@@ -155,19 +155,19 @@ export default function Destinations() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-base-100 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-center text-gray-900 dark:text-gray-100 mb-2">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-center dark:text-gray-100 mb-2">
             বাংলাদেশের সেরা গন্তব্যসমূহ
         </h1>
-        <p className="text-center text-xl text-gray-600 dark:text-gray-400 mb-10">
+        <p className="text-center text-xl dark:text-gray-400 mb-10">
             অনুসন্ধান করুন এবং আপনার পরবর্তী ছুটির পরিকল্পনা করুন।
         </p>
 
         {/* Search & Filter Controls */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12 p-6 bg-base-300 dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
           
           {/* Search Input */}
           <div className="w-full md:w-3/5 relative">
@@ -177,7 +177,7 @@ export default function Destinations() {
               placeholder="গন্তব্য খুঁজুন (যেমন: Cox's Bazar)"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-blue-400/50 focus:border-blue-500"
+              className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl bg-base-100 dark:bg-gray-700 dark:text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-blue-400/50 focus:border-blue-500"
             />
           </div>
 
@@ -187,7 +187,7 @@ export default function Destinations() {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl appearance-none bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-400/50 focus:border-blue-500 cursor-pointer"
+              className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl appearance-none bg-base-100 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:ring-4 focus:ring-blue-400/50 focus:border-blue-500 cursor-pointer"
             >
               {filterOptions.map(option => (
                   <option key={option} value={option}>
@@ -225,7 +225,7 @@ export default function Destinations() {
             </button>
             
             {/* Page Status */}
-            <span className="font-bold text-lg text-gray-800 dark:text-gray-200">
+            <span className="font-bold text-lg dark:text-gray-200">
               পেজ {currentPage} / {totalPages}
             </span>
             

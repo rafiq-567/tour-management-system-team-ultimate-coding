@@ -87,9 +87,9 @@ const AddTourpackage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-start justify-center p-4 sm:p-8">
-      <div className="w-full max-w-3xl bg-white dark:bg-gray-800 shadow-2xl rounded-2xl p-6 sm:p-10 border border-gray-200 dark:border-gray-700">
-        <h2 className="text-3xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-base-100 dark:bg-gray-900 flex items-start justify-center p-4 sm:p-8">
+      <div className="w-full max-w-3xl bg-base-300 dark:bg-gray-800 shadow-2xl rounded-2xl p-6 sm:p-10 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-3xl font-bold mb-6 text-center dark:text-gray-100">
           Add Tour Package
         </h2>
 
@@ -118,7 +118,7 @@ const AddTourpackage = () => {
             placeholder="Detailed description of the tour package."
             value={formData.description}
             onChange={handleChange}
-            className="w-full border border-gray-300 dark:border-gray-600 rounded-xl p-3 h-32 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded-xl p-3 h-32 bg-base-100 dark:bg-gray-700 dark:text-gray-100 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
             required
           />
 
@@ -142,8 +142,8 @@ const AddTourpackage = () => {
             />
           </div>
 
-          <div className="p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700">
-            <label className="font-semibold text-gray-800 dark:text-gray-100 block mb-3">
+          <div className="p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-base-100 dark:bg-gray-700">
+            <label className="font-semibold dark:text-gray-100 block mb-3">
               Included Activities:
             </label>
             <div className="space-y-3">
@@ -154,7 +154,7 @@ const AddTourpackage = () => {
                     value={activity}
                     onChange={(e) => handleActivityChange(index, e.target.value)}
                     placeholder={`Activity ${index + 1}`}
-                    className="flex-grow border border-gray-300 dark:border-gray-600 rounded-lg p-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    className="flex-grow border border-gray-300 dark:border-gray-600 rounded-lg p-2 dark:text-gray-100 bg-base-300 dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   />
                   {formData.activities.length > 1 && (
                     <button
@@ -229,7 +229,7 @@ const InputField = ({ name, type, placeholder, value, onChange, required, min })
     placeholder={placeholder}
     value={value}
     onChange={onChange}
-    className="w-full border border-gray-300 dark:border-gray-600 rounded-xl p-3 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+    className="w-full border border-gray-300 dark:border-gray-600 rounded-xl p-3 bg-base-100 dark:bg-gray-700 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
     required={required}
     min={min}
   />

@@ -101,21 +101,21 @@ export default function UsersPage() {
     );
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-8">
+    <div className="min-h-screen bg-base-100 dark:bg-gray-900 p-4 sm:p-8">
       <Toaster position="top-right" />
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-extrabold mb-8 text-gray-900 dark:text-gray-100 flex items-center">
+        <h1 className="text-3xl font-extrabold mb-8 dark:text-gray-100 flex items-center">
           <Users className="mr-3 h-7 w-7 text-blue-600 dark:text-blue-400" />
           Users Management
         </h1>
 
-        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden">
+        <div className="dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden">
           {users.length === 0 ? (
             <p className="p-10 text-center text-gray-500 dark:text-gray-400">No users found.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-100 dark:bg-gray-700">
+                <thead className="bg-base-100 dark:bg-gray-700">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">#</th>
                     <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Name</th>
@@ -125,11 +125,11 @@ export default function UsersPage() {
                     <th className="px-6 py-3 text-center text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="bg-base-300 dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {users.map((user, idx) => {
                     const isUpdating = updatingId === user._id;
                     return (
-                      <tr key={user._id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                      <tr key={user._id} className="hover:bg-gray-50 hover:text-black dark:hover:bg-gray-700 transition-colors">
                         <td className="px-6 py-4">{idx + 1}</td>
                         <td className="px-6 py-4">{user.name}</td>
                         <td className="px-6 py-4 text-blue-600 dark:text-blue-400 truncate max-w-xs">{user.email}</td>

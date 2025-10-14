@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }) {
   const userRole = "admin"; // 🔄 dynamic later: "admin" | "moderator" | "user"
 
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="flex min-h-screen bg-base-100 dark:bg-gray-950">
       {/* Sidebar: Fixed width, handles responsiveness and role filtering */}
       <Sidebar role={userRole} />
 
