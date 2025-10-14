@@ -54,7 +54,7 @@ export default function Navbar() {
   const isActive = (href) => pathname === href;
 
   return (
-    <nav className="w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300">
+    <nav className="w-full backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <LinkLogo />
 

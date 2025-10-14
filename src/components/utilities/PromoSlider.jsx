@@ -31,7 +31,7 @@ const SLIDES = [
   },
 ];
 
-export default function PromoSlider() {
+export default function () {
   const [current, setCurrent] = useState(0);
   const total = SLIDES.length;
   const autoSlideInterval = 5000; // 5s
