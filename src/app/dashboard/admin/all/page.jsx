@@ -148,9 +148,9 @@ const TourPackagesPage = () => {
   if (loading) return <p className="text-center mt-10 text-xl text-gray-600 dark:text-gray-400">Loading Tour Packages...</p>;
 
   return (
-    <div className="max-w-6xl mx-auto mt-6 p-4 sm:p-6 bg-white dark:bg-gray-900 shadow-xl rounded-2xl min-h-[500px]">
+    <div className="max-w-6xl mx-auto mt-6 p-4 sm:p-6 bg-base-300 dark:bg-gray-900 shadow-xl rounded-2xl min-h-[500px]">
       <div className="flex justify-between items-center mb-6 border-b pb-4 border-gray-200 dark:border-gray-700">
-        <h1 className="text-3xl font-extrabold text-gray-800 dark:text-gray-100">Manage Tour Packages</h1>
+        <h1 className="text-3xl font-extrabold dark:text-gray-100">Manage Tour Packages</h1>
         <a
           href="/dashboard/admin/add/tours"
           className="bg-blue-600 text-white px-5 py-2.5 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-200 shadow-md"
@@ -166,20 +166,20 @@ const TourPackagesPage = () => {
       ) : (
         <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-700">
-              <tr className="text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+            <thead className="dark:bg-gray-700">
+              <tr className="text-left text-xs font-medium dark:text-gray-300 uppercase tracking-wider">
                 <th className="px-6 py-3">Title</th>
                 <th className="px-6 py-3 w-32">Price</th>
                 <th className="px-6 py-3 w-32">Duration</th>
                 <th className="px-6 py-3 text-center w-48">Actions</th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
               {packages.map((pkg) => (
-                <tr key={pkg._id} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900 dark:text-gray-100">{pkg.title}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-600 dark:text-gray-300 font-mono">${pkg.price}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-600 dark:text-gray-300">{pkg.duration}</td>
+                <tr key={pkg._id} className="hover:bg-gray-50 hover:text-black dark:hover:bg-gray-700/50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap font-medium dark:text-gray-100">{pkg.title}</td>
+                  <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 font-mono">${pkg.price}</td>
+                  <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300">{pkg.duration}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-center flex justify-center gap-3">
                     <a
                       href={`/dashboard/admin/edit/${pkg._id}`}

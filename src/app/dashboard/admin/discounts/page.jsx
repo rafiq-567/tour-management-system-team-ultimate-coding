@@ -210,7 +210,7 @@ export default function DiscountsPage() {
     );
 
   return (
-    <div className="p-6 min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="p-6 min-h-screen bg-base-100 dark:bg-gray-900">
       <Toaster />
       <InlineAlert message={alert?.message} type={alert?.type} onClose={closeAlert} />
 
@@ -228,9 +228,9 @@ export default function DiscountsPage() {
 
       {showCreateForm && <CreateDiscountForm />}
 
-      <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+      <div className="overflow-x-auto bg-base-300 dark:bg-gray-800 rounded-xl shadow-lg">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-100 dark:bg-gray-700">
+          <thead className="bg-base-100 dark:bg-gray-700">
             <tr>
               <th className="px-3 py-2 text-left">Code</th>
               <th className="px-3 py-2 text-left">Description</th>

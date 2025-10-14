@@ -36,7 +36,7 @@ export default function TourList() {
   }, [search, sort, page]);
 
   return (
-    <div className="p-6 bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen">
+    <div className="p-6 bg-base-300">
       
 
       {/* Search + Sort */}
@@ -49,7 +49,7 @@ export default function TourList() {
             setSearch(e.target.value);
             setPage(1);
           }}
-          className="border border-gray-300 bg-white/70 backdrop-blur-md px-4 py-3 rounded-xl w-full md:w-1/2 shadow-sm focus:ring-2 focus:ring-blue-400"
+          className="border border-gray-300 bg-base-100 backdrop-blur-md px-4 py-3 rounded-xl w-full md:w-1/2 shadow-sm focus:ring-2 focus:ring-blue-400"
         />
         <select
           value={sort}
@@ -57,7 +57,7 @@ export default function TourList() {
             setSort(e.target.value);
             setPage(1);
           }}
-          className="border border-gray-300 bg-white/70 backdrop-blur-md px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400"
+          className="border border-gray-300 bg-base-100 backdrop-blur-md px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-400"
         >
           <option value="all">All</option>
           <option value="latest">Latest</option>
@@ -72,7 +72,7 @@ export default function TourList() {
             key={tour._id}
             whileHover={{ scale: 1.04 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="bg-white/60 backdrop-blur-xl border border-gray-200 shadow-lg rounded-2xl overflow-hidden relative group"
+            className="bg-base-300 backdrop-blur-xl border border-gray-200 shadow-lg rounded-2xl overflow-hidden relative group"
           >
             <div className="relative">
               <img
@@ -87,19 +87,19 @@ export default function TourList() {
 
             <div className="p-5 flex flex-col justify-between min-h-[220px]">
               <div>
-                <h2 className="text-xl font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">
+                <h2 className="text-xl font-bold mb-1 group-hover:text-blue-600 transition-colors">
                   {tour.title}
                 </h2>
-                <p className="text-sm text-gray-600 line-clamp-2">
+                <p className="text-sm line-clamp-2">
                   {tour.description}
                 </p>
 
-                <div className="mt-3 flex items-center text-gray-500 text-sm gap-2">
+                <div className="mt-3 flex items-center text-sm gap-2">
                   <MapPin className="w-4 h-4 text-blue-500" />
                   {tour.location || "Unknown Destination"}
                 </div>
 
-                <div className="mt-1 flex items-center text-gray-500 text-sm gap-2">
+                <div className="mt-1 flex items-center text-sm gap-2">
                   <Calendar className="w-4 h-4 text-blue-500" />
                   {tour.date || "Flexible Date"}
                 </div>
