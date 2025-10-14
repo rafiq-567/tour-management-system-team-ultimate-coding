@@ -17,6 +17,7 @@ import {
   Heart,
   PlaneIcon,
   Ticket,
+  Package,
 } from "lucide-react";
 
 // Helper function for conditional class names
@@ -38,6 +39,7 @@ const menuItems = [
   { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics", roles: ["admin"] },
   
   // All Users (User, Moderator, Admin)
+  // { name: "Itinerary History", href: "/ai-itinerary/history", icon: <Package size={18} /> },
   { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings", roles: ["admin", "moderator", "user"] },
   { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
   { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },

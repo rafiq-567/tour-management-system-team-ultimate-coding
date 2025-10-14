@@ -173,6 +173,7 @@ import {
   Info,
   Phone,
   BrainCircuit,
+  Package,
 } from "lucide-react";
 
 import { useSession } from "next-auth/react";
@@ -192,6 +193,7 @@ export default function Navbar() {
     { name: "Destinations", href: "/destinations", icon: <MapPin size={18} /> },
     { name: "Tour Package", href: "/tours", icon: <Package2Icon size={18} /> },
     { name: "AI Trip Planner", href: "/ai-itinerary", icon: <BrainCircuit size={18} /> }, // 🌟 New Feature Added Here
+    // { name: "Itinerary History", href: "/ai-itinerary/history", icon: <Package size={18} /> },
     { name: "Contact", href: "/contact", icon: <Phone size={18} /> },
     { name: "About", href: "/about", icon: <Info size={18} /> },
   ];
