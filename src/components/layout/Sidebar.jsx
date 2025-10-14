@@ -40,6 +40,12 @@ const menuItems = [
   
   // All Users (User, Moderator, Admin)
   // { name: "Itinerary History", href: "/ai-itinerary/history", icon: <Package size={18} /> },
+  <li>
+  <Link href="/dashboard/user/itinerary" className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700">
+    🗺️ AI Itineraries
+  </Link>
+</li>
+
   { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings", roles: ["admin", "moderator", "user"] },
   { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
   { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },
