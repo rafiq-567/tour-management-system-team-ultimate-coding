@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 import { useSession } from "next-auth/react";
-import PackagesDropdown from "../utilities/PackagesDropdown";
+// import PackagesDropdown from "../utilities/PackagesDropdown";
 import AuthButtons from "../Auth/AuthButtons";
 import UserProfileDropdown from "../Auth/UserProfileDropdown";
 import ThemeControl from "../themeControl/ThemeControl";
@@ -45,7 +45,7 @@ export default function Navbar() {
   const menuItems = [
     { name: "Home", href: "/", icon: <Home size={18} /> },
     { name: "Destinations", href: "/destinations", icon: <MapPin size={18} /> },
-    { name: "Packages", dropdown: true, icon: <Package size={18} /> },
+    // { name: "Packages", dropdown: true, icon: <Package size={18} /> },
     { name: "Tour Package", href: "/tours", icon: <Package2Icon size={18} /> },
     { name: "Contact", href: "/contact", icon: <Phone size={18} /> },
     { name: "About", href: "/about", icon: <Info size={18} /> },
@@ -82,7 +82,7 @@ export default function Navbar() {
                   </button>
                   {packagesOpen && (
                     <div className="absolute left-0 mt-2 w-52 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 z-40">
-                      <PackagesDropdown />
+                      {/* <PackagesDropdown /> */}
                     </div>
                   )}
                 </div>

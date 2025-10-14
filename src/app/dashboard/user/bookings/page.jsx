@@ -9,6 +9,52 @@ export default function MyBookingsPage() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Handle Payment Function
+  const handlePayment = async (booking) => {
+    if (!session?.user) {
+      alert("Please login to make payment");
+      return;
+    }
+
+    if (!booking || booking.status !== "approved") {
+      alert("Booking must be approved before payment.");
+      return;
+    }
+
+    const priceToSend = booking.totalPrice || booking.price * booking.guests;
+    const numericPrice = parseFloat(priceToSend);
+
+    if (isNaN(numericPrice) || numericPrice <= 0) {
+      alert("Invalid price detected.");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: booking._id,
+          tourTitle: booking.tourName,
+          amount: numericPrice,
+          userEmail: session.user.email,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.url) {
+        window.location.href = data.url; // Redirect to Stripe Checkout
+      } else {
+        console.error("Stripe session creation failed:", data);
+        alert(data.error || "Failed to initiate payment.");
+      }
+    } catch (err) {
+      console.error("Error in handlePayment:", err);
+      alert("Payment request failed. Please try again.");
+    }
+  };
+
   useEffect(() => {
     if (!session?.user?.id) return;
 
@@ -44,7 +90,7 @@ export default function MyBookingsPage() {
   if (bookings.length === 0)
     return (
       <p className="text-center p-6 text-gray-500">
-        You don’t have any bookings yet.
+        You don't have any bookings yet.
       </p>
     );
 
@@ -62,6 +108,7 @@ export default function MyBookingsPage() {
               <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Total</th>
               <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Booked On</th>
               <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Status</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Payment</th>
               <th className="px-4 py-3 text-center text-sm font-semibold text-gray-700 dark:text-gray-200">Action</th>
             </tr>
           </thead>
@@ -72,7 +119,7 @@ export default function MyBookingsPage() {
                 <td className="px-4 py-3 text-gray-600 dark:text-gray-300">${booking.price}</td>
                 <td className="px-4 py-3 text-gray-600 dark:text-gray-300">{booking.guests}</td>
                 <td className="px-4 py-3 text-gray-800 dark:text-gray-100 font-semibold">
-                  ${(booking.price * booking.guests).toFixed(2)}
+                  ${(booking.totalPrice || booking.price * booking.guests).toFixed(2)}
                 </td>
                 <td className="px-4 py-3 text-gray-500 dark:text-gray-400">
                   {new Date(booking.createdAt).toLocaleDateString()}
@@ -90,14 +137,37 @@ export default function MyBookingsPage() {
                     {booking.status}
                   </span>
                 </td>
+                <td className="px-4 py-3">
+                  <span
+                    className={`px-3 py-1 text-sm font-medium rounded-lg ${
+                      booking.paymentStatus === "paid"
+                        ? "bg-green-100 text-green-600"
+                        : booking.paymentStatus === "failed"
+                        ? "bg-red-100 text-red-600"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
+                    {booking.paymentStatus === "paid" 
+                      ? "Paid" 
+                      : booking.paymentStatus === "failed" 
+                      ? "Failed" 
+                      : "Unpaid"}
+                  </span>
+                </td>
                 <td className="px-4 py-3 text-center">
                   {booking.status === "approved" ? (
-                    <button
-                      onClick={() => alert("Redirect to payment page")}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm"
-                    >
-                      Pay Now
-                    </button>
+                    booking.paymentStatus === "paid" ? (
+                      <span className="text-green-600 text-sm font-medium">Payment Done ✅</span>
+                    ) : (
+                      <button
+                        onClick={() => handlePayment(booking)}
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors"
+                      >
+                        Pay Now
+                      </button>
+                    )
+                  ) : booking.status === "pending" ? (
+                    <span className="text-yellow-500 text-sm">Waiting for approval</span>
                   ) : (
                     <span className="text-gray-400 text-sm">No Action</span>
                   )}
