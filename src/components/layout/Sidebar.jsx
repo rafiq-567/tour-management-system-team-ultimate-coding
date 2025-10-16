@@ -46,7 +46,7 @@ const menuItems = [
 ];
 
 // --- 2. Sidebar Component (Handles Navigation and Filtering) ---
-function Sidebar({ role }) {
+function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = usePathname(); // ✅ Correct way to get current path
   const {data} = useSession();
