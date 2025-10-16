@@ -47,16 +47,16 @@ const PopularDestinations = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans p-4 sm:p-8 lg:p-12 relative">
+    <div className="min-h-screen bg-base-100 dark:bg-gray-900 font-sans p-4 sm:p-8 lg:p-12 relative">
       {/* Header */}
       <div className="text-center mb-12">
         <div className="flex items-center justify-center mb-4">
           <Globe className="text-blue-500 mr-2" size={32} />
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-gray-100">
+          <h2 className="text-3xl sm:text-4xl font-extrabold dark:text-gray-100">
             Popular Destinations in Bangladesh
           </h2>
         </div>
-        <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        <p className="mt-4 text-lg dark:text-gray-400 max-w-3xl mx-auto">
           Discover the most amazing tourist spots in Bangladesh! Plan your
           trips, book tours, and explore beautiful locations.
         </p>

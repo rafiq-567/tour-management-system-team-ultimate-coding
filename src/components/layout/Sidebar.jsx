@@ -18,6 +18,7 @@ import {
   PlaneIcon,
   Ticket,
 } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 // Helper function for conditional class names
 const cn = (...classes) => classes.filter(Boolean).join(" ");
@@ -105,19 +106,18 @@ const menuItems = [
 ];
 
 // --- 2. Sidebar Component (Handles Navigation and Filtering) ---
-function Sidebar({ role }) {
+function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = usePathname(); // ✅ Correct way to get current path
+  const {data} = useSession();
 
   // Filter menu items based on the user's role
-  const filteredMenuItems = menuItems.filter((item) =>
-    item.roles.includes(role)
-  );
+  const filteredMenuItems = menuItems.filter(item => item.roles.includes(data?.user?.role));
 
   return (
     <>
       {/* Mobile Topbar & Menu Button */}
-      <div className="md:hidden sticky top-0 bg-white dark:bg-gray-900 border-b dark:border-gray-700 shadow-sm z-40 p-4 flex justify-between items-center h-16">
+      <div className="md:hidden sticky top-0 bg-base-300 dark:bg-gray-900 border-b dark:border-gray-700 shadow-sm z-40 p-4 flex justify-between items-center h-16">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-700 dark:text-gray-300"
@@ -130,7 +130,7 @@ function Sidebar({ role }) {
       {/* Sidebar Navigation */}
       <aside
         className={cn(
-          "fixed md:sticky top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 border-r dark:border-gray-700 shadow-xl flex flex-col transform transition-transform duration-300 z-50",
+          "fixed md:sticky top-0 left-0 h-full w-64 bg-base-300 dark:bg-gray-900 border-r dark:border-gray-700 shadow-xl flex flex-col transform transition-transform duration-300 z-50",
           isOpen ? "translate-x-0" : "-translate-x-full",
           "md:translate-x-0 md:shadow-none" // Sidebar is sticky and always visible on desktop
         )}
@@ -154,7 +154,7 @@ function Sidebar({ role }) {
                   "focus:outline-none focus:ring-2 focus:ring-blue-300",
                   isActive
                     ? "bg-blue-600 text-white shadow-md font-semibold hover:bg-blue-700"
-                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
+                    :"dark:text-gray-300 hover:bg-gray-50 hover:text-gray-600 dark:hover:bg-gray-800"
                 )}
                 onClick={() => setIsOpen(false)}
               >

@@ -17,7 +17,7 @@ export default function LinkLogo() {
         className="h-8 w-auto transition-transform duration-300 group-hover:scale-105"
         priority // Optional: if this is above the fold
       />
-      <span className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+      <span className="text-2xl font-bold dark:text-white tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
         SixTour
       </span>
     </Link>

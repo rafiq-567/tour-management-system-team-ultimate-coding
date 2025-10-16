@@ -31,7 +31,7 @@ const ThemeControl = () => {
     return (
         <button
             onClick={handleToggle}
-            className="p-2 rounded-full text-gray-800 dark:text-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            className="p-2 rounded-full dark:text-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             aria-label="Toggle dark mode"
         >
             {onToggleDarkMode ==='light' ? <Sun size={24} /> : <Moon size={24} />}
