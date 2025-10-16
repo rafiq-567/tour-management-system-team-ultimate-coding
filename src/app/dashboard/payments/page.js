@@ -32,14 +32,14 @@ export default function PaymentHistory() {
   if (loading) return <p className="p-6">Loading payments...</p>;
 
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className=" max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">💳 Payment History</h1>
 
       {payments.length === 0 ? (
         <p>No payment history found.</p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full border border-gray-300 rounded-lg">
+          <table className=" border border-gray-300 rounded-lg">
             <thead>
               <tr className="bg-gray-100 text-left">
                 <th className="p-3 border">Tour</th>

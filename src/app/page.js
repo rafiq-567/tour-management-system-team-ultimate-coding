@@ -17,9 +17,8 @@ export default async function Home() {
   console.log(session);
 
   return (
-    <> 
+    <>
       <div>
-        
         {/* <Hero></Hero> */}
         <PromoSlider></PromoSlider>
         <PopularDestinations></PopularDestinations>
@@ -29,7 +28,7 @@ export default async function Home() {
         <TravelBlogSection></TravelBlogSection>
         <FAQ> </FAQ>
         <TravellerForm></TravellerForm>
-         {/* <CheckoutButton orderId="ORDER123" amount={500} /> */}
+        {/* <CheckoutButton orderId="ORDER123" amount={500} /> */}
       </div>
     </>
   );

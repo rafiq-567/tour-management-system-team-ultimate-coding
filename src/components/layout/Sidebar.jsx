@@ -26,22 +26,82 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
 // Each item now has a 'roles' array defining who can see it.
 const menuItems = [
   // Admin & Moderator
-  { name: "Dashboard", icon: Home, href: "/dashboard/admin", roles: ["admin", "moderator"] },
-  { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all", roles: ["admin", "moderator"] },
-  { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings", roles: ["admin", "moderator"] },
-  { name: "Payments", icon: CreditCard, href: "/dashboard/payments", roles: ["admin", "moderator"] },
-  
+  {
+    name: "Dashboard",
+    icon: Home,
+    href: "/dashboard/admin",
+    roles: ["admin", "moderator"],
+  },
+  {
+    name: "All Tours",
+    icon: PlaneIcon,
+    href: "/dashboard/admin/all",
+    roles: ["admin", "moderator"],
+  },
+  {
+    name: "Bookings",
+    icon: Calendar,
+    href: "/dashboard/moderator/bookings",
+    roles: ["admin", "moderator"],
+  },
+  {
+    name: "Payments",
+    icon: CreditCard,
+    href: "/dashboard/payments",
+    roles: ["admin", "moderator"],
+  },
+
   // Admin Only
-  { name: "Add Tour", icon: Plane, href: "/dashboard/admin/add-tour", roles: ["admin"] },
-  { name: "Discounts", icon: Ticket, href: "/dashboard/admin/discounts", roles: ["admin"] },
-  { name: "Users Management", icon: Users, href: "/dashboard/admin/users", roles: ["admin"] },
-  { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics", roles: ["admin"] },
-  
+  {
+    name: "Add Tour",
+    icon: Plane,
+    href: "/dashboard/admin/add-tour",
+    roles: ["admin"],
+  },
+  {
+    name: "Discounts",
+    icon: Ticket,
+    href: "/dashboard/admin/discounts",
+    roles: ["admin"],
+  },
+  {
+    name: "Users Management",
+    icon: Users,
+    href: "/dashboard/admin/users",
+    roles: ["admin"],
+  },
+  {
+    name: "Analytics",
+    icon: BarChart3,
+    href: "/dashboard/admin/analytics",
+    roles: ["admin"],
+  },
+
   // All Users (User, Moderator, Admin)
-  { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings", roles: ["admin", "moderator", "user"] },
-  { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
-  { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },
-  { name: "Settings", icon: Settings, href: "/dashboard/settings", roles: ["admin", "moderator", "user"] },
+  {
+    name: "My Bookings",
+    icon: Calendar,
+    href: "/dashboard/user/bookings",
+    roles: ["admin", "moderator", "user"],
+  },
+  {
+    name: "Profile",
+    icon: Users,
+    href: "/dashboard/user/profile",
+    roles: ["admin", "moderator", "user"],
+  },
+  {
+    name: "Wishlist",
+    icon: Heart,
+    href: "/dashboard/user/wishlist",
+    roles: ["admin", "moderator", "user"],
+  },
+  {
+    name: "Settings",
+    icon: Settings,
+    href: "/dashboard/settings",
+    roles: ["admin", "moderator", "user"],
+  },
 ];
 
 // --- 2. Sidebar Component (Handles Navigation and Filtering) ---
@@ -50,7 +110,9 @@ function Sidebar({ role }) {
   const currentPath = usePathname(); // ✅ Correct way to get current path
 
   // Filter menu items based on the user's role
-  const filteredMenuItems = menuItems.filter(item => item.roles.includes(role));
+  const filteredMenuItems = menuItems.filter((item) =>
+    item.roles.includes(role)
+  );
 
   return (
     <>
