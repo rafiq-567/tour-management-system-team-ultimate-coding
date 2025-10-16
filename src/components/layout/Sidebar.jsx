@@ -18,6 +18,7 @@ import {
   PlaneIcon,
   Ticket,
 } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 // Helper function for conditional class names
 const cn = (...classes) => classes.filter(Boolean).join(" ");
@@ -45,12 +46,13 @@ const menuItems = [
 ];
 
 // --- 2. Sidebar Component (Handles Navigation and Filtering) ---
-function Sidebar({ role }) {
+function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = usePathname(); // ✅ Correct way to get current path
+  const {data} = useSession();
 
   // Filter menu items based on the user's role
-  const filteredMenuItems = menuItems.filter(item => item.roles.includes(role));
+  const filteredMenuItems = menuItems.filter(item => item.roles.includes(data?.user?.role));
 
   return (
     <>

@@ -36,6 +36,7 @@ export default function UserProfileDropdown({ session, isMobile }) {
             alt={user.name || "User Profile"}
             width={32}
             height={32}
+            unoptimized
             className="w-8 h-8 rounded-full object-cover"
           />
         ) : (
