@@ -11,9 +11,8 @@ import PromoSlider from "@/components/utilities/PromoSlider";
 export default async function Home() {
   
   return (
-    <> 
+    <>
       <div>
-        
         {/* <Hero></Hero> */}
         <PromoSlider></PromoSlider>
         <PopularDestinations></PopularDestinations>
@@ -23,7 +22,7 @@ export default async function Home() {
         <TravelBlogSection></TravelBlogSection>
         <FAQ> </FAQ>
         <TravellerForm></TravellerForm>
-         {/* <CheckoutButton orderId="ORDER123" amount={500} /> */}
+        {/* <CheckoutButton orderId="ORDER123" amount={500} /> */}
       </div>
     </>
   );

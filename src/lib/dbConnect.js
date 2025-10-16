@@ -23,7 +23,7 @@ function dbConnect(collectionName) {
 // Validation API: https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php?wsdl
 // Validation API(Web Service) name: https://sandbox.sslcommerz.com/validator/api/validationserverAPI.php
 
-    const uri = process.env.MONGODB_URI;
+    const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
     // Create a MongoClient with a MongoClientOptions object to set the Stable API version
     const client = new MongoClient(uri, {
         serverApi: {
