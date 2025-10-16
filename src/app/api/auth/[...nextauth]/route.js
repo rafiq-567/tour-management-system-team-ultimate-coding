@@ -27,14 +27,14 @@ export const authOptions = {
         // console.log(credentials);
         // Add logic here to look up the user from the credentials supplied
         const user = await dbConnect("user").findOne({
-          email: credentials.email,
+          email: credentials.email, password:credentials.password
         });
-        // console.log(user)
 
         const isPasswordOk = credentials.password === user?.password;
 
         if (isPasswordOk) {
           // Any object returned will be saved in `user` property of the JWT
+
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
@@ -63,10 +63,8 @@ export const authOptions = {
           const { providerAccountId, provider } = account;
           const { email: user_email, name, image } = user;
 
-          const usersCollection = await dbConnect("user");
-          let existingUser = await usersCollection.findOne({
-            email: user_email,
-          });
+          const usersCollection = dbConnect("user");
+          let existingUser = await usersCollection.findOne({ providerAccountId });
 
           if (!existingUser) {
             const result = await usersCollection.insertOne({
@@ -78,16 +76,18 @@ export const authOptions = {
               role: "user",
               createdAt: new Date(),
             });
-            existingUser = {
-              _id: result.insertedId,
-              email: user_email,
-              name,
-              role: "user",
-            };
+
+            if (provider === "google" || provider === "github") {
+              user.role = "user";
+              user._id = result?.insertedId;
+            }
+            
+        
+          } else if (provider === "google" || provider === "github") {
+            user.role = existingUser?.role;
+            user._id = existingUser?._id;
           }
 
-          // return user object with Mongo _id
-          return { ...existingUser, id: existingUser._id.toString() };
         } catch (error) {
           console.log("signIn error:", error);
           return false;
@@ -98,9 +98,9 @@ export const authOptions = {
 
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id || user._id?.toString();
+        token.id = user._id;
         token.name = user.name;
-        token.role = user.role || "user";
+        token.role = user.role;
       }
       return token;
     },
