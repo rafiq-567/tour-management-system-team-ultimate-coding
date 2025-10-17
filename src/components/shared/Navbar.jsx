@@ -30,7 +30,7 @@ export default function Navbar() {
     { name: "Home", href: "/", icon: <Home size={18} /> },
     { name: "Destinations", href: "/destinations", icon: <MapPin size={18} /> },
     { name: "Tour Package", href: "/tours", icon: <Package2Icon size={18} /> },
-    { name: "Smart Budget", href: "/tours#smart-budget", icon: <BrainCircuit size={18} /> },
+    { name: "Smart Budget", href: "/smart-budget", icon: <BrainCircuit size={18} /> },
 
 
     // 🌟 NEW Smart Budget Tour Feature
