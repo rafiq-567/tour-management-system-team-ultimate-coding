@@ -7,9 +7,9 @@ import HomepageDiscounts from "@/components/Home/HomepageDiscounts";
 // import CheckoutButton from "./components/CheckoutButton";
 import TravelBlogSection from "@/components/Home/TravelBlogSection";
 import PromoSlider from "@/components/utilities/PromoSlider";
+import TourGuides from "@/components/utilities/TourGuides";
 
 export default async function Home() {
-  
   return (
     <>
       <div>
@@ -19,6 +19,7 @@ export default async function Home() {
         <HomepageDiscounts></HomepageDiscounts>
         <WhyChooseUs></WhyChooseUs>
         <TravelersSay></TravelersSay>
+        <TourGuides></TourGuides>
         <TravelBlogSection></TravelBlogSection>
         <FAQ> </FAQ>
         <TravellerForm></TravellerForm>

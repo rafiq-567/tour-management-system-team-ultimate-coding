@@ -3,18 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Menu,
-  X,
-  Home,
-  MapPin,
-  Package,
-  Info,
-  Phone,
-  Package2Icon,
-  Sun,
-  Moon,
-} from "lucide-react";
+import { Menu, X, Home, MapPin, Info, Phone, Package2Icon } from "lucide-react";
 
 import { useSession } from "next-auth/react";
 // import PackagesDropdown from "../utilities/PackagesDropdown";
@@ -61,7 +50,11 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center space-x-6 font-medium">
           {menuItems.map((item) => (
-            <li key={item.name} className="relative" ref={item.dropdown ? packagesRef : null}>
+            <li
+              key={item.name}
+              className="relative"
+              ref={item.dropdown ? packagesRef : null}
+            >
               {item.dropdown ? (
                 <div>
                   <button
@@ -71,7 +64,9 @@ export default function Navbar() {
                     {item.icon} {item.name}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className={`w-4 h-4 transition-transform ${packagesOpen ? "rotate-180" : "rotate-0"}`}
+                      className={`w-4 h-4 transition-transform ${
+                        packagesOpen ? "rotate-180" : "rotate-0"
+                      }`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -101,7 +96,11 @@ export default function Navbar() {
             </li>
           ))}
 
-          {session?.data?.user ? <UserProfileDropdown session={session} /> : <AuthButtons />}
+          {session?.data?.user ? (
+            <UserProfileDropdown session={session} />
+          ) : (
+            <AuthButtons />
+          )}
 
           <li>
             <ThemeControl />
@@ -151,7 +150,11 @@ export default function Navbar() {
             </li>
           ))}
 
-          {session?.data?.user ? <UserProfileDropdown session={session} isMobile /> : <AuthButtons isMobile />}
+          {session?.data?.user ? (
+            <UserProfileDropdown session={session} isMobile />
+          ) : (
+            <AuthButtons isMobile />
+          )}
         </ul>
       </div>
     </nav>
