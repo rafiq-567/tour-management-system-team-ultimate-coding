@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb";
 export async function PATCH(req, { params }) {
   try {
     const { id } = params;
+    console.log(id)
     const { status } = await req.json();
 
     if (!["pending", "approved", "rejected", "paid"].includes(status)) {
