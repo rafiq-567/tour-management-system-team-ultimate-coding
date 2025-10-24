@@ -1,16 +1,20 @@
 "use client";
 
 import Sidebar from "@/components/layout/Sidebar";
+import { usePathname } from "next/navigation";
 
 
 export default function DashboardLayout({ children }) {
+  const currentPath = usePathname();
   // 🚨 TODO: Replace this with actual role retrieval (e.g., from session, Context, or JWT)
   const userRole = "admin"; // 🔄 dynamic later: "admin" | "moderator" | "user"
 
   return (
     <div className="flex min-h-screen bg-base-100 dark:bg-gray-950">
       {/* Sidebar: Fixed width, handles responsiveness and role filtering */}
-      <Sidebar />
+      {
+        !currentPath.includes('/communication') && <Sidebar />
+      }
 
       {/* Main content Area */}
       <div className="flex-1 flex flex-col w-80 md:w-[calc(100%-16rem)]">

@@ -17,6 +17,7 @@ import {
   Heart,
   PlaneIcon,
   Ticket,
+  MessageCircle,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
@@ -103,13 +104,21 @@ const menuItems = [
     href: "/dashboard/settings",
     roles: ["admin", "moderator", "user"],
   },
+  {
+    name: "Communication",
+    icon: MessageCircle,
+    href: "/dashboard/user/communication",
+    roles: ["admin", "moderator", "user"],
+  }
+
 ];
 
 // --- 2. Sidebar Component (Handles Navigation and Filtering) ---
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = usePathname(); // ✅ Correct way to get current path
-  const {data} = useSession();
+  const { data } = useSession();
+
 
   // Filter menu items based on the user's role
   const filteredMenuItems = menuItems.filter(item => item.roles.includes(data?.user?.role));
@@ -154,7 +163,7 @@ function Sidebar() {
                   "focus:outline-none focus:ring-2 focus:ring-blue-300",
                   isActive
                     ? "bg-blue-600 text-white shadow-md font-semibold hover:bg-blue-700"
-                    :"dark:text-gray-300 hover:bg-gray-50 hover:text-gray-600 dark:hover:bg-gray-800"
+                    : "dark:text-gray-300 hover:bg-gray-50 hover:text-gray-600 dark:hover:bg-gray-800"
                 )}
                 onClick={() => setIsOpen(false)}
               >
