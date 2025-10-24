@@ -22,7 +22,7 @@ const NewTicketForm = () => {
     <div className="p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-xl font-semibold mb-4 text-gray-800">Submit a New Support Ticket 📝</h2>
       <p className="mb-4 text-sm text-gray-600">
-        Can not find an answer in the Help Center? Submit a ticket and our team will respond quickly.
+        Can t find an answer in the Help Center? Submit a ticket and our team will respond quickly.
       </p>
 
       {success && (
