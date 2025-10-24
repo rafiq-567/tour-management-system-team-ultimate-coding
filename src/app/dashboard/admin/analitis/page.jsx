@@ -105,7 +105,7 @@ export default function AnalyticsPage() {
     bookingsByMonth: [],
     topTours: [],
   });
-
+console.log(topTours.length)
   useEffect(() => {
     async function load() {
       const res = await fetch("/api/analytics");
@@ -116,8 +116,8 @@ export default function AnalyticsPage() {
   }, []);
 
   return (
-    <div className="p-8 space-y-8">
-      <h1 className="text-3xl font-bold text-gray-800">📊 Tour Management Analytics</h1>
+    <div className="max-w-6xl mx-auto p-8 space-y-8">
+      <h1 className="text-3xl font-bold text-white">📊 Tour Management Analytics</h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -136,7 +136,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Bookings by Month Chart */}
-      <div className="bg-white rounded-xl shadow p-6">
+      <div className="bg-white max-w-6xl mx-auto rounded-xl shadow p-6">
         <h2 className="text-xl font-semibold mb-4 text-gray-700">📅 Bookings per Month</h2>
         <Bar
           data={{
