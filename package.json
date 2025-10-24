@@ -9,28 +9,44 @@
     "lint": "eslint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "chart.js": "^4.5.1",
+=======
+    "@heroicons/react": "^2.2.0",
+    "@stripe/stripe-js": "^8.0.0",
+    "aceternity-ui": "^0.2.2",
+    "axios": "^1.12.2",
+>>>>>>> 42b0c7206edcaa981af69e35b5d54ad90bc690d3
     "daisyui": "^5.1.14",
     "framer-motion": "^12.23.21",
+    "jspdf": "^3.0.3",
     "lightningcss": "^1.30.2",
     "lucide-react": "^0.544.0",
     "mongodb": "^6.20.0",
     "next": "15.5.3",
     "next-auth": "^4.24.11",
+    "node-fetch": "^3.3.2",
     "react": "19.1.0",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "19.1.0",
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "recharts": "^3.2.1",
+    "socket.io-client": "^4.8.1",
+    "sslcommerz-lts": "^1.2.0",
+    "stripe": "^19.1.0",
     "sweetalert2": "^11.23.0",
     "sweetalert2-react-content": "^5.1.0"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.27.1",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.13",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
+    "postcss": "^8.5.6",
+    "postcss-scss": "^4.0.9",
+    "sass": "^1.93.2",
     "tailwindcss": "^4.1.13"
   }
 }

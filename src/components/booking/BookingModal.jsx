@@ -236,10 +236,10 @@ export default function BookingModal({ tour, onClose }) {
             </p>
             {bookingStatus === "approved" && (
               <button
-                onClick={handlePayment}
+                onClick={onPayment}
                 className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all shadow-md"
               >
-                Pay Now
+                Pay Now!
               </button>
             )}
           </div>

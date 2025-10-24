@@ -3,7 +3,6 @@ import "./globals.css";
 import NextAuthSessionProvider from "@/Providers/authProvider/NextAuthSessionProvider";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import { icons } from "lucide-react";
 
 
 
@@ -31,6 +30,7 @@ export const metadata = {
 
 
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <NextAuthSessionProvider>
