@@ -27,6 +27,24 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
 // --- 1. Menu Definitions with Role-Based Access Control (RBAC) ---
 // Each item now has a 'roles' array defining who can see it.
 const menuItems = [
+<<<<<<< HEAD
+  { name: "Dashboard", icon: Home, href: "/dashboard/admin" },
+  { name: "Users", icon: Users, href: "/dashboard/admin/users" },
+  { name: "Tours", icon: Plane, href: "/dashboard/admin/add/tours" },
+  { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all" },
+  { name: "Discounts", icon: CreditCard, href: "/dashboard/admin/discounts" },
+  { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings" },
+  { name: "Payments", icon: CreditCard, href: "/dashboard/admin/payments" },
+  { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analitis" },
+  { name: "Settings", icon: Settings, href: "/dashboard/admin/settings" },
+  { name: "Profile", icon: Users, href: "/dashboard/user/profile" },
+  { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings" },
+  { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist" },
+  { name: "Support", icon: Settings, href: "/dashboard/user/support" },
+];
+// dashboard 
+export default function Sidebar() {
+=======
   // Admin & Moderator
   {
     name: "Dashboard",
@@ -115,6 +133,7 @@ const menuItems = [
 
 // --- 2. Sidebar Component (Handles Navigation and Filtering) ---
 function Sidebar() {
+>>>>>>> 42b0c7206edcaa981af69e35b5d54ad90bc690d3
   const [isOpen, setIsOpen] = useState(false);
   const currentPath = usePathname(); // ✅ Correct way to get current path
   const { data } = useSession();
