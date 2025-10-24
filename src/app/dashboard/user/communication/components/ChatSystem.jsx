@@ -124,10 +124,10 @@ const ChatSystem = ({ result }) => {
   }, [selectedGroup])
 
   return (
-    <div className="h-[80vh] bg-gray-100 flex flex-col md:flex-row">
+    <div className="h-[90vh]  flex flex-col md:flex-row">
       {/* LEFT SIDEBAR (Groups List) */}
       <div
-        className={`w-full md:w-1/3 bg-white border-r border-gray-200 p-4 flex flex-col transition-all duration-300 ${selectedGroup ? "hidden md:flex" : "flex"
+        className={`w-full md:w-1/3 bg-base-300 border-r border-gray-200 p-4 flex flex-col transition-all duration-300 ${selectedGroup ? "hidden md:flex" : "flex"
           }`}
       >
         <h2 className="text-lg font-semibold mb-4 text-center md:text-left">
@@ -149,7 +149,7 @@ const ChatSystem = ({ result }) => {
                 alt={group.tourName}
                 className="w-10 h-10 rounded-full"
               />
-              <p className="font-medium">{group.tourName}</p>
+              <p className="font-medium text-blue-500">{group.tourName}</p>
             </div>
           ))}
         </div>
@@ -157,12 +157,12 @@ const ChatSystem = ({ result }) => {
 
       {/* RIGHT SIDE (Chat Window) */}
       <div
-        className={`flex-1 flex flex-col bg-gray-50 ${selectedGroup ? "flex" : "hidden md:flex"
+        className={`flex-1 flex flex-col bg-base-200 ${selectedGroup ? "flex" : "hidden md:flex"
           }`}
       >
         {/* Header */}
         {selectedGroup && (
-          <div className="flex items-center justify-between bg-white border-b border-gray-200 p-4 shadow-sm">
+          <div className="flex items-center justify-between bg-base-300 border-b border-gray-200 p-4 shadow-sm">
             <div className="flex items-center gap-3">
               <img
                 src={selectedGroup.image}
@@ -170,7 +170,7 @@ const ChatSystem = ({ result }) => {
                 className="w-10 h-10 rounded-full"
               />
               <div>
-                <h3 className="text-lg font-semibold">{selectedGroup.tourName}</h3>
+                <h3 className="text-lg font-semibold text-blue-500">{selectedGroup.tourName}</h3>
                 {
                   typer.length ? <p>{typer.join(",")} typing...</p> : ""
                 }
@@ -220,7 +220,7 @@ const ChatSystem = ({ result }) => {
 
         {/* Bottom Input */}
         {selectedGroup && (
-          <div className="p-4 bg-white border-t border-gray-200 flex items-center gap-2">
+          <div className="p-4 bg-base-300 border-t border-gray-200 flex items-center gap-2">
             <textarea
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
