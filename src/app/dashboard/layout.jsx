@@ -54,7 +54,7 @@ export default function DashboardLayout({ children }) {
       <Sidebar role={userRole} />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col w-full md:w-[calc(100%-16rem)]">
         {/* Header */}
         <header className="hidden md:flex h-16 items-center justify-between px-8 bg-base-300 dark:bg-gray-900 border-b dark:border-gray-800 shadow-sm sticky top-0 z-30">
           <h1 className="text-xl font-extrabold dark:text-gray-100 capitalize">

@@ -60,7 +60,7 @@ export default function Navbar() {
                 className={`flex items-center gap-2 px-2 py-1 rounded-md transition ${
                   isActive(item.href)
                     ? "text-blue-600 dark:text-blue-400 font-semibold"
-                    : "text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400"
+                    : " dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400"
                 }`}
               >
                 {item.icon} {item.name}

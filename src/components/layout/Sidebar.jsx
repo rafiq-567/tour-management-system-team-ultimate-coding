@@ -18,6 +18,7 @@ import {
   PlaneIcon,
   Ticket,
   Handshake,
+  BedDouble,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
@@ -29,23 +30,95 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
 // ======================
 const menuItems = [
   // Admin & Moderator
-  { name: "Dashboard", icon: Home, href: "/dashboard/admin", roles: ["admin", "moderator"] },
-  { name: "All Tours", icon: PlaneIcon, href: "/dashboard/admin/all", roles: ["admin", "moderator"] },
-  { name: "Bookings", icon: Calendar, href: "/dashboard/moderator/bookings", roles: ["admin", "moderator"] },
-  { name: "Payments", icon: CreditCard, href: "/dashboard/payments", roles: ["admin", "moderator"] },
+  {
+    name: "Dashboard",
+    icon: Home,
+    href: "/dashboard/admin",
+    roles: ["admin", "moderator"],
+  },
+  {
+    name: "All Tours",
+    icon: PlaneIcon,
+    href: "/dashboard/admin/all",
+    roles: ["admin", "moderator"],
+  },
+  {
+    name: "Bookings",
+    icon: Calendar,
+    href: "/dashboard/moderator/bookings",
+    roles: ["admin", "moderator"],
+  },
+  {
+    name: "Payments",
+    icon: CreditCard,
+    href: "/dashboard/payments",
+    roles: ["admin", "moderator"],
+  },
 
   // Admin Only
-  { name: "Add Tour", icon: Plane, href: "/dashboard/admin/add-tour", roles: ["admin"] },
-  { name: "Discounts", icon: Ticket, href: "/dashboard/admin/discounts", roles: ["admin"] },
-  { name: "Users Management", icon: Users, href: "/dashboard/admin/users", roles: ["admin"] },
-  { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics", roles: ["admin"] },
+  {
+    name: "Add Tour",
+    icon: Plane,
+    href: "/dashboard/admin/add-tour",
+    roles: ["admin"],
+  },
+  {
+    name: "Discounts",
+    icon: Ticket,
+    href: "/dashboard/admin/discounts",
+    roles: ["admin"],
+  },
+  {
+    name: "Users Management",
+    icon: Users,
+    href: "/dashboard/admin/users",
+    roles: ["admin"],
+  },
+  {
+    name: "Analytics",
+    icon: BarChart3,
+    href: "/dashboard/admin/analytics",
+    roles: ["admin"],
+  },
 
   // All Users
-  { name: "Travel Buddy", icon: Handshake, href: "/dashboard/user/travel-buddy", roles: ["admin", "moderator", "user"] },
-  { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings", roles: ["admin", "moderator", "user"] },
-  { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
-  { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },
-  { name: "Settings", icon: Settings, href: "/dashboard/settings", roles: ["admin", "moderator", "user"] },
+  {
+    name: "Travel Buddy",
+    icon: Handshake,
+    href: "/dashboard/user/travel-buddy",
+    roles: ["admin", "moderator", "user"],
+  },
+  {
+    name: "My Bookings",
+    icon: Calendar,
+    href: "/dashboard/user/bookings",
+    roles: ["admin", "moderator", "user"],
+  },
+  {
+    name: "Rooms",
+    icon: BedDouble, // lucide-react থেকে icon
+    href: "/dashboard/user/rooms",
+    roles: ["admin", "moderator", "user"],
+  },
+
+  {
+    name: "Profile",
+    icon: Users,
+    href: "/dashboard/user/profile",
+    roles: ["admin", "moderator", "user"],
+  },
+  {
+    name: "Wishlist",
+    icon: Heart,
+    href: "/dashboard/user/wishlist",
+    roles: ["admin", "moderator", "user"],
+  },
+  {
+    name: "Settings",
+    icon: Settings,
+    href: "/dashboard/settings",
+    roles: ["admin", "moderator", "user"],
+  },
 ];
 
 // ======================
@@ -58,7 +131,9 @@ export default function Sidebar() {
   const { data } = useSession();
 
   const userRole = data?.user?.role || "user";
-  const filteredMenu = menuItems.filter((item) => item.roles.includes(userRole));
+  const filteredMenu = menuItems.filter((item) =>
+    item.roles.includes(userRole)
+  );
 
   return (
     <>
@@ -71,7 +146,6 @@ export default function Sidebar() {
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-        
       </div>
 
       {/* ✅ Sidebar for Desktop & Mobile */}
@@ -117,7 +191,9 @@ export default function Sidebar() {
                 <span
                   className={cn(
                     "transition-all duration-200 whitespace-nowrap",
-                    isHover ? "opacity-100 ml-1" : "opacity-0 w-0 overflow-hidden"
+                    isHover
+                      ? "opacity-100 ml-1"
+                      : "opacity-0 w-0 overflow-hidden"
                   )}
                 >
                   {item.name}

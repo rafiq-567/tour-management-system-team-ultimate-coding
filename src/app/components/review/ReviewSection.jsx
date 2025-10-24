@@ -4,7 +4,8 @@ import { useSession } from "next-auth/react";
 
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
-import ReviewCard from "./ReviewCard";
+import { ReviewCard } from "./ReviewCard";
+
 
 
 export default function ReviewSection({ tourId }) {
