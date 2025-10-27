@@ -19,6 +19,7 @@ import {
   Ticket,
   Handshake,
   BedDouble,
+  MessageCircle,
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
@@ -119,6 +120,13 @@ const menuItems = [
     href: "/dashboard/settings",
     roles: ["admin", "moderator", "user"],
   },
+  {
+    name: "Communication",
+    icon: MessageCircle,
+    href: "/dashboard/user/communication",
+    roles: ["admin", "moderator", "user"],
+  }
+
 ];
 
 // ======================
@@ -129,6 +137,8 @@ export default function Sidebar() {
   const [isHover, setIsHover] = useState(false);
   const pathname = usePathname();
   const { data } = useSession();
+
+
 
   const userRole = data?.user?.role || "user";
   const filteredMenu = menuItems.filter((item) =>
@@ -174,6 +184,13 @@ export default function Sidebar() {
               <Link
                 key={item.name}
                 href={item.href}
+                className={cn(
+                  "flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150",
+                  "focus:outline-none focus:ring-2 focus:ring-blue-300",
+                  isActive
+                    ? "bg-blue-600 text-white shadow-md font-semibold hover:bg-blue-700"
+                    : "dark:text-gray-300 hover:bg-gray-50 hover:text-gray-600 dark:hover:bg-gray-800"
+                )}
                 onClick={() => setIsOpen(false)}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 group",
