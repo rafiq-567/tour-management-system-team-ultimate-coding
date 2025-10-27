@@ -15,8 +15,6 @@ const nextConfig = {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
       },
-<<<<<<< HEAD
-=======
       {
         protocol: "https",
         hostname: "upload.wikimedia.org",
@@ -43,7 +41,6 @@ const nextConfig = {
         hostname: "upload.wikimedia.org",
       },
     
->>>>>>> 42b0c7206edcaa981af69e35b5d54ad90bc690d3
     ],
   },
 };

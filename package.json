@@ -9,14 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "chart.js": "^4.5.1",
-=======
     "@heroicons/react": "^2.2.0",
     "@stripe/stripe-js": "^8.0.0",
     "aceternity-ui": "^0.2.2",
     "axios": "^1.12.2",
->>>>>>> 42b0c7206edcaa981af69e35b5d54ad90bc690d3
     "daisyui": "^5.1.14",
     "framer-motion": "^12.23.21",
     "jspdf": "^3.0.3",

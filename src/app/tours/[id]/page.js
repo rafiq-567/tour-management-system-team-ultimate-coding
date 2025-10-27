@@ -6,15 +6,12 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import BookingModal from "@/components/booking/BookingModal";
 import ReviewSection from "@/app/components/review/ReviewSection";
-<<<<<<< HEAD
 import Swal from "sweetalert2";
-=======
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
->>>>>>> 42b0c7206edcaa981af69e35b5d54ad90bc690d3
 
 export default function TourDetailsPage() {
   const { id } = useParams();
@@ -64,7 +61,6 @@ export default function TourDetailsPage() {
     fetchBooking();
   }, [id, userId]);
 
-<<<<<<< HEAD
   // handlewish list  ******************
    const handleWishlist = async () => {
     setLoading(true);
@@ -86,7 +82,6 @@ export default function TourDetailsPage() {
 
   if (loading) return <p className="text-center p-6">Loading...</p>;
   if (error) return <p className="text-center p-6 text-red-500">{error}</p>;
-=======
   // ✅ Handle Payment (Stripe)
   const handlePayment = async () => {
     if (!tour || !session?.user) {
@@ -97,7 +92,6 @@ export default function TourDetailsPage() {
       alert("Booking must be approved before payment.");
       return;
     }
->>>>>>> 42b0c7206edcaa981af69e35b5d54ad90bc690d3
 
     const priceToSend = userBooking.totalPrice || tour.price;
     const numericPrice = parseFloat(priceToSend);
@@ -197,16 +191,9 @@ export default function TourDetailsPage() {
             >
               Book Now
             </button>
-<<<<<<< HEAD
           )
-        ) : (
-          <button
-            onClick={() => setShowModal(true)}
-            className="mt-6 w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl shadow-md"
-          >
-            Book Now
-          </button>
-        )}
+        }
+        
         <button
         onClick={handleWishlist}
         disabled={loading}
@@ -214,10 +201,8 @@ export default function TourDetailsPage() {
       >
         {loading ? "Saving..." : "Add to Wishlist ❤️"}
       </button>
-=======
-          )}
+      
         </div>
->>>>>>> 42b0c7206edcaa981af69e35b5d54ad90bc690d3
 
         {/* Booking Modal */}
         {showModal && (
