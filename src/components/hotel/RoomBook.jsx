@@ -1,59 +1,80 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RoomCard from "./RoomCard";
+import LoadingSpinner from "@/app/register/components/LoadingSpinner";
+import Swal from "sweetalert2";
 
 export default function RoomBookPage() {
-  const [rooms, setRooms] = useState([
-    {
-      id: 1,
-      name: "Hotel Sea View",
-      type: "Deluxe",
-      price: 120,
-      rating: 4,
-      available: true,
-      image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
-      description:
-        "Experience luxury with an ocean view, complimentary breakfast, and premium amenities.",
-    },
-    {
-      id: 2,
-      name: "Hilltop Resort",
-      type: "Standard",
-      price: 80,
-      rating: 5,
-      available: true,
-      image:
-        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/640278495.jpg?k=d01b304a29089108ae381173be12460b5524ea2ce71cf3203fa2dcea36d370a8&o=&hp=1",
-      description:
-        "Enjoy the tranquility of the hills with cozy rooms and breathtaking sunrise views.",
-    },
-    {
-      id: 3,
-      name: "Sundarban Eco Stay",
-      type: "Cottage",
-      price: 100,
-      rating: 3,
-      available: false,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBKCKrz5yKmFJCosglRJoG0AKMQBo_Up0l6Q&s",
-      description:
-        "Stay close to nature in our eco-friendly cottages inside the forest area.",
-    },
-  ]);
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
-  const [selectedRoom, setSelectedRoom] = useState(null); // modal state
+  // Fetch rooms from backend API
+  useEffect(() => {
+    const fetchRooms = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/rooms");
+        console.log(res.data);
+        if (!res.ok) throw new Error("Failed to fetch rooms");
+        const data = await res.json();
+        setRooms(data);
+      } catch (err) {
+        console.error(err);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Failed to load rooms!",
+          confirmButtonColor: "#2563EB",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleBook = (id) => {
-    setRooms((prev) =>
-      prev.map((room) =>
-        room.id === id ? { ...room, available: false } : room
-      )
-    );
-    setSelectedRoom(null);
-    alert(`✅ Room ${id} booked successfully!`);
+    fetchRooms();
+  }, []);
+
+  // Handle booking a room
+  const handleBook = async (roomId) => {
+    try {
+      const res = await fetch(`/api/rooms/book/${roomId}`, {
+        method: "POST",
+      });
+
+      if (!res.ok) throw new Error("Booking failed");
+
+      const updatedRoom = await res.json();
+
+      // Update local state
+      setRooms((prev) =>
+        prev.map((room) =>
+          room._id === roomId ? { ...room, available: false } : room
+        )
+      );
+
+      setSelectedRoom(null);
+
+      Swal.fire({
+        icon: "success",
+        title: "Booked successfully!",
+        timer: 1200,
+        showConfirmButton: false,
+        position: "top-end",
+      });
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: "error",
+        title: "Booking failed",
+        text: "Please try again later",
+        confirmButtonColor: "#2563EB",
+      });
+    }
   };
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <section className="container mx-auto max-w-7xl py-6">
@@ -73,7 +94,7 @@ export default function RoomBookPage() {
         ))}
       </div>
 
-      {/* 🪟 Modal Popup */}
+      {/* Modal */}
       {selectedRoom && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-lg w-full shadow-lg relative">
@@ -102,7 +123,7 @@ export default function RoomBookPage() {
             </p>
 
             <button
-              onClick={() => handleBook(selectedRoom.id)}
+              onClick={() => handleBook(selectedRoom._id)}
               disabled={!selectedRoom.available}
               className={`w-full py-3 rounded-xl text-white font-semibold ${
                 selectedRoom.available
@@ -115,6 +136,7 @@ export default function RoomBookPage() {
           </div>
         </div>
       )}
+
       <div className="flex justify-center mt-6">
         <button className="px-6 py-2 bg-emerald-500 text-white text-lg font-semibold rounded-xl hover:bg-emerald-600 transition-all duration-200">
           See More

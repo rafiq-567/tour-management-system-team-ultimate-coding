@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 import {
   Home,
   Users,
@@ -15,19 +16,18 @@ import {
   X,
   LogOut,
   Heart,
-  PlaneIcon,
   Ticket,
   Handshake,
   BedDouble,
   MessageCircle,
+  ArrowLeft,
 } from "lucide-react";
-import { useSession } from "next-auth/react";
 
 // Utility for joining classes
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 
 // ======================
-// 🧭 Role-Based Menu Items
+// Role-Based Menu Items
 // ======================
 const menuItems = [
   // Admin & Moderator
@@ -39,7 +39,7 @@ const menuItems = [
   },
   {
     name: "All Tours",
-    icon: PlaneIcon,
+    icon: Plane,
     href: "/dashboard/admin/all",
     roles: ["admin", "moderator"],
   },
@@ -97,11 +97,10 @@ const menuItems = [
   },
   {
     name: "Rooms",
-    icon: BedDouble, // lucide-react থেকে icon
+    icon: BedDouble,
     href: "/dashboard/user/rooms",
     roles: ["admin", "moderator", "user"],
   },
-
   {
     name: "Profile",
     icon: Users,
@@ -125,40 +124,34 @@ const menuItems = [
     icon: MessageCircle,
     href: "/dashboard/user/communication",
     roles: ["admin", "moderator", "user"],
-  }
-
+  },
 ];
 
-// ======================
-// 🧩 Sidebar Component
-// ======================
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHover, setIsHover] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { data } = useSession();
-
-
-
   const userRole = data?.user?.role || "user";
+
   const filteredMenu = menuItems.filter((item) =>
     item.roles.includes(userRole)
   );
 
   return (
     <>
-      {/* ✅ Mobile Topbar */}
+      {/* Mobile Topbar */}
       <div className="md:hidden sticky top-0 bg-base-300 dark:bg-gray-900 border-b dark:border-gray-700 shadow-sm z-40 flex justify-between items-center h-16 px-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 rounded-lg text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
-          aria-label="Toggle menu"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={24} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* ✅ Sidebar for Desktop & Mobile */}
+      {/* Sidebar */}
       <aside
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
@@ -169,14 +162,14 @@ export default function Sidebar() {
           "md:translate-x-0 md:shadow-none"
         )}
       >
-        {/* ✅ Logo / Title */}
+        {/* Logo / Title */}
         <div className="h-16 flex items-center justify-center border-b dark:border-gray-700">
           <h2 className="text-2xl font-extrabold text-blue-600 dark:text-blue-400">
             {isHover ? "TourMS" : "T"}
           </h2>
         </div>
 
-        {/* ✅ Menu Items */}
+        {/* Menu Items */}
         <nav className="flex-1 overflow-y-auto px-3 py-6 space-y-2">
           {filteredMenu.map((item) => {
             const isActive = pathname.startsWith(item.href);
@@ -184,18 +177,11 @@ export default function Sidebar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150",
-                  "focus:outline-none focus:ring-2 focus:ring-blue-300",
-                  isActive
-                    ? "bg-blue-600 text-white shadow-md font-semibold hover:bg-blue-700"
-                    : "dark:text-gray-300 hover:bg-gray-50 hover:text-gray-600 dark:hover:bg-gray-800"
-                )}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 group",
+                  "flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-150 group focus:outline-none focus:ring-2 focus:ring-blue-300",
                   isActive
-                    ? "bg-blue-600 text-white font-semibold shadow-md"
+                    ? "bg-blue-600 text-white font-semibold shadow-md hover:bg-blue-700"
                     : "dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-700"
                 )}
               >
@@ -220,16 +206,29 @@ export default function Sidebar() {
           })}
         </nav>
 
-        {/* ✅ Logout Button */}
-        <div className="border-t dark:border-gray-700 p-4">
-          <button className="flex items-center gap-3 px-3 py-2 w-full text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition font-medium">
+        {/* Logout & Back Button */}
+        <div className="border-t dark:border-gray-700 p-4 flex flex-col gap-2">
+          {/* Logout Button */}
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="flex items-center gap-3 px-3 py-2 w-full text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition font-medium"
+          >
             <LogOut className="h-5 w-5" />
             {isHover && <span>Sign Out</span>}
+          </button>
+
+          {/* Back to Home Button */}
+          <button
+            onClick={() => router.push("/")}
+            className="flex items-center gap-2 px-3 py-2 w-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition font-medium"
+          >
+            <ArrowLeft className="h-5 w-5" />
+            {isHover && <span>Back</span>}
           </button>
         </div>
       </aside>
 
-      {/* ✅ Mobile Overlay */}
+      {/* Mobile Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black opacity-40 z-40 md:hidden"
