@@ -6,7 +6,11 @@ export async function PATCH(req, context) {
     // ✅ await context.params
     const { params } = await context;
     const { id } = params;
+<<<<<<< HEAD
+    console.log(id)
+=======
 
+>>>>>>> 42b0c7206edcaa981af69e35b5d54ad90bc690d3
     const { status } = await req.json();
 
     // Validate status
