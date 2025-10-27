@@ -3,22 +3,26 @@ import TravelersSay from "@/components/shared/TravelersSay";
 import TravellerForm from "@/components/shared/TravellerForm";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
 import FAQ from "@/components/shared/FAQ";
-import HomepageDiscounts from "@/components/Home/HomepageDiscounts";
-// import CheckoutButton from "./components/CheckoutButton";
+
 import TravelBlogSection from "@/components/Home/TravelBlogSection";
 import PromoSlider from "@/components/utilities/PromoSlider";
+import TourGuides from "@/components/utilities/TourGuides";
+import RoomBookPage from "@/components/hotel/RoomBook";
+import Discounts from "@/components/Home/HomepageDiscounts";
+
 
 export default async function Home() {
-  
   return (
     <>
       <div>
         {/* <Hero></Hero> */}
         <PromoSlider></PromoSlider>
         <PopularDestinations></PopularDestinations>
-        <HomepageDiscounts></HomepageDiscounts>
+        <Discounts></Discounts>
+        <RoomBookPage></RoomBookPage>
         <WhyChooseUs></WhyChooseUs>
         <TravelersSay></TravelersSay>
+        <TourGuides></TourGuides>
         <TravelBlogSection></TravelBlogSection>
         <FAQ> </FAQ>
         <TravellerForm></TravellerForm>

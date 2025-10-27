@@ -34,7 +34,7 @@ const DiscountCard = ({ discount }) => (
   </div>
 );
 
-export default function HomepageDiscounts() {
+export default function Discounts() {
   const [discounts, setDiscounts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [alert, setAlert] = useState(null);
@@ -78,11 +78,11 @@ export default function HomepageDiscounts() {
     );
 
   return (
-    <div className="min-h-screen bg-base-100 dark:bg-gray-900 p-4 sm:p-8">
+    <div className="bg-base-100 dark:bg-gray-900 sm:p-8">
       <InlineAlert message={alert?.message} type={alert?.type} onClose={() => setAlert(null)} />
 
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-2">
           <h2 className="text-4xl font-extrabold dark:text-gray-100 flex items-center justify-center">
             <Zap className="h-8 w-8 text-red-500 mr-3" />
             Today's Best Deals
