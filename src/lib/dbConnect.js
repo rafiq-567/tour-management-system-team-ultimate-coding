@@ -3,7 +3,9 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 // database connection start here abul kalam ***********************
 // import React from 'react';
 
-function dbConnect(collectionName){
+function dbConnect(collectionName) {
+
+   
 
     const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
     // Create a MongoClient with a MongoClientOptions object to set the Stable API version
