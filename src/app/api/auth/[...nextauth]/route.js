@@ -98,7 +98,6 @@ export const authOptions = {
 
     async jwt({ token, user }) {
       if (user) {
-        console.log('jwt',user,token)
         token.id = user._id;
         token.name = user.name;
         token.role = user.role;
@@ -107,7 +106,6 @@ export const authOptions = {
     },
 
     async session({ session, token }) {
-      console.log("session Token ",token)
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name;

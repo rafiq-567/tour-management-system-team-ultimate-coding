@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 
 const middleware = async (req) => {
     const token = await getToken({req});
-     console.log( "middleware",token)
     const routeUrl = await req.nextUrl.pathname;
     const result = routeUrl.startsWith("/dashboard")
     if ( result && !token ) {
