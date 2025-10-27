@@ -7,7 +7,7 @@ const middleware = async (req) => {
     const routeUrl = await req.nextUrl.pathname;
     const result = routeUrl.startsWith("/dashboard")
     if ( result && !token ) {
-        return  NextResponse.redirect(new URL(`/api/auth/signin`, req.nextUrl))
+        return  NextResponse.redirect(new URL(`/login`, req.nextUrl))
     }
 
     return NextResponse.next();

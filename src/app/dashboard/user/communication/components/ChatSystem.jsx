@@ -1,12 +1,13 @@
 "use client";
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { socket } from "./socket";
 import sendMessage from "../sendMessage/sendMessage";
 import messageGet from "../messageGet/messageGet";
 
 const ChatSystem = ({ result }) => {
   const { data } = useSession();
+  const messageRef = useRef(null);
   // console.log(data);
   const myEmail = data?.user?.email;
 
@@ -70,7 +71,13 @@ const ChatSystem = ({ result }) => {
     })
 
     socket.on("chatMessage", (msg) => {
-      setMessages((prev) => [...prev, msg]);
+      setMessages((prev) => {
+        const exists = prev.find(existingMsg => existingMsg.id === msg.id && existingMsg.text === msg.text && existingMsg.senderEmail === msg.senderEmail);
+        if (!exists) {
+          return [...prev, msg];
+        }
+        return prev;
+      });
     })
 
     socket.on("typing", (data) => {
@@ -104,6 +111,7 @@ const ChatSystem = ({ result }) => {
         socket.emit('stopTyping', { username: data?.user?.name, room: selectedGroup?.tourName });
       }, 1000);
     }
+
   }, [newMessage, data])
 
   // fetch data
@@ -111,17 +119,27 @@ const ChatSystem = ({ result }) => {
     if (!selectedGroup) {
       return;
     }
+
     setMessages([]);
     const fetchData = async () => {
-      const data = { tourName: selectedGroup?.tourName };
-      const result = await messageGet(data);
-      const resultForm = JSON.parse(result)
-      setMessages(resultForm);
+      if (selectedGroup) {
+        const data = { tourName: selectedGroup?.tourName };
+        const result = await messageGet(data);
+        const resultForm = JSON.parse(result)
+        setMessages(resultForm);
+      }
     }
 
     fetchData();
 
   }, [selectedGroup])
+
+  // scroll useEffect
+  useEffect(() => {
+    if (messageRef.current) {
+      messageRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  },[messages]);
 
   return (
     <div className="h-[90vh]  flex flex-col md:flex-row">
@@ -196,6 +214,7 @@ const ChatSystem = ({ result }) => {
               const isMine = msg.senderEmail === myEmail;
               return (
                 <div
+                  ref={messageRef}
                   key={msg.id}
                   className={`flex flex-col ${isMine ? "items-end" : "items-start"
                     }`}
@@ -212,7 +231,7 @@ const ChatSystem = ({ result }) => {
                       {formatTime(msg.date)}
                     </p>
                   </div>
-                </div>
+                </div >
               );
             })}
           </div>

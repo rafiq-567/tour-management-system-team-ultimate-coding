@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import BookingModal from "@/components/booking/BookingModal";
 import ReviewSection from "@/app/components/review/ReviewSection";
+import Swal from "sweetalert2";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
@@ -60,6 +61,27 @@ export default function TourDetailsPage() {
     fetchBooking();
   }, [id, userId]);
 
+  // handlewish list  ******************
+   const handleWishlist = async () => {
+    setLoading(true);
+    const res = await fetch("/api/wishlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, tour }),
+    });
+    const data = await res.json();
+   Swal.fire({
+           position: "top-center",
+           icon: "success",
+           title: "Wishlist has been successfully added",
+           showConfirmButton: false,
+           timer: 1500
+         });
+    setLoading(false);
+  };
+
+  if (loading) return <p className="text-center p-6">Loading...</p>;
+  if (error) return <p className="text-center p-6 text-red-500">{error}</p>;
   // ✅ Handle Payment (Stripe)
   const handlePayment = async () => {
     if (!tour || !session?.user) {
@@ -169,7 +191,17 @@ export default function TourDetailsPage() {
             >
               Book Now
             </button>
-          )}
+          )
+        }
+        
+        <button
+        onClick={handleWishlist}
+        disabled={loading}
+        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer"
+      >
+        {loading ? "Saving..." : "Add to Wishlist ❤️"}
+      </button>
+      
         </div>
 
         {/* Booking Modal */}
