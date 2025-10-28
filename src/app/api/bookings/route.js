@@ -102,9 +102,8 @@ export async function GET(req) {
     // ✅ Safe conversion helper (same as POST)
     const safeObjectId = (id) => (ObjectId.isValid(id) ? new ObjectId(id) : id);
 
-    // ✅ Apply filters safely
-    if (userId) query.userId = safeObjectId(userId);
-    if (tourId) query.tourId = safeObjectId(tourId);
+    if (userId) query.userId = new ObjectId(userId);
+    if (tourId) query.tourId = new ObjectId(tourId);
 
     const bookings = await collection
       .find(query)

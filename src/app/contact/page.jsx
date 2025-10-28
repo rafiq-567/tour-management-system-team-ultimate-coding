@@ -29,13 +29,13 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 font-sans p-4 sm:p-8">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-2xl w-full max-w-5xl border border-gray-200 dark:border-gray-700">
+    <div className="flex items-center justify-center min-h-screen bg-base-100 dark:bg-gray-900 font-sans p-2 sm:p-8">
+      <div className="bg-base-300 dark:bg-gray-800 p-8 rounded-3xl shadow-2xl w-full max-w-5xl border border-gray-200 dark:border-gray-700">
         <div className="text-center mb-2">
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-800 dark:text-gray-100 mb-4">
+          <h2 className="text-4xl sm:text-5xl font-extrabold dark:text-gray-100 mb-4">
             Contact Us
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg dark:text-gray-400 max-w-2xl mx-auto">
             Have questions about our tours or services? Get in touch with our
             team using the form below, and we'll be happy to help you plan your
             next adventure.
@@ -44,15 +44,15 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Form */}
-          <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-2xl shadow-inner">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
+          <div className="bg-base-100 dark:bg-gray-700 p-6 rounded-2xl shadow-inner">
+            <h3 className="text-2xl font-bold dark:text-gray-100 mb-4">
               Send us a message
             </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  className="block text-sm font-medium dark:text-gray-300"
                 >
                   Name
                 </label>
@@ -62,14 +62,14 @@ const Contact = () => {
                   id="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                  className="mt-1 block w-full px-4 py-2 bg-base-300 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   required
                 />
               </div>
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  className="block text-sm font-medium dark:text-gray-300"
                 >
                   Email
                 </label>
@@ -79,14 +79,14 @@ const Contact = () => {
                   id="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                  className="mt-1 block w-full px-4 py-2 bg-base-300 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   required
                 />
               </div>
               <div>
                 <label
                   htmlFor="subject"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  className="block text-sm font-medium dark:text-gray-300"
                 >
                   Subject
                 </label>
@@ -96,14 +96,14 @@ const Contact = () => {
                   id="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                  className="mt-1 block w-full px-4 py-2 bg-base-300 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   required
                 />
               </div>
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  className="block text-sm font-medium dark:text-gray-300"
                 >
                   Message
                 </label>
@@ -113,7 +113,7 @@ const Contact = () => {
                   rows="4"
                   value={formData.message}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                  className="mt-1 block w-full px-4 py-2 bg-base-300 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                   required
                 ></textarea>
               </div>
@@ -129,7 +129,7 @@ const Contact = () => {
           {/* Contact Info and Map */}
           <div className="md:p-6 space-y-8">
             <div className="space-y-4">
-              <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+              <h3 className="text-2xl font-bold dark:text-gray-100 mb-2">
                 Our Office
               </h3>
               <div className="flex items-start">
@@ -137,7 +137,7 @@ const Contact = () => {
                   size={24}
                   className="text-blue-500 flex-shrink-0 mt-1"
                 />
-                <p className="ml-3 text-gray-600 dark:text-gray-400">
+                <p className="ml-3 dark:text-gray-400">
                   123 Tour Street, Traveler's Square, <br /> City of Adventure,
                   54321
                 </p>
@@ -146,14 +146,14 @@ const Contact = () => {
                 <Mail size={24} className="text-blue-500 flex-shrink-0" />
                 <a
                   href="mailto:info@tour-ms.com"
-                  className="ml-3 text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors"
+                  className="ml-3 dark:text-gray-400 hover:text-blue-600 transition-colors"
                 >
                   info@tour-ms.com
                 </a>
               </div>
               <div className="flex items-center">
                 <Phone size={24} className="text-blue-500 flex-shrink-0" />
-                <p className="ml-3 text-gray-600 dark:text-gray-400">
+                <p className="ml-3 dark:text-gray-400">
                   +1 (555) 123-4567
                 </p>
               </div>

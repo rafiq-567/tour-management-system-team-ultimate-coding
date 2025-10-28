@@ -44,12 +44,12 @@ const FAQ = () => {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 p-8 sm:p-12 lg:p-20 font-sans">
+    <div className="bg-base-100 dark:bg-gray-900 p-8 sm:p-12 lg:p-20 font-sans">
       <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-800 dark:text-gray-100 mb-4">
+        <h2 className="text-3xl sm:text-4xl font-extrabold dark:text-gray-100 mb-4">
           Frequently Asked Questions
         </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        <p className="text-lg dark:text-gray-400 max-w-2xl mx-auto">
           Find quick answers to the most common questions about our services, bookings, and policies.
         </p>
       </div>
@@ -57,7 +57,7 @@ const FAQ = () => {
         {faqData.map((item, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:scale-[1.01]"
+            className="bg-base-300 dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 transform hover:scale-[1.01]"
           >
             <button
               className="w-full flex justify-between items-center p-6 text-left focus:outline-none"
@@ -65,7 +65,7 @@ const FAQ = () => {
             >
               <div className="flex items-center gap-3">
                 <HelpCircle className="h-6 w-6 text-blue-500" />
-                <span className="font-semibold text-lg text-gray-800 dark:text-gray-100">
+                <span className="font-semibold text-lg dark:text-gray-100">
                   {item.question}
                 </span>
               </div>
@@ -84,7 +84,7 @@ const FAQ = () => {
                   : "grid-rows-[0fr] opacity-0"
               }`}
             >
-              <div className="overflow-hidden px-6 pb-6 flex items-start gap-3 text-gray-600 dark:text-gray-400">
+              <div className="overflow-hidden px-6 pb-6 flex items-start gap-3 dark:text-gray-400">
                 <MessageSquare className="h-5 w-5 text-green-500 mt-1" />
                 <span>{item.answer}</span>
               </div>

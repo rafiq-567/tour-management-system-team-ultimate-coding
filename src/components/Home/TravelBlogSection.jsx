@@ -82,7 +82,7 @@ const VideoEmbed = ({ videoId, title }) => {
 // --- Blog Card ---
 const BlogCard = ({ blog }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-200 p-4 border border-gray-100 dark:border-gray-700">
+    <div className="bg-base-300 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition duration-200 p-4 border border-gray-100 dark:border-gray-700">
       <VideoEmbed videoId={blog.videoId} title={blog.title} />
 
       <div className="mt-3">
@@ -117,17 +117,17 @@ const BlogCard = ({ blog }) => {
 // --- Main Section ---
 export default function TravelBlogSection() {
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 py-12 sm:py-20">
+    <section className="dark:bg-gray-900 py-12 sm:py-20">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-10">
           <h2 className="text-sm font-semibold tracking-wider text-red-600 uppercase dark:text-red-400">
             ভিডিও গাইড
           </h2>
-          <p className="mt-1 text-3xl font-bold text-gray-900 dark:text-gray-100">
+          <p className="mt-1 text-3xl font-bold dark:text-gray-100">
             বাংলাদেশের শীর্ষ পর্যটন স্থান
           </p>
-          <p className="mt-2 text-base text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-base dark:text-gray-400">
             ভ্রমণের আগে আমাদের ছোট ভিডিও ব্লগ গুলো দেখে নিন।
           </p>
         </div>
