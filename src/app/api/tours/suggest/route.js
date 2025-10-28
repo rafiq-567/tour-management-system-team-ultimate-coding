@@ -26,15 +26,7 @@
 //       );
 //     }
 
-//     return new Response(JSON.stringify(results), { status: 200 });
-//   } catch (error) {
-//     console.error("Error fetching budget tours:", error);
-//     return new Response(
-//       JSON.stringify({ error: "Server error, please try again later." }),
-//       { status: 500 }
-//     );
-//   }
-// }
+
 
 
 import dbConnect from "@/lib/dbConnect";
