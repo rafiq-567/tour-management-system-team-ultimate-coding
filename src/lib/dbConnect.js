@@ -1,14 +1,3 @@
-// 'use server'
-// import { MongoClient, ServerApiVersion } from "mongodb";
-// // database connection start here abul kalam ***********************
-// // import React from 'react';
-
-// function dbConnect(collectionName) {
-
-   
-
-
-
 
 'use server';
 import { MongoClient, ServerApiVersion } from "mongodb";
