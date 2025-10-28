@@ -48,37 +48,6 @@
 //     >
 //       <h2 className="text-2xl font-semibold text-center mb-4 text-blue-600">
 //         🧠 Smart Budget Tour Suggestion
-//       </h2>
-
-//       {/* Budget form */}
-//       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-//         <input
-//           type="number"
-//           placeholder="Enter your budget (৳)"
-//           value={budget}
-//           onChange={(e) => setBudget(e.target.value)}
-//           className="flex-1 p-3 border rounded-lg dark:bg-gray-700 dark:text-white"
-//           required
-//         />
-//         <button
-//           type="submit"
-//           disabled={loading}
-//           className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg"
-//         >
-//           {loading ? "Finding..." : "Find Tours"}
-//         </button>
-//       </form>
-
-//       {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
-
-//       {/* Tour suggestions */}
-//       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-//         {tours.map((tour) => (
-//           <div
-//             key={tour._id}
-//             className="p-4 border rounded-lg shadow hover:shadow-md transition"
-//           >
-
 
 
 
