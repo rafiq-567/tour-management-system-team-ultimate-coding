@@ -3,9 +3,10 @@ import dbConnect from "@/lib/dbConnect";
 export async function GET(req) {
   try {
     // Get collections
-    const bookingsCollection = dbConnect("bookings");
-    const usersCollection = dbConnect("user");
-    const packagesCollection = dbConnect("tourPackages");
+    const bookingsCollection = await dbConnect("bookings");
+    const usersCollection = await dbConnect("user");
+    const packagesCollection = await dbConnect("tourPackages");
+
 
     // Total counts
     const totalBookings = await bookingsCollection.countDocuments();
@@ -21,7 +22,7 @@ export async function GET(req) {
       { $sort: { "_id": 1 } },
     ]).toArray();
 
-    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const bookings = bookingsAgg.map(b => ({
       month: months[b._id - 1],
       count: b.count
