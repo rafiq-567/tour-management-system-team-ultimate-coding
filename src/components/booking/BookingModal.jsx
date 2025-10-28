@@ -122,13 +122,7 @@ export default function BookingModal({ tour, onClose, onPayment }) {
     }
   };
 
-  // const handlePayment = () => {
-  //   MySwal.fire({
-  //     icon: "info",
-  //     title: "Payment",
-  //     text: "Redirect to payment gateway (implement your payment logic here).",
-  //   });
-  // };
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50">
