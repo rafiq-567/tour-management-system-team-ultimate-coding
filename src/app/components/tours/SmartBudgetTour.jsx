@@ -105,9 +105,6 @@
 //           onClose={() => setSelectedTour(null)}
 //         />
 //       )}
-//     </div>
-//   );
-// }
 
 
 "use client";
