@@ -11,7 +11,7 @@ export default function TourDetails({ tour }) {
 
   return (
     <div className="w-11/12 mx-auto mt-10">
-      {/* Back Button */}
+      
       <div className="mb-6">
         <Link
           href="/tours"
