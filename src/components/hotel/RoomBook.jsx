@@ -90,7 +90,7 @@ export default function RoomBookPage() {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {rooms.map((room) => (
-          <RoomCard key={room.id} room={room} onDetails={setSelectedRoom} />
+          <RoomCard key={room._id} room={room} onDetails={setSelectedRoom} />
         ))}
       </div>
 
