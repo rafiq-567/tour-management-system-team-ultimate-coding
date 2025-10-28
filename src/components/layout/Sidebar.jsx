@@ -75,7 +75,7 @@ const menuItems = [
   {
     name: "Analytics",
     icon: BarChart3,
-    href: "/dashboard/admin/analytics",
+    href: "/dashboard/admin/analytis",
     roles: ["admin"],
   },
 
