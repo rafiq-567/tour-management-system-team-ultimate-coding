@@ -99,12 +99,7 @@
 //       </div>
 
 //       {/* ✅ Booking Modal reuse */}
-//       {selectedTour && (
-//         <BookingModal
-//           tour={selectedTour}
-//           onClose={() => setSelectedTour(null)}
-//         />
-//       )}
+/
 
 
 "use client";
