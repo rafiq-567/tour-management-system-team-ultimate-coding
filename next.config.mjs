@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['i.ibb.co'],
+    // domains: ['i.ibb.co'],
     remotePatterns: [
       {
         protocol: "https",
@@ -18,7 +18,6 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "upload.wikimedia.org",
-        hostname: "i.ibb.co",
       },
       {
         protocol: "https",
