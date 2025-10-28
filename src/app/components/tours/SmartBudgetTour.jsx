@@ -78,19 +78,6 @@
 //             key={tour._id}
 //             className="p-4 border rounded-lg shadow hover:shadow-md transition"
 //           >
-//             <img
-//               src={tour.image}
-//               alt={tour.title}
-//               className="rounded-lg w-full h-40 object-cover"
-//             />
-//             <h3 className="mt-3 text-lg font-semibold">{tour.title}</h3>
-//             <p className="text-sm text-gray-600 dark:text-gray-300">
-//               {tour.duration}
-//             </p>
-//             <p className="mt-2 text-blue-600 font-bold">৳ {tour.price}</p>
-//             <button
-//               onClick={() => setSelectedTour(tour)}
-//               className="mt-3 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium"
 
 
 
