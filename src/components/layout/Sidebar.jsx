@@ -60,7 +60,7 @@ const menuItems = [
   {
     name: "Add Tour",
     icon: Plane,
-    href: "/dashboard/admin/add-tour",
+    href: "/dashboard/admin/add/tours",
     roles: ["admin"],
   },
   {
@@ -78,7 +78,7 @@ const menuItems = [
   {
     name: "Analytics",
     icon: BarChart3,
-    href: "/dashboard/admin/analytis",
+    href: "/dashboard/admin/analytics",
     roles: ["admin"],
   },
 
