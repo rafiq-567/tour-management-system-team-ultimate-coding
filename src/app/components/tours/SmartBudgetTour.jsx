@@ -91,12 +91,7 @@
 //             <button
 //               onClick={() => setSelectedTour(tour)}
 //               className="mt-3 w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium"
-//             >
-//               Book Now
-//             </button>
-//           </div>
-//         ))}
-//       </div>
+
 
 
 
