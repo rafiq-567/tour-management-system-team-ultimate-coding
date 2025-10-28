@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import SmartBudgetTour from "../components/tours/SmartBudgetTour";
-// import SmartBudgetTour from "@/components/tours/SmartBudgetTour";
+
 
 export default function SmartBudgetPage() {
   const { data: session, status } = useSession();
