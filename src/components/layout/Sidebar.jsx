@@ -21,6 +21,7 @@ import {
   BedDouble,
   MessageCircle,
   ArrowLeft,
+  PlaneIcon,
 } from "lucide-react";
 
 // Utility for joining classes
@@ -39,7 +40,7 @@ const menuItems = [
   },
   {
     name: "All Tours",
-    icon: Plane,
+    icon: PlaneIcon,
     href: "/dashboard/admin/all",
     roles: ["admin", "moderator"],
   },
@@ -60,7 +61,7 @@ const menuItems = [
   {
     name: "Add Tour",
     icon: Plane,
-    href: "/dashboard/admin/add-tour",
+    href: "/dashboard/admin/add/tours",
     roles: ["admin"],
   },
   {
@@ -78,27 +79,15 @@ const menuItems = [
   {
     name: "Analytics",
     icon: BarChart3,
-    href: "/dashboard/admin/analytis",
+    href: "/dashboard/admin/analytics",
     roles: ["admin"],
   },
 
-  // All Users
-  {
-    name: "Travel Buddy",
-    icon: Handshake,
-    href: "/dashboard/user/travel-buddy",
-    roles: ["admin", "moderator", "user"],
-  },
+  // All Users (User, Moderator, Admin)
   {
     name: "My Bookings",
     icon: Calendar,
     href: "/dashboard/user/bookings",
-    roles: ["admin", "moderator", "user"],
-  },
-  {
-    name: "Rooms",
-    icon: BedDouble,
-    href: "/dashboard/user/rooms",
     roles: ["admin", "moderator", "user"],
   },
   {
@@ -124,7 +113,8 @@ const menuItems = [
     icon: MessageCircle,
     href: "/dashboard/user/communication",
     roles: ["admin", "moderator", "user"],
-  },
+  }
+
 ];
 
 export default function Sidebar() {
