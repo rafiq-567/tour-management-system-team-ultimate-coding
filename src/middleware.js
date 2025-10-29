@@ -4,10 +4,14 @@ import { NextResponse } from "next/server";
 
 const middleware = async (req) => {
     const token = await getToken({req});
-     console.log( "middleware",token)
+    //  console.log( "middleware",token)
     const routeUrl = await req.nextUrl.pathname;
     const result = routeUrl.startsWith("/dashboard")
+    const blogsrouter = routeUrl.startsWith("/blog")
     if ( result && !token ) {
+        return  NextResponse.redirect(new URL(`/login`, req.nextUrl))
+    }
+    if ( blogsrouter && !token ) {
         return  NextResponse.redirect(new URL(`/login`, req.nextUrl))
     }
 
