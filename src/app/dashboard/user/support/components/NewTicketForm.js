@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+
 // src/app/dashboard/support/components/NewTicketForm.js
 'use client';
 

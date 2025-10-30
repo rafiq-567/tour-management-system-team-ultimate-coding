@@ -2,7 +2,7 @@
 'use server';
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-const uri = process.env.MONGODB_URI;
+const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,
