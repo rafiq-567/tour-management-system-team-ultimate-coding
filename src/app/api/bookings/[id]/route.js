@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 export async function PATCH(req, context) {
   try {
     // ✅ await context.params
-    const { params } = await context;
+    const { params } =  awaitcontext;
     const { id } = params;
 
     const { status } = await req.json();
@@ -14,7 +14,7 @@ export async function PATCH(req, context) {
       return Response.json({ error: "Invalid status" }, { status: 400 });
     }
 
-    const collection = await dbConnect("bookings");
+    const collection =  dbConnect("bookings");
 
     const result = await collection.updateOne(
       { _id: new ObjectId(id) },

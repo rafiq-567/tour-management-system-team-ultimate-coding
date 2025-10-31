@@ -94,9 +94,9 @@ export const authOptions = {
 
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id || user._id?.toString();
+        token.id = user._id;
         token.name = user.name;
-        token.role = user.role || "user";
+        token.role = user.role;
       }
       return token;
     },

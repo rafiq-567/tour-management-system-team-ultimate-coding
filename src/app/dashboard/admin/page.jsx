@@ -40,28 +40,28 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+    <div className="p-6 bg-base-100 dark:bg-gray-900 min-h-screen">
+      <h1 className="text-3xl font-bold dark:text-gray-100 mb-6">
         Admin Dashboard
       </h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
-        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-5">
-          <h2 className="text-gray-500 dark:text-gray-300 font-medium">Total Bookings</h2>
-          <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+        <div className="bg-base-300 dark:bg-gray-800 shadow rounded-lg p-5">
+          <h2 className="dark:text-gray-300 font-medium">Total Bookings</h2>
+          <p className="text-2xl font-bold dark:text-gray-100">
             {stats.totalBookings}
           </p>
         </div>
-        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-5">
-          <h2 className="text-gray-500 dark:text-gray-300 font-medium">Total Users</h2>
-          <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+        <div className="bg-base-300 dark:bg-gray-800 shadow rounded-lg p-5">
+          <h2 className="dark:text-gray-300 font-medium">Total Users</h2>
+          <p className="text-2xl font-bold dark:text-gray-100">
             {stats.totalUsers}
           </p>
         </div>
-        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-5">
-          <h2 className="text-gray-500 dark:text-gray-300 font-medium">Total Packages</h2>
-          <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+        <div className="bg-base-300 dark:bg-gray-800 shadow rounded-lg p-5">
+          <h2 className="dark:text-gray-300 font-medium">Total Packages</h2>
+          <p className="text-2xl font-bold dark:text-gray-100">
             {stats.totalPackages}
           </p>
         </div>
@@ -70,8 +70,8 @@ const AdminDashboard = () => {
       {/* Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Monthly Bookings Bar Chart */}
-        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-200">
+        <div className="bg-base-300 dark:bg-gray-800 shadow rounded-lg p-4">
+          <h2 className="text-xl font-semibold mb-4 dark:text-gray-200">
             Monthly Bookings
           </h2>
           <ResponsiveContainer width="100%" height={300}>
@@ -86,8 +86,8 @@ const AdminDashboard = () => {
         </div>
 
         {/* Package Popularity Pie Chart */}
-        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700 dark:text-gray-200">
+        <div className="bg-base-300 dark:bg-gray-800 shadow rounded-lg p-4">
+          <h2 className="text-xl font-semibold mb-4 dark:text-gray-200">
             Package Popularity
           </h2>
           <ResponsiveContainer width="100%" height={300}>

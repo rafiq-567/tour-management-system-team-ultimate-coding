@@ -36,6 +36,7 @@ export default function UserProfileDropdown({ session, isMobile }) {
             alt={user.name || "User Profile"}
             width={32}
             height={32}
+            unoptimized
             className="w-8 h-8 rounded-full object-cover"
           />
         ) : (
@@ -46,17 +47,17 @@ export default function UserProfileDropdown({ session, isMobile }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg z-50 flex flex-col">
-          <span className="px-4 py-2 font-semibold text-gray-800 dark:text-gray-100">
+        <div className="absolute right-0 mt-2 w-48 bg-base-300 dark:bg-gray-800 rounded-lg shadow-lg z-50 flex flex-col">
+          <span className="px-4 py-2 font-semibold dark:text-gray-100">
             {user?.name || "User"}
           </span>
           <Link
             href="/dashboard/admin"
-            className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="px-4 py-2 hover:bg-gray-100 hover:text-gray-500"
           >
             Dashboard
           </Link>
-          <LogoutButton className="px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700" />
+          <LogoutButton className="px-4 py-2 text-left hover:bg-gray-100  dark:hover:bg-gray-700" />
         </div>
       )}
     </li>

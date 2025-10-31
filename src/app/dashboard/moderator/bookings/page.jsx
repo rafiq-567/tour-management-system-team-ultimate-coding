@@ -98,13 +98,13 @@ export default function AllBookings() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-6">
+    <div className="min-h-screen bg-base-100 dark:bg-gray-900 p-4 md:p-6">
       <InlineAlert message={alert?.message} type={alert?.type} onClose={() => setAlert(null)} />
 
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-2xl md:text-3xl font-extrabold mb-6 text-gray-900 dark:text-gray-100">Booking Approval Center</h1>
+        <h1 className="text-2xl md:text-3xl font-extrabold mb-6 dark:text-gray-100">Booking Approval Center</h1>
 
-        <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-xl relative">
+        <div className="bg-base-300 dark:bg-gray-800 shadow-2xl rounded-xl relative">
           {loading ? (
             <div className="p-6 flex items-center justify-center gap-3">
               <Loader2 className="animate-spin text-blue-600" /> Loading bookings...
@@ -121,7 +121,7 @@ export default function AllBookings() {
                 style={{ scrollBehavior: "smooth" }}
               >
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                  <thead className="bg-gray-100 dark:bg-gray-700 sticky top-0 z-10">
+                  <thead className="bg-base-100 dark:bg-gray-700 sticky top-0 z-10">
                     <tr>
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider"><Plane size={16} className="inline mr-1" /> Tour</th>
                       <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider"><Users size={16} className="inline mr-1" /> User</th>

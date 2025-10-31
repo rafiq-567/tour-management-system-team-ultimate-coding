@@ -13,8 +13,11 @@ import {
   Star,
 } from "lucide-react";
 import LinkLogo from "../userClick/LinkLogo";
+import BackToTopButton from "../utilities/BackToTopButton";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const currentPath = usePathname();
   const [travelTip, setTravelTip] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -51,6 +54,7 @@ const Footer = () => {
   };
 
   return (
+  <>
     <footer className="bg-gray-900 text-gray-300 py-12 font-sans">
       <div className="container mx-auto px-4">
         <LinkLogo></LinkLogo>
@@ -139,7 +143,14 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+
+    <BackToTopButton />
+
+  </>
   );
-};
+
+
+  }
+  
 
 export default Footer;

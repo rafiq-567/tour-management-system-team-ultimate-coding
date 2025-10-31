@@ -47,7 +47,7 @@ export default function Navbar() {
   const isActive = (href) => pathname === href;
 
   return (
-    <nav className="w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300">
+    <nav className="w-full backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300 bg-base-100">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <LinkLogo />
 
@@ -60,7 +60,7 @@ export default function Navbar() {
                 className={`flex items-center gap-2 px-2 py-1 rounded-md transition ${
                   isActive(item.href)
                     ? "text-blue-600 dark:text-blue-400 font-semibold"
-                    : "text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400"
+                    : " dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400"
                 }`}
               >
                 {item.icon} {item.name}

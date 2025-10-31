@@ -22,19 +22,19 @@ const InlineAlert = ({ message, type, onClose }) => {
 
 // DiscountCard component
 const DiscountCard = ({ discount }) => (
-  <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-    <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-100">{discount.code}</h3>
-    <p className="text-gray-700 dark:text-gray-300 mb-2">{discount.description}</p>
+  <div className="p-6 bg-base-300 dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+    <h3 className="text-xl font-bold mb-2 dark:text-gray-100">{discount.code}</h3>
+    <p className="dark:text-gray-300 mb-2">{discount.description}</p>
     <div className="text-lg font-semibold text-green-600 dark:text-green-400">
       {discount.discountType === "percentage" ? `${discount.value}%` : `$${discount.value}`}
     </div>
-    <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+    <p className="text-sm dark:text-gray-400 mt-2">
       Valid: {new Date(discount.validFrom).toLocaleDateString()} - {new Date(discount.validTo).toLocaleDateString()}
     </p>
   </div>
 );
 
-export default function HomepageDiscounts() {
+export default function Discounts() {
   const [discounts, setDiscounts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [alert, setAlert] = useState(null);
@@ -64,7 +64,7 @@ export default function HomepageDiscounts() {
 
   if (loading)
     return (
-      <div className="flex justify-center items-center py-12 bg-gray-50 dark:bg-gray-900">
+      <div className="flex justify-center items-center py-12 dark:bg-gray-900">
         <Loader2 className="animate-spin text-blue-600 h-6 w-6" />
         <p className="ml-3 text-gray-600 dark:text-gray-300">Loading today's deals...</p>
       </div>
@@ -78,16 +78,16 @@ export default function HomepageDiscounts() {
     );
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-8">
+    <div className="bg-base-100 dark:bg-gray-900 sm:p-8">
       <InlineAlert message={alert?.message} type={alert?.type} onClose={() => setAlert(null)} />
 
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-gray-900 dark:text-gray-100 flex items-center justify-center">
+        <div className="text-center mb-2">
+          <h2 className="text-4xl font-extrabold dark:text-gray-100 flex items-center justify-center">
             <Zap className="h-8 w-8 text-red-500 mr-3" />
             Today's Best Deals
           </h2>
-          <p className="mt-3 text-xl text-gray-600 dark:text-gray-400">
+          <p className="mt-3 text-xl dark:text-gray-400">
             Use these exclusive codes on checkout to save big on your next adventure!
           </p>
         </div>
