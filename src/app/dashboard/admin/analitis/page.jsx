@@ -105,7 +105,7 @@ export default function AnalyticsPage() {
     bookingsByMonth: [],
     topTours: [],
   });
-console.log(topTours.length)
+
   useEffect(() => {
     async function load() {
       const res = await fetch("/api/analytics");
