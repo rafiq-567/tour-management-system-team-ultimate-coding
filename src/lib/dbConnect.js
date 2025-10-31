@@ -42,4 +42,3 @@ export default async function dbConnect(collectionName) {
   // ✅ Otherwise return the client and db (like API routes)
   return { client: cachedClient, db: cachedDb };
 }
-export default dbConnect;
