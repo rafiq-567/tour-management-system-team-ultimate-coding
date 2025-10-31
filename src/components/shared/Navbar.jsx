@@ -47,6 +47,7 @@ export default function Navbar() {
     { name: "Destinations", href: "/destinations", icon: <MapPin size={18} /> },
     // { name: "Packages", dropdown: true, icon: <Package size={18} /> },
     { name: "Tour Package", href: "/tours", icon: <Package2Icon size={18} /> },
+    { name: "Blog", href: "/blog", icon: <Package2Icon size={18} /> },
     { name: "Contact", href: "/contact", icon: <Phone size={18} /> },
     { name: "About", href: "/about", icon: <Info size={18} /> },
   ];
@@ -54,7 +55,7 @@ export default function Navbar() {
   const isActive = (href) => pathname === href;
 
   return (
-    <nav className="w-full backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300 bg-base-100">
+    <nav className="w-full backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300 bg-primary">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <LinkLogo />
 
@@ -66,7 +67,7 @@ export default function Navbar() {
                 <div>
                   <button
                     onClick={() => setPackagesOpen(!packagesOpen)}
-                    className="flex items-center gap-2 text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-2 py-1 rounded-md"
+                    className="flex items-center gap-2 text-gray-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-2 py-1 rounded-md"
                   >
                     {item.icon} {item.name}
                     <svg
