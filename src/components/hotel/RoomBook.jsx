@@ -78,7 +78,7 @@ export default function RoomBookPage() {
 
   return (
     <section className="container mx-auto max-w-7xl py-6">
-      <div className="text-center mb-8">
+      <div className="text-center ">
         <h1 className="text-4xl font-extrabold mb-2">
           🏨 Explore Our Top Rooms
         </h1>
@@ -137,11 +137,7 @@ export default function RoomBookPage() {
         </div>
       )}
 
-      <div className="flex justify-center mt-6">
-        <button className="px-6 py-2 bg-emerald-500 text-white text-lg font-semibold rounded-xl hover:bg-emerald-600 transition-all duration-200">
-          See More
-        </button>
-      </div>
+      
     </section>
   );
 }
