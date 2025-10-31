@@ -1,71 +1,42 @@
-
-// import dbConnect from "@/lib/dbConnect";
-
-// export async function POST(req) {
-//   try {
-//     const { db } = await dbConnect();
-//     const collection = db.collection("supportTickets");
-
-//     const body = await req.json();
-//     body.status = "Open";
-//     body.createdAt = new Date();
-
-//     const result = await collection.insertOne(body);
-
-//     // return the actual inserted document
-//     const ticket = await collection.findOne({ _id: result.insertedId });
-
-//     return Response.json({ success: true, ticket });
-//   } catch (error) {
-//     return Response.json({ success: false, message: error.message });
-//   }
-// }
-
-// export async function GET(req) {
-//   try {
-//     const { db } = await dbConnect();
-//     const collection = db.collection("supportTickets");
-
-//     const url = new URL(req.url);
-//     const userId = url.searchParams.get("userId");
-
-//     const filter = userId ? { userId } : {};
-//     const tickets = await collection
-//       .find(filter)
-//       .sort({ createdAt: -1 })
-//       .toArray();
-
-//     return Response.json({ success: true, tickets });
-//   } catch (error) {
-//     return Response.json({ success: false, message: error.message });
-//   }
-// }
-
-
-
 import dbConnect from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 
-// ✅ Create new ticket
+// ✅ CREATE new ticket (user or moderator)
 export async function POST(req) {
   try {
     const { db } = await dbConnect();
     const collection = db.collection("supportTickets");
 
     const body = await req.json();
-    body.status = "Open";
-    body.createdAt = new Date();
+    const { userId, name, email, subject, message } = body;
 
-    const result = await collection.insertOne(body);
+    // Ensure required fields
+    if (!userId || !subject || !message) {
+      return Response.json({ success: false, message: "Missing required fields" }, { status: 400 });
+    }
+
+    const newTicket = {
+      userId,
+      name,
+      email,
+      subject,
+      message,
+      status: "Open",
+      adminReply: "", // ✅ empty when created
+      createdAt: new Date(),
+    };
+
+    const result = await collection.insertOne(newTicket);
     const ticket = await collection.findOne({ _id: result.insertedId });
 
     return Response.json({ success: true, ticket });
   } catch (error) {
-    return Response.json({ success: false, message: error.message });
+    console.error("POST /support error:", error);
+    return Response.json({ success: false, message: error.message }, { status: 500 });
   }
 }
 
-// ✅ Fetch tickets (all or by user)
+// ✅ FETCH tickets (admin = all, user = only theirs)
 export async function GET(req) {
   try {
     const { db } = await dbConnect();
@@ -75,42 +46,33 @@ export async function GET(req) {
     const userId = url.searchParams.get("userId");
 
     const filter = userId ? { userId } : {};
-    const tickets = await collection
-      .find(filter)
-      .sort({ createdAt: -1 })
-      .toArray();
+    const tickets = await collection.find(filter).sort({ createdAt: -1 }).toArray();
 
     return Response.json({ success: true, tickets });
   } catch (error) {
-    return Response.json({ success: false, message: error.message });
+    console.error("GET /support error:", error);
+    return Response.json({ success: false, message: error.message }, { status: 500 });
   }
 }
 
-// ✅ PATCH: admin reply or mark as resolved
+// ✅ UPDATE ticket (admin reply or status)
 export async function PATCH(req) {
   try {
     const { db } = await dbConnect();
     const collection = db.collection("supportTickets");
 
     const body = await req.json();
-    const { id, reply, status } = body;
+    const { id, adminReply, status } = body;
 
     if (!id) {
       return Response.json({ success: false, message: "Ticket ID required" }, { status: 400 });
     }
 
     const update = {};
-    if (reply) update.adminReply = reply;
+    if (adminReply !== undefined) update.adminReply = adminReply;
     if (status) update.status = status;
 
-    if (Object.keys(update).length === 0) {
-      return Response.json({ success: false, message: "No update data provided" }, { status: 400 });
-    }
-
-    await collection.updateOne(
-      { _id: new ObjectId(id) },
-      { $set: update }
-    );
+    await collection.updateOne({ _id: new ObjectId(id) }, { $set: update });
 
     return Response.json({ success: true, message: "Ticket updated successfully" });
   } catch (error) {

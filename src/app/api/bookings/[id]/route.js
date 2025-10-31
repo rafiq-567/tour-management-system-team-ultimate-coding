@@ -1,21 +1,26 @@
+
 import dbConnect from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 
 export async function PATCH(req, context) {
   try {
-    // ✅ await context.params
-    const { params } =  awaitcontext;
+    const { params } = context;
     const { id } = params;
-
     const { status } = await req.json();
 
-    // Validate status
+    // ✅ Validate input
+    if (!id || !ObjectId.isValid(id)) {
+      return Response.json({ error: "Invalid booking ID" }, { status: 400 });
+    }
+
     if (!["pending", "approved", "rejected", "paid"].includes(status)) {
       return Response.json({ error: "Invalid status" }, { status: 400 });
     }
 
-    const collection =  dbConnect("bookings");
+    // ✅ Connect to DB and get collection
+    const collection = await dbConnect("bookings");
 
+    // ✅ Update booking
     const result = await collection.updateOne(
       { _id: new ObjectId(id) },
       { $set: { status } }

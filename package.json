@@ -12,15 +12,11 @@
     "@heroicons/react": "^2.2.0",
     "@stripe/stripe-js": "^8.0.0",
     "aceternity-ui": "^0.2.2",
-<<<<<<< HEAD
-    "axios": "^1.12.2",
-    "bcryptjs": "^3.0.2",
-    "cloudinary": "^2.8.0",
-=======
     "autoprefixer": "^10.4.21",
     "axios": "^1.12.2",
+    "bcryptjs": "^3.0.2",
     "chart.js": "^4.5.1",
->>>>>>> ef439d5e2c3bf2075798bb57549ed4cda92e7494
+    "cloudinary": "^2.8.0",
     "daisyui": "^5.1.14",
     "framer-motion": "^12.23.21",
     "jspdf": "^3.0.3",

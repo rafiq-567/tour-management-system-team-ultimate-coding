@@ -21,16 +21,12 @@ import {
   Handshake,
   LifeBuoy,   // 🆕 For user support
   Headphones, // 🆕 For admin support management
-} from "lucide-react";
-
-const cn = (...classes) => classes.filter(Boolean).join(" ");
-
-  Handshake,
   BedDouble,
   MessageCircle,
   ArrowLeft,
   PlaneIcon,
 } from "lucide-react";
+
 
 // Utility for joining classes
 const cn = (...classes) => classes.filter(Boolean).join(" ");
@@ -121,21 +117,21 @@ const menuItems = [
     icon: MessageCircle,
     href: "/dashboard/user/communication",
     roles: ["admin", "moderator", "user"],
-  }
+  },
 
   // 🆕 Admin Support Management
-  { name: "Support Management", icon: Headphones, href: "/dashboard/admin/support", roles: ["admin"] },
+  { name: "Support Management", icon: Headphones, href: "/dashboard/admin/support", roles: ["admin", "moderator", "user"] },
 
   // ✅ User Features
   { name: "Travel Buddy", icon: Handshake, href: "/dashboard/user/travel-buddy", roles: ["admin", "moderator", "user"] },
-  { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings", roles: ["admin", "moderator", "user"] },
-  { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },
-  { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
+  // { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings", roles: ["admin", "moderator", "user"] },
+  // { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },
+  // { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
 
   // 🆕 Add Support for all roles
   { name: "Support", icon: LifeBuoy, href: "/dashboard/support", roles: ["admin", "moderator", "user"] },
 
-  { name: "Settings", icon: Settings, href: "/dashboard/settings", roles: ["admin", "moderator", "user"] },
+  // { name: "Settings", icon: Settings, href: "/dashboard/settings", roles: ["admin", "moderator", "user"] },
 ];
 
 export default function Sidebar() {
@@ -250,5 +246,5 @@ export default function Sidebar() {
   );
 }
 
-export default Sidebar;
+
 
