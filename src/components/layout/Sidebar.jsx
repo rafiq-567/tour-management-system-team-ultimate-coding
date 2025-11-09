@@ -134,6 +134,7 @@ const menuItems = [
   // { name: "Settings", icon: Settings, href: "/dashboard/settings", roles: ["admin", "moderator", "user"] },
 ];
 
+
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHover, setIsHover] = useState(false);

@@ -1,77 +1,21 @@
-
-// 'use server';
-// import { MongoClient, ServerApiVersion } from "mongodb";
-
-// const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
-// const options = {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   },
-// };
-
-// // Cache client across hot reloads in dev
-// let cachedClient = global._mongoClient;
-// let cachedDb = global._mongoDb;
-
-// if (!cachedClient) {
-//   cachedClient = null;
-//   cachedDb = null;
-// }
-
-// export default async function dbConnect(collectionName) {
-//   if (!cachedClient || !cachedDb) {
-//     const client = new MongoClient(uri, options);
-//     await client.connect();
-//     const db = client.db("tour_managment_system"); // ✅ your real DB name
-
-//     cachedClient = client;
-//     cachedDb = db;
-
-//     // cache globally (for Next.js hot reload)
-//     global._mongoClient = client;
-//     global._mongoDb = db;
-//   }
-
-//   // ✅ If user asks for a collection, return it (like NextAuth)
-//   if (collectionName) {
-//     return cachedDb.collection(collectionName);
-//   }
-
-//   // ✅ Otherwise return the client and db (like API routes)
-//   return { client: cachedClient, db: cachedDb };
-// }
-
-
-'use server';
-
+'use server'
 import { MongoClient, ServerApiVersion } from "mongodb";
+// database connection start here abul kalam ***********************
 
-const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
-const options = {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-};
+function dbConnect(collectionName) {
 
-// ✅ Keep global cache for dev hot reloads (Next.js behavior)
-if (!global._mongoClientPromise) {
-  const client = new MongoClient(uri, options);
-  global._mongoClientPromise = client.connect();
+   
+
+    const uri = process.env.MONGODB_URI;
+    // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+    const client = new MongoClient(uri, {
+        serverApi: {
+            version: ServerApiVersion.v1,
+            strict: true,
+            deprecationErrors: true,
+            maxPoolSize: 10,
+        },
+    });
+    return client.db(process.env.DB_NAME).collection(collectionName)
 }
-
-export default async function dbConnect(collectionName) {
-  const client = await global._mongoClientPromise;
-  const db = client.db("tour_managment_system"); // ✅ Ensure correct name
-
-  // ✅ If a collection name is provided, return it
-  if (collectionName) {
-    return db.collection(collectionName);
-  }
-
-  // ✅ Otherwise return the client and db
-  return { client, db };
-}
+export default dbConnect;
