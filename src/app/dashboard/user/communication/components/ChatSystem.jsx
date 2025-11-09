@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { socket } from "./socket";
 import sendMessage from "../sendMessage/sendMessage";
 import messageGet from "../messageGet/messageGet";
+import Link from "next/link";
 
 const ChatSystem = ({ result }) => {
   const { data } = useSession();
@@ -148,9 +149,12 @@ const ChatSystem = ({ result }) => {
         className={`w-full md:w-1/3 bg-base-300 border-r border-gray-200 p-4 flex flex-col transition-all duration-300 ${selectedGroup ? "hidden md:flex" : "flex"
           }`}
       >
-        <h2 className="text-lg font-semibold mb-4 text-center md:text-left">
+        <div className='flex justify-between items-center'>
+          <h2 className="text-lg font-semibold mb-4 text-center md:text-left">
           Groups
         </h2>
+        <Link href='/dashboard/admin'><button className='btn btn-secondary rounded-xl'>Back</button></Link>
+        </div>
 
         <div className="flex flex-col gap-2 overflow-y-auto">
           {groups.map((group) => (

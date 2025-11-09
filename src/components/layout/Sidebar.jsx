@@ -127,6 +127,7 @@ const menuItems = [
   },
 ];
 
+
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isHover, setIsHover] = useState(false);
