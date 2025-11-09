@@ -1,12 +1,19 @@
+
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import BookingModal from "@/components/booking/BookingModal";
+// import BookingModal from "@/components/booking/BookingModal";
 
 export default function SmartBudgetTour() {
+  const { data: session } = useSession();
   const [budget, setBudget] = useState("");
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedTour, setSelectedTour] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,12 +29,8 @@ export default function SmartBudgetTour() {
       });
 
       const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || "No tours found.");
-      } else {
-        setTours(data);
-      }
+      if (!res.ok) setError(data.message || "No tours found.");
+      else setTours(data);
     } catch (err) {
       console.error(err);
       setError("Something went wrong.");
@@ -39,7 +42,7 @@ export default function SmartBudgetTour() {
   return (
     <div
       id="smart-budget"
-      className="max-w-xl mx-auto mt-8 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-2xl"
+      className="max-w-5xl mx-auto mt-8 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-2xl"
     >
       <h2 className="text-2xl font-semibold text-center mb-4 text-blue-600">
         🧠 Smart Budget Tour Suggestion
@@ -65,11 +68,11 @@ export default function SmartBudgetTour() {
 
       {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
 
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {tours.map((tour) => (
           <div
             key={tour._id}
-            className="p-4 border rounded-lg shadow hover:shadow-md transition"
+            className="p-4 border rounded-lg shadow hover:shadow-md transition flex flex-col"
           >
             <img
               src={tour.image}
@@ -81,9 +84,33 @@ export default function SmartBudgetTour() {
               {tour.duration}
             </p>
             <p className="mt-2 text-blue-600 font-bold">৳ {tour.price}</p>
+
+            <div className="mt-4 flex flex-col gap-2">
+              <Link
+                href={`/tours/${tour._id}`}
+                className="text-center w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 rounded-lg transition"
+              >
+                View Details
+              </Link>
+
+              <button
+                onClick={() => setSelectedTour(tour)}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg"
+              >
+                Book Now
+              </button>
+            </div>
           </div>
         ))}
       </div>
+
+      {/* Booking Modal */}
+      {selectedTour && session && (
+        <BookingModal
+          tour={selectedTour}
+          onClose={() => setSelectedTour(null)}
+        />
+      )}
     </div>
   );
 }

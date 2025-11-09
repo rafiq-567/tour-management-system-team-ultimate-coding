@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 // Import your local image
+import logoImage from "@/assets/tour.png";
 
 export default function LinkLogo() {
   return (

@@ -3,7 +3,7 @@ import dbConnect from "@/lib/dbConnect";
 
 export async function GET() {
   try {
-    const collection = dbConnect("travel_buddies");
+    const collection = await dbConnect("travel_buddies");
     const buddies = await collection.find({}).sort({ createdAt: -1 }).toArray();
 
     return NextResponse.json({ success: true, buddies });

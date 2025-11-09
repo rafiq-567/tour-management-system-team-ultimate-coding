@@ -7,7 +7,7 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
-export default function BookingModal({ tour, onClose }) {
+export default function BookingModal({ tour, onClose, onPayment }) {
   const { data: session } = useSession();
   const [formData, setFormData] = useState({
     guests: 1,
@@ -122,13 +122,6 @@ export default function BookingModal({ tour, onClose }) {
     }
   };
 
-  const handlePayment = () => {
-    MySwal.fire({
-      icon: "info",
-      title: "Payment",
-      text: "Redirect to payment gateway (implement your payment logic here).",
-    });
-  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50">

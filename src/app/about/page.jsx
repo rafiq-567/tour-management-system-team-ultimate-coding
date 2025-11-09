@@ -45,7 +45,7 @@ const About = () => {
   return (
     <div className="flex flex-col min-h-screen bg-base-100 dark:bg-gray-900 font-sans p-4 sm:p-8">
       {/* Hero Section */}
-      <div className="text-center py-16 md:py-24">
+      <div className="text-center md:py-6">
         <h1 className="text-4xl sm:text-6xl font-extrabold dark:text-gray-100 mb-4">
           About Us
         </h1>
