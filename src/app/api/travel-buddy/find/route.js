@@ -7,7 +7,7 @@ export async function GET(req) {
     const from = searchParams.get("from");
     const to = searchParams.get("to");
 
-    const collection = dbConnect("travel_buddies");
+    const collection = await dbConnect("travel_buddies");
 
     const matches = await collection
       .find({
