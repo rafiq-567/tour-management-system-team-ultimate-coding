@@ -141,7 +141,7 @@ export default function TourDetailsPage() {
       <div className="mb-6">
         <Link
           href="/tours"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-white/70 backdrop-blur-md rounded-xl shadow hover:bg-white transition-colors font-medium"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-base-300 backdrop-blur-md rounded-xl shadow hover:bg-white transition-colors font-medium"
         >
           <ArrowLeft className="w-5 h-5" /> Back to Tours
         </Link>
@@ -153,7 +153,7 @@ export default function TourDetailsPage() {
       </div>
 
       {/* Tour Info */}
-      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl p-6 mt-6">
+      <div className="bg-base-300 dark:bg-gray-800 shadow-lg rounded-xl p-6 mt-6">
         <h1 className="text-3xl font-bold">{tour.title}</h1>
         <p className="mt-3 text-gray-700 dark:text-gray-300">{tour.description}</p>
         <p className="text-sm mt-2 text-gray-500">Duration: {tour.duration}</p>

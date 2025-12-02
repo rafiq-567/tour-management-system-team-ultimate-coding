@@ -151,7 +151,7 @@ export default function DiscountsPage() {
   };
 
   const CreateDiscountForm = () => (
-    <form onSubmit={handleCreateDiscount} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-xl">
+    <form onSubmit={handleCreateDiscount} className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-base-200 dark:bg-gray-700 rounded-xl">
       <input
         type="text"
         placeholder="Code (e.g., BLACKFRIDAY)"
@@ -242,7 +242,7 @@ export default function DiscountsPage() {
           </thead>
           <tbody>
             {discounts.map((d) => (
-              <tr key={d._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+              <tr key={d._id} className="hover:bg-gray-50 hover:text-black dark:hover:bg-gray-700">
                 <td className="px-3 py-2">{d.code || "-"}</td>
                 <td className="px-3 py-2">{d.description || "-"}</td>
                 <td className="px-3 py-2">

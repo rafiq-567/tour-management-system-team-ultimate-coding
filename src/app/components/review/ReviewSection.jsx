@@ -80,7 +80,7 @@ export default function ReviewSection({ tourId }) {
 
       {/* Add Review */}
       {status === "authenticated" ? (
-        <div className="bg-white rounded-2xl shadow p-5 space-y-3 mb-6">
+        <div className="bg-base-300 rounded-2xl shadow p-5 space-y-3 mb-6">
           <h3 className="text-lg font-semibold">Write a Review</h3>
 
           {/* Logged in user info */}
