@@ -12,32 +12,12 @@ export default function DashboardLayout({ children }) {
 
   const userRole = session?.user?.role; // Must exist in session
 
-  // Role-based allowed paths
-  // const rolePaths = {
-  //   admin: "/dashboard/admin",
-  //   user: "/dashboard/user",
-  //   moderator: "/dashboard/moderator",
-  // };
-
-  // Redirect to login if not authenticated
-  // useEffect(() => {
-  //   if (status === "unauthenticated") {
-  //     router.push("/login");
-  //   }
-  // }, [status, router]);
-
-  // Redirect to correct dashboard if path doesn't match role
-  // useEffect(() => {
-  //   if (userRole && !currentPath.includes(rolePaths[userRole])) {
-  //     router.push(rolePaths[userRole]);
-  //   }
-  // }, [currentPath, userRole, router]);
 
 
   useEffect(() => {
-  const localTheme = localStorage.getItem("theme");
-  document.querySelector("html").setAttribute("data-theme", localTheme);
-}, [])
+    const localTheme = localStorage.getItem("theme");
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+  }, [])
 
   if (!session || !userRole) {
     return (

@@ -80,12 +80,12 @@ const menuItems = [
     href: "/dashboard/admin/users",
     roles: ["admin"],
   },
-  {
-    name: "Analytics",
-    icon: BarChart3,
-    href: "/dashboard/admin/analytics",
-    roles: ["admin"],
-  },
+  // {
+  //   name: "Analytics",
+  //   icon: BarChart3,
+  //   href: "/dashboard/admin/analytics",
+  //   roles: ["admin"],
+  // },
 
   // All Users (User, Moderator, Admin)
   {
@@ -153,7 +153,7 @@ export default function Sidebar() {
       <div className="md:hidden sticky top-0 bg-base-300 dark:bg-gray-900 border-b dark:border-gray-700 shadow-sm z-40 flex justify-between items-center h-16 px-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-lg text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          className="p-2 rounded-lg dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300"
         >
           {isOpen ? <X size={24} /> : <Menu size={20} />}
         </button>

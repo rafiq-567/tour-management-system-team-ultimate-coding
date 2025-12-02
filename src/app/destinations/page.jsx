@@ -82,7 +82,7 @@ const typeMap = {
 const DestinationCard = ({ place }) => {
   const { icon: Icon, color, bg } = typeMap[place.type] || typeMap.All;
   return (
-    <div className="bg-white rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200">
+    <div className="bg-base-300 rounded-3xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-200">
       <div className="h-64 w-full">
         <iframe
           title={place.title}
@@ -98,7 +98,7 @@ const DestinationCard = ({ place }) => {
 
       <div className="p-6">
         <div className="flex justify-between items-start mb-3">
-          <h2 className="text-xl font-semibold text-gray-800">{place.title}</h2>
+          <h2 className="text-xl font-semibold">{place.title}</h2>
           <span
             className={`inline-flex items-center gap-1 px-3 py-1 text-xs font-semibold rounded-full ${color} ${bg}`}
           >

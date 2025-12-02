@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 
 export default function RoomCard({ room, onDetails }) {
   return (
-    <div className="border rounded-2xl p-4 shadow-md bg-white dark:bg-gray-800 hover:shadow-lg transition-transform hover:scale-[1.02]">
+    <div className="border rounded-2xl p-4 shadow-md bg-base-300 dark:bg-gray-800 hover:shadow-lg transition-transform hover:scale-[1.02]">
       <img
         src={room.image}
         alt={room.name}
@@ -36,7 +36,7 @@ export default function RoomCard({ room, onDetails }) {
       <div className="flex gap-2">
         <button
           onClick={() => onDetails(room)}
-          className="flex-1 py-2 rounded-xl border border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+          className="flex-1 py-2 rounded-xl border border-emerald-500 text-emerald-600 hover:bg-emerald-50 cursor-pointer"
         >
           Details
         </button>

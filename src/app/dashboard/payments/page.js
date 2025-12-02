@@ -15,7 +15,6 @@ export default function PaymentHistory() {
       try {
         const res = await fetch(`/api/stripe/payment?email=${session.user.email}`);
         const data = await res.json();
-        console.log("Fetched payments:", data.payments);
         setPayments(data.payments || []);
       } catch (err) {
         console.error("Error fetching payments:", err);
@@ -41,7 +40,7 @@ export default function PaymentHistory() {
         <div className="overflow-x-auto">
           <table className=" border border-gray-300 rounded-lg">
             <thead>
-              <tr className="bg-gray-100 text-left">
+              <tr className="bg-base-300 text-left">
                 <th className="p-3 border">Tour</th>
                 <th className="p-3 border">Amount</th>
                 <th className="p-3 border">Status</th>

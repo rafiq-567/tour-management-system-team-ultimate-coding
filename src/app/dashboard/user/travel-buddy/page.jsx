@@ -516,7 +516,7 @@ export default function TravelBuddyPage() {
       </h1>
 
       {/* ✅ CREATE POST SECTION */}
-      <section className="bg-white shadow-lg p-6 rounded-2xl">
+      <section className="bg-base-300 shadow-lg p-6 rounded-2xl">
         <h2 className="text-xl font-semibold mb-4">
           ✈️ Create a Travel Buddy Post
         </h2>
@@ -606,7 +606,7 @@ export default function TravelBuddyPage() {
       </div>
 
       {/* 📜 POSTS LIST */}
-      <section className="bg-white shadow-lg p-6 rounded-2xl">
+      <section className="bg-base-300 shadow-lg p-6 rounded-2xl">
         <h2 className="text-xl font-semibold mb-4">
           {view === "mine" ? "🧍‍♂️ My Travel Posts" : "🌍 All Travel Buddy Posts"}
         </h2>

@@ -84,7 +84,7 @@ export default function Navbar() {
           <ThemeControl />
           <button
             onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 focus:outline-none text-gray-800 dark:text-gray-100"
+            className="p-2 focus:outline-none dark:text-gray-100"
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -97,7 +97,7 @@ export default function Navbar() {
           isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <ul className="flex flex-col items-center space-y-4 py-5 text-gray-800 dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
+        <ul className="flex flex-col items-center space-y-4 py-5  dark:text-gray-100 border-t border-gray-200 dark:border-gray-700">
           {menuItems.map((item) => (
             <li key={item.name} className="w-full text-center">
               <Link

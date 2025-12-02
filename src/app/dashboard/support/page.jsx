@@ -48,7 +48,7 @@ export default function SupportPage() {
       {/* ✅ Only users can submit tickets */}
       {userRole !== "admin" && userRole !== "moderator" && <NewTicketForm />}
 
-      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+      <h2 className="text-2xl font-bold dark:text-gray-100">
         {userRole === "admin" || userRole === "moderator"
           ? "All Support Tickets"
           : "My Support Tickets"}
@@ -57,7 +57,7 @@ export default function SupportPage() {
       {tickets.length === 0 ? (
         <p className="text-gray-500 text-center">No tickets found.</p>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md divide-y divide-gray-200 dark:divide-gray-700">
+        <div className="bg-base-300 dark:bg-gray-800 rounded-lg shadow-md divide-y divide-gray-200 dark:divide-gray-700">
           {tickets.map((ticket) => (
             <div key={ticket._id} className="p-4 border-b border-gray-200 dark:border-gray-700">
               <h3 className="font-semibold text-gray-800 dark:text-gray-100">

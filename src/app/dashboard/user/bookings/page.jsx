@@ -164,16 +164,16 @@ export default function MyBookingsPage() {
                 key={booking._id}
                 className="border-t border-gray-200 dark:border-gray-700"
               >
-                <td className="px-4 py-3 text-gray-800 dark:text-gray-100">
+                <td className="px-4 py-3 dark:text-gray-100">
                   {booking.title || booking.tourName}
                 </td>
-                <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                <td className="px-4 py-3 dark:text-gray-300">
                   ${booking.price}
                 </td>
-                <td className="px-4 py-3 text-gray-600 dark:text-gray-300">
+                <td className="px-4 py-3 dark:text-gray-300">
                   {booking.guests}
                 </td>
-                <td className="px-4 py-3 text-gray-800 dark:text-gray-100 font-semibold">
+                <td className="px-4 py-3 dark:text-gray-100 font-semibold">
                   $
                   {(
                     booking.totalPrice || booking.price * booking.guests
