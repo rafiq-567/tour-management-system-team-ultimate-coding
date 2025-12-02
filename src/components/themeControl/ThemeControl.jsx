@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Sun, Moon } from "lucide-react";
 
 const ThemeControl = () => {
-    const [onToggleDarkMode , setOnToggleDarkMode] = useState("light");
+    const [onToggleDarkMode, setOnToggleDarkMode] = useState("light");
 
 
     const handleToggle = () => {
@@ -34,7 +34,7 @@ const ThemeControl = () => {
             className="p-2 rounded-full dark:text-gray-100 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
             aria-label="Toggle dark mode"
         >
-            {onToggleDarkMode ==='light' ? <Sun size={24} /> : <Moon size={24} />}
+            {onToggleDarkMode === 'light' ? <Sun size={24} /> : <Moon size={24} />}
         </button>
     );
 };

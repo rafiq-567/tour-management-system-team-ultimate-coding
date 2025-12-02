@@ -224,7 +224,7 @@ export default function SettingsPage() {
       <h1 className="text-2xl font-bold">Settings</h1>
 
       {/* Profile */}
-      <section className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow space-y-3">
+      <section className="bg-base-300 dark:bg-gray-900 p-4 rounded-lg shadow space-y-3">
         <h2 className="text-lg font-semibold">Profile</h2>
 
         <div className="flex items-center gap-4">
@@ -246,7 +246,7 @@ export default function SettingsPage() {
             />
 
             <div className="flex gap-2 items-center">
-              <label className="cursor-pointer inline-block bg-gray-200 hover:bg-gray-300 px-3 py-2 rounded">
+              <label className="cursor-pointer text-black inline-block bg-gray-200 hover:bg-gray-300 px-3 py-2 rounded">
                 Upload image
                 <input
                   type="file"
@@ -270,7 +270,7 @@ export default function SettingsPage() {
       </section>
 
       {/* Notifications */}
-      <section className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow">
+      <section className="bg-base-300 dark:bg-gray-900 p-4 rounded-lg shadow">
         <h2 className="text-lg font-semibold mb-2">Notifications</h2>
 
         <label className="flex justify-between items-center mb-2">
@@ -314,7 +314,7 @@ export default function SettingsPage() {
       </section>
 
       {/* Password (only show if credential user) */}
-      <section className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow">
+      <section className="bg-base-300 dark:bg-gray-900 p-4 rounded-lg shadow">
         <h2 className="text-lg font-semibold mb-2">Password</h2>
         <p className="text-sm text-gray-500 mb-3">
           Change your password (only available if you signed up with email & password).
@@ -342,7 +342,7 @@ export default function SettingsPage() {
       </section>
 
       {/* Account actions */}
-      <section className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow space-y-3">
+      <section className="bg-base-300 dark:bg-gray-900 p-4 rounded-lg shadow space-y-3">
         <h2 className="text-lg font-semibold">Account</h2>
         <div className="flex gap-2 flex-col sm:flex-row">
           <button onClick={clearData} disabled={saving} className="bg-yellow-500 text-white px-4 py-2 rounded">
@@ -351,7 +351,7 @@ export default function SettingsPage() {
           <button onClick={deleteAccount} disabled={saving} className="bg-red-600 text-white px-4 py-2 rounded">
             Delete my account
           </button>
-          <button onClick={() => signOut({ callbackUrl: "/" })} className="bg-gray-200 px-4 py-2 rounded">
+          <button onClick={() => signOut({ callbackUrl: "/" })} className="bg-gray-200 text-black px-4 py-2 rounded">
             Log out
           </button>
         </div>

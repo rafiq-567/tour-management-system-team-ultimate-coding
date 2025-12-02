@@ -16,7 +16,6 @@ export default function RoomBookPage() {
       setLoading(true);
       try {
         const res = await fetch("/api/rooms");
-        console.log(res.data);
         if (!res.ok) throw new Error("Failed to fetch rooms");
         const data = await res.json();
         setRooms(data);
@@ -97,7 +96,7 @@ export default function RoomBookPage() {
       {/* Modal */}
       {selectedRoom && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 max-w-lg w-full shadow-lg relative">
+          <div className="bg-base-300 dark:bg-gray-900 rounded-2xl p-6 max-w-lg w-full shadow-lg relative">
             <button
               onClick={() => setSelectedRoom(null)}
               className="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl"

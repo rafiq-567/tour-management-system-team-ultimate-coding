@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function ReviewCard({ review }) {
   return (
-    <div className="bg-gray-50 p-4 rounded-xl shadow-sm">
+    <div className="bg-base-300 p-4 rounded-xl shadow-sm">
       <div className="flex items-center gap-3 mb-2">
         <Image
           src={review.image || "/default-avatar.png"}
@@ -18,7 +18,7 @@ export function ReviewCard({ review }) {
           </p>
         </div>
       </div>
-      <p className="text-gray-700">{review?.message}</p>
+      <p className="text-gray-500">{review?.message}</p>
     </div>
   );
 }

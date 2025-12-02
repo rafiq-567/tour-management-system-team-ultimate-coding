@@ -42,7 +42,7 @@ export default function SmartBudgetTour() {
   return (
     <div
       id="smart-budget"
-      className="max-w-5xl mx-auto mt-8 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-2xl"
+      className="max-w-5xl mx-auto mt-8 p-6 bg-base-300 dark:bg-gray-800 shadow-lg rounded-2xl"
     >
       <h2 className="text-2xl font-semibold text-center mb-4 text-blue-600">
         🧠 Smart Budget Tour Suggestion

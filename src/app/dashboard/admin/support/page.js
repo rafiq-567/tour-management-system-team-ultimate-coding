@@ -85,7 +85,7 @@ export default function AdminSupportPage() {
           {tickets.map((ticket) => (
             <div
               key={ticket._id}
-              className="border dark:border-gray-700 rounded-lg p-4 shadow-sm bg-white dark:bg-gray-900"
+              className="border dark:border-gray-700 rounded-lg p-4 shadow-sm bg-base-300 dark:bg-gray-900"
             >
               <div className="flex justify-between items-center mb-2">
                 <h2 className="font-semibold text-lg">{ticket.subject}</h2>
