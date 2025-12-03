@@ -187,7 +187,7 @@ export default function TourDetailsPage() {
           ) : (
             <button
               onClick={() => setShowModal(true)}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl shadow-md"
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl shadow-md cursor-pointer"
             >
               Book Now
             </button>
