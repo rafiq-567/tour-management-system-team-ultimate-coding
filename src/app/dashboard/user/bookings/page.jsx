@@ -125,7 +125,7 @@ export default function MyBookingsPage() {
     );
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl lg:mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">My Bookings</h1>
 
       <div className="overflow-x-auto">

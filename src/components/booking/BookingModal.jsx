@@ -125,7 +125,7 @@ export default function BookingModal({ tour, onClose, onPayment }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 w-full max-w-md relative">
+      <div className="bg-base-300 dark:bg-gray-800 rounded-2xl shadow-lg p-6 w-full max-w-md relative">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 font-bold text-xl"
@@ -149,13 +149,13 @@ export default function BookingModal({ tour, onClose, onPayment }) {
               type="text"
               value={session?.user?.name || ""}
               disabled
-              className="border px-4 py-2 rounded-lg w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
+              className="border px-4 py-2 rounded-lg w-full bg-base-200 dark:bg-gray-700 cursor-not-allowed"
             />
             <input
               type="email"
               value={session?.user?.email || ""}
               disabled
-              className="border px-4 py-2 rounded-lg w-full bg-gray-100 dark:bg-gray-700 cursor-not-allowed"
+              className="border px-4 py-2 rounded-lg w-full bg-base-200 dark:bg-gray-700 cursor-not-allowed"
             />
             <input
               type="number"

@@ -2,15 +2,12 @@
 
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "@/components/layout/Sidebar";
+import LinkLogo from "@/components/userClick/LinkLogo";
 
 export default function DashboardLayout({ children }) {
-  const { data: session, status } = useSession();
-  const currentPath = usePathname();
-  const router = useRouter();
-
-  const userRole = session?.user?.role; // Must exist in session
+  const { data: session } = useSession();
+  const userRole = session?.user?.role; // Must exist in sessio
 
 
 
@@ -28,19 +25,47 @@ export default function DashboardLayout({ children }) {
   }
 
   return (
-    <div className="flex min-h-screen bg-base-100 dark:bg-gray-950">
-      {!currentPath.includes("/communication") && <Sidebar role={userRole} />}
-      <div className="flex-1 flex flex-col w-full md:w-[calc(100%-16rem)]">
-        <header className="hidden md:flex h-16 items-center justify-between px-8 bg-base-300 dark:bg-gray-900 border-b dark:border-gray-800 shadow-sm sticky top-0 z-30">
-          <h1 className="text-xl font-extrabold dark:text-gray-100 capitalize">
-            {userRole} Portal
-          </h1>
-          <div className="text-sm dark:text-gray-400">
-            Welcome, {session.user.name || userRole}!
-          </div>
-        </header>
+    <div className="drawer lg:drawer-open">
+      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content flex flex-col">
 
-        <main className="flex-1 p-4 md:p-8 overflow-y-auto">{children}</main>
+        {/* Navbar */}
+        <div className="navbar bg-base-300 w-full  lg:hidden">
+          <div className="flex-none">
+            <label htmlFor="my-drawer-2" aria-label="open sidebar" className="btn btn-square btn-ghost">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                className="inline-block h-6 w-6 stroke-current"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </label>
+          </div>
+          <div className="mx-2 flex-1 px-2">DashBoard</div>
+        </div>
+        {/* Page content here */}
+        {children}
+        {/* Page content here */}
+      </div>
+
+      <div className="drawer-side">
+        <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
+        <ul className="menu bg-base-300 text-base-content min-h-full w-80 p-4">
+          {/* Sidebar content here */}
+          {/* <ProFastLogo></ProFastLogo> */}
+          <li>
+            <LinkLogo />
+          </li>
+          {<Sidebar></Sidebar>}
+
+        </ul>
       </div>
     </div>
   );
