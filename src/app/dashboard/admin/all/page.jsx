@@ -148,7 +148,7 @@ const TourPackagesPage = () => {
   if (loading) return <p className="text-center mt-10 text-xl text-gray-600 dark:text-gray-400">Loading Tour Packages...</p>;
 
   return (
-    <div className="max-w-6xl mx-auto mt-6 p-4 sm:p-6 bg-base-300 dark:bg-gray-900 shadow-xl rounded-2xl min-h-[500px]">
+    <div className="max-w-6xl lg:mx-auto mt-6 p-4 sm:p-6 bg-base-300 dark:bg-gray-900 shadow-xl rounded-2xl min-h-[500px]">
       <div className="flex justify-between items-center mb-6 border-b pb-4 border-gray-200 dark:border-gray-700">
         <h1 className="text-3xl font-extrabold dark:text-gray-100">Manage Tour Packages</h1>
         <a
