@@ -12,7 +12,6 @@ export default function AdminSupportPage() {
     try {
       const res = await fetch("/api/support");
       const data = await res.json();
-      console.log("Fetched tickets data:", data);
 
       // ✅ FIX: extract the tickets array
       if (Array.isArray(data)) {

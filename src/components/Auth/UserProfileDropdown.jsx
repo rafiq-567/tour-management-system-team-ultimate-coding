@@ -28,7 +28,7 @@ export default function UserProfileDropdown({ session, isMobile }) {
     >
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 focus:outline-none"
+        className="flex items-center gap-2 focus:outline-none cursor-pointer"
       >
         {user?.image ? (
           <Image
