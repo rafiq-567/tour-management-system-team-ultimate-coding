@@ -21,9 +21,9 @@ As a **full-stack developer**, I contributed to both frontend and backend develo
 
 ---
 
-## 🔐 Admin Credentials
-- **Admin Email:** salman@rahman.com
-- **Admin Password:** 123456
+## 🔐 Moderator Credentials
+- **Moderator Email:** salman@rahman.com
+- **Moderator Password:** 123456
 
 ---
 
