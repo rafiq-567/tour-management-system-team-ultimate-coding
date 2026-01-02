@@ -21,6 +21,12 @@ As a **full-stack developer**, I contributed to both frontend and backend develo
 
 ---
 
+## 🔐 Moderator Credentials
+- **Moderator Email:** salman@rahman.com
+- **Moderator Password:** 123456
+
+---
+
 ## 🖥️ Frontend Design & Development
 
 The frontend is fully responsive and optimized for **desktop, tablet, and mobile devices**.  
@@ -75,11 +81,29 @@ It is built using **Next.js, React, and Tailwind CSS**, focusing on modern UI/UX
 - **Destinations Page**
   - List of all tours with descriptions, images, and prices
 
-- **Login & Registration**
-  - Secure user authentication and account creation
-
 - **FAQ Page**
   - Dedicated page for frequently asked questions
+
+  ---
+
+  ## 🔐 Authentication System
+
+The authentication system is implemented using **NextAuth.js**, ensuring secure and reliable user access.
+
+### 🔑 Login Page
+
+* Email & Password login
+* Google Sign-In
+* GitHub Sign-In
+* Redirect option to the registration page
+* Error messages for invalid credentials
+
+### 📝 Registration Page
+
+* Name
+* Email
+* Password
+* Photo URL
 
 ---
 
@@ -126,6 +150,38 @@ A **multi-role dashboard system** was implemented with role-based access.
 - Download booking details as PDF
 - Manage profile and contact information
 - Cancel or modify bookings
+
+---
+
+## 🔗 Communication Route (Real-Time Chat)
+
+This is a **unique route** in our Tour Management System.
+
+* Implemented using **Socket.io** technology
+* Enables a **real-time group chat system**
+* When a user completes a successful payment:
+
+  * The user is automatically added to a group named after the **tourName**
+  * Users can:
+
+  * Communicate with all members of the same tour group in real time
+  * Share travel plans and experiences
+  * Make new travel friends during the tour
+
+---
+
+## 👤 Profile Page
+
+We have built an interactive **Profile Page** where users can view and manage their personal information.
+
+* Displays complete user information
+* User profile image with a **border animation effect**
+* Includes an **Edit Profile** button
+* Users can update:
+
+  * Name
+  * Profile photo
+  * Other personal details
 
 ---
 
