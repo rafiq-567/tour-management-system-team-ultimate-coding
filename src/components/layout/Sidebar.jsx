@@ -33,10 +33,10 @@ const menuItems = [
   { name: "Payments", icon: CreditCard, href: "/dashboard/payments", roles: ["admin", "moderator"] },
 
   // Admin Only
-  { name: "Add Tour", icon: Plane, href: "/dashboard/admin/add-tour", roles: ["admin"] },
+  
   { name: "Discounts", icon: Ticket, href: "/dashboard/admin/discounts", roles: ["admin"] },
   { name: "Users Management", icon: Users, href: "/dashboard/admin/users", roles: ["admin"] },
-  { name: "Analytics", icon: BarChart3, href: "/dashboard/admin/analytics", roles: ["admin"] },
+  
 
   // 🆕 Admin Support Management
   { name: "Support Management", icon: Headphones, href: "/dashboard/admin/support", roles: ["admin"] },
@@ -44,7 +44,7 @@ const menuItems = [
   // ✅ User Features
   { name: "Travel Buddy", icon: Handshake, href: "/dashboard/user/travel-buddy", roles: ["admin", "moderator", "user"] },
   { name: "My Bookings", icon: Calendar, href: "/dashboard/user/bookings", roles: ["admin", "moderator", "user"] },
-  { name: "Wishlist", icon: Heart, href: "/dashboard/user/wishlist", roles: ["admin", "moderator", "user"] },
+  
   { name: "Profile", icon: Users, href: "/dashboard/user/profile", roles: ["admin", "moderator", "user"] },
 
   // 🆕 Add Support for all roles
