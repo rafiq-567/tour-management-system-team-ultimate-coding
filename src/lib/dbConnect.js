@@ -2,7 +2,7 @@
 'use server';
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
+const uri = process.env.MONGODB_URI;
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -24,7 +24,7 @@ export default async function dbConnect(collectionName) {
   if (!cachedClient || !cachedDb) {
     const client = new MongoClient(uri, options);
     await client.connect();
-    const db = client.db("tour_managment_system"); // ✅ your real DB name
+    const db = client.db("tourDB"); // ✅ your real DB name
 
     cachedClient = client;
     cachedDb = db;
