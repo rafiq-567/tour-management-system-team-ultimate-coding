@@ -5,13 +5,21 @@ import UserPhoto from './component/UserPhoto';
 
 const profile = async () => {
     const data = await getServerSession(authOptions);
-    const res = await fetch(`https://tour-delta-rose.vercel.app/api/allUsers/${data?.user?.email}`,{cache: "force-cache"});
-    const resultUser = await res.json();
+    
+    let resultUser = null;
+    
+    try {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/allUsers/${data?.user?.email}`, {cache: "no-store"});
+        if (res.ok) {
+            resultUser = await res.json();
+        }
+    } catch (error) {
+        console.error("Failed to fetch user:", error);
+    }
     
     return (
         <div className="bg-gray-100">
             <UserPhoto resultUser={resultUser} />
-            
         </div>
     );
 };
