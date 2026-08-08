@@ -24,6 +24,7 @@
 // export default registerApi;
 
 'use server';
+import bcrypt from "bcryptjs";
 import dbConnect from '@/lib/dbConnect';
 
 const registerApi = async (payload) => {
@@ -36,6 +37,9 @@ const registerApi = async (payload) => {
   }
 
   try {
+    if (payload.password) {
+      payload.password = await bcrypt.hash(payload.password, 12);
+    }
     const result = await userCollection.insertOne(payload);
     result.insertedId = result.insertedId.toString();
     return JSON.stringify(result);

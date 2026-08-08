@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -26,7 +27,10 @@ export const authOptions = {
             return null;
           }
 
-          const isPasswordOk = credentials.password === user.password;
+          const isStoredHash = String(user.password).startsWith("$2");
+          const isPasswordOk = isStoredHash
+            ? bcrypt.compareSync(credentials.password, user.password)
+            : credentials.password === user.password;
  
 
           if (!isPasswordOk) {
